@@ -1,0 +1,34 @@
+## IDE generated files ##
+*.class
+.settings/
+.project
+.classpath
+
+## Maven target folder ##
+target/
+
+## Package files ##
+*.jar
+*.war
+*.ear
+
+## GWT ##
+# Compilation logs #
+.gwt
+
+# Cache compiled files #
+gwt-unitCache
+
+# Junit files #
+www-test
+
+/build
+/classes
+*~
+*/web-app/gwt
+*/web-app/WEB-INF/classes
+war/
+
+# Maven #
+target
+
