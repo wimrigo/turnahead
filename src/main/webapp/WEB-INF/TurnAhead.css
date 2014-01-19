@@ -81,9 +81,7 @@ a{
 	height: 60px;
 }
 
-#spelinfo{
-	height: 400px;
-}
+#container{height: 600px;}
 
 #logo{
 	text-align: center;
