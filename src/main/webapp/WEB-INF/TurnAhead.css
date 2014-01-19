@@ -1,0 +1,86 @@
+@CHARSET "ISO-8859-1";
+
+/*specificaties op id heb ik onderaan gezet om een beetje het overzicht te bewaren.*/
+
+*{
+	position: relative;
+	background-color:white;
+}
+
+body,footer
+{
+
+background-color:white;
+background-repeat: repeat-x;
+position: relative;
+
+
+} 
+
+
+
+table{
+	width:1040px;
+	border-style: inset;
+	border-collapse: separate;
+	margin:5px;
+	border-color: black;
+	position: relative;
+	table-layout: auto;
+	border-radius:15px;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+div{
+	box-shadow: 10px 10px 5px #888888;
+	border-radius:15px;
+}
+
+td{
+	width: 400px;
+	background-color:#D3E3E6;
+	border-style: outset;
+	border-color: black;
+	border-radius:15px;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+tr{
+	height: 200px;
+}
+
+
+
+h1{
+font-family: Impact, Charcoal, sans-serif; 
+font-weight: 100;
+color: black;
+font-size: 50px;
+text-align: center;
+background-color: transparent;
+}
+
+p{
+	background-color: transparent;
+	text-align: center;
+	vertical-align: middle;
+}
+
+li
+{display: inline;
+float: left;
+padding-right: 50px;
+background-color: transparent;
+}
+a{
+	background-color: transparent;
+}
+
+
+#foot{
+	height: 60px;
+}
+
+#spelinfo{
+	height: 400px;
+}
