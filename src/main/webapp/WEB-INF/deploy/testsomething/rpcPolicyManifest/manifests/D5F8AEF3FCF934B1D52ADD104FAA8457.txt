@@ -1,0 +1,2 @@
+serviceClass: com.programmeren4.turnahead.client.GreetingService
+path: 3F96F211787942B96E48833FFE76ED1F.gwt.rpc

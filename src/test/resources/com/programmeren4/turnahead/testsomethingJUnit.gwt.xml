@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.programmeren4.turnahead.testsomething' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/testsomething/greet" class="com.programmeren4.turnahead.server.GreetingServiceImpl" />
+
+</module>

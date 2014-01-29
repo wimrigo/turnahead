@@ -1,0 +1,3 @@
+# Module testsomething
+# RPC service class, partial path of RPC policy file
+com.programmeren4.turnahead.client.GreetingService, 3F96F211787942B96E48833FFE76ED1F.gwt.rpc
