@@ -9,9 +9,10 @@ import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.Window;
+
 
 public class FormOverzichtsPagina extends Composite {
 	
@@ -82,9 +83,14 @@ private void loadNotes() {
 	
 
 	@UiHandler("terugKnop")
-	// terug keren naar de homepagina
+	// terug keren naar de homepagina of doen in FormOverzichtPagina.xml zelf
 	void onClickTerugKnop(ClickEvent e) {
-		Window.Location.assign("com.lucypeeters.test2.client.client.home.Home");
+		// voor compleet nieuwe url buiten appalicatie
+		//Window.Location.assign("com.lucypeeters.test2.client.client.home.Home");
+		Form1 formHome = new Form1();
+		RootPanel.get().clear();
+		RootPanel.get().add(formHome);
+
 		
 	}
 
@@ -97,7 +103,9 @@ private void loadNotes() {
 	@UiHandler("nieuwCharKnop")
 	// er wordt een nieuwe pagina geladen waar en een nieuw karakter eigenschappen kan geven
 	void onClickNieuw(ClickEvent e) {
-		// Window.location.assign("")
+		// form van char aanmaken Form1 formHome = new Form1();
+		RootPanel.get().clear();
+		// add aan rootpanel charaanmaken RootPanel.get().add(formHome);
 	}
 	
 }
