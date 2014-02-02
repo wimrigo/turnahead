@@ -1,4 +1,4 @@
-package com.programmeren4.turnahead.client;
+package com.programmeren4.turnahead.client.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

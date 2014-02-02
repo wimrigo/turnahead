@@ -1,4 +1,4 @@
-package com.programmeren4.turnahead.client;
+package com.programmeren4.turnahead.client.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -32,6 +32,7 @@ public class FormOverzichtsPagina extends Composite {
 	Button nieuwCharKnop;
 	
 	CellList<String> karaktersGegevens;
+	
 	Label naam;
 	Label voorNaam;
 	Label email;
@@ -45,10 +46,46 @@ public class FormOverzichtsPagina extends Composite {
 	}
 	
 
+/*	@UiHandler("persoonsGegevensLabel") -> data uit databank halen voor persoonsgegevens
+	private void displayPersoonsGegevens(final String note) {
+	// Add the Note to the table.
+	int row = notesFlexTable.getRowCount();
+	NotesNames.add(note);
+	notesFlexTable.setText(row, 0, note);
+
+	});
+	notesFlexTable.setWidget(row, 2);
+
+}
+
+private void loadNotes() {
+		NoteService.getNotes(new AsyncCallback<String[]>() {
+			public void onFailure(Throwable error) {
+			}
+ 
+			public void onSuccess(String[] notes) {
+				displayNotes(notes);
+			}
+		});
+ 
+	}
+ 
+	private void displayNotes( String[] notes) {
+		for (String note : notes) {
+			displayNote(note);
+		}
+	}
+		
+*/		
+
+
+	
+
 	@UiHandler("terugKnop")
 	// terug keren naar de homepagina
 	void onClickTerugKnop(ClickEvent e) {
 		Window.Location.assign("com.lucypeeters.test2.client.client.home.Home");
+		
 	}
 
 	@UiHandler("verwijderCharKnop")
