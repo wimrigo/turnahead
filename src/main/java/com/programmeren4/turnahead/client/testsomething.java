@@ -22,8 +22,6 @@ public class testsomething implements EntryPoint {
    */
   private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
 
- // private final Messages messages = GWT.create(Messages.class);
-
   /**
    * This is the entry point method.
    */
