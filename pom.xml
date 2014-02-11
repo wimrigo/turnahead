@@ -50,8 +50,20 @@
 	</dependencies>
 
 	<build>
-		<!-- Genereert de gecompileerde klassen naar WEB-INF/classes voor dev mode -->
-		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+	<!-- Genereert de gecompileerde klassen naar WEB-INF/classes voor dev mode -->
+	<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+	
+	<!-- Resources -->
+		<resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/*.css</exclude>
+                    <exclude>**/Messages.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
 
 		<plugins>
 			<!-- GWT Maven Plugin -->
@@ -119,7 +131,7 @@
 			 Als deze niet genegeerd worden in de validatie krijg je permanent een error over i18n en exploded.
 			 Zolang er errors zouden staan in de pom kan er niet gecompileerd worden in eclipse (wel met mvn gwt:compile) en worden de Async klassen niet automatisch gegenereerd. 
 			 Dit heeft geen impact op de maven build zelf.
-		 -->
+		-->
 		
 		<pluginManagement>
 			<plugins>
@@ -166,6 +178,8 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		
+		 
 	</build>
 
 </project>
