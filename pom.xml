@@ -149,6 +149,7 @@
 										<versionRange>[2.4.0,)</versionRange>
 										<goals>
 											<goal>i18n</goal>
+											<goal>generateAsync</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
