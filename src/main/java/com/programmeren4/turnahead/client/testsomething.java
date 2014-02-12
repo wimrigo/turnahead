@@ -8,7 +8,7 @@ import com.programmeren4.turnahead.client.ui.Namebox;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class testsomething implements EntryPoint {
+public class testsomething  {
   /**
    * The message displayed to the user when the server cannot be reached or
    * returns an error.
@@ -20,9 +20,7 @@ public class testsomething implements EntryPoint {
   /**
    * Create a remote service proxy to talk to the server-side Greeting service.
    */
-  private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
-
- // private final Messages messages = GWT.create(Messages.class);
+//  private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
 
   /**
    * This is the entry point method.
