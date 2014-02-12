@@ -26,10 +26,14 @@ public class FormOverzichtsPagina extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
+	// ui field herhalen
 	@UiField
 	Button terugKnop;
+	@UiField
 	Button aanpassenKnop;
+	@UiField
 	Button verwijderCharKnop;
+	@UiField
 	Button nieuwCharKnop;
 	
 	CellList<String> karaktersGegevens;
@@ -91,6 +95,7 @@ private void loadNotes() {
 		RootPanel.get().clear();
 		RootPanel.get().add(formHome);
 
+		// met controller werken goto()
 		
 	}
 

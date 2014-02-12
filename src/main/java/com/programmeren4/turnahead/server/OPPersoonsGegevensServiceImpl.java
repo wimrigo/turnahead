@@ -22,6 +22,7 @@ public class OPPersoonsGegevensServiceImpl implements OPPersoonsGegevensService{
  
 	@Override
 	public String[] getPersoonsGegevens() {
+		return null;
 		 // onderstaande is voorbeeld van hoe data uit de databank kan worden gehaald
 		
 		
@@ -54,6 +55,7 @@ public class OPPersoonsGegevensServiceImpl implements OPPersoonsGegevensService{
 //	private PersistenceManager getPersistenceManager() {
 //		return PMF.getPersistenceManager();
 //	}
+}
 }
 	
 	
