@@ -1,6 +1,6 @@
 package com.programmeren4.turnahead.server;
 
-import com.programmeren4.turnahead.client.OPPersoonsGegevensService;
+import com.programmeren4.turnahead.client.UserDataservice;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -9,18 +9,15 @@ import java.util.logging.Logger;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class OPPersoonsGegevensServiceImpl implements OPPersoonsGegevensService{
+public class UserDataserviceImpl implements UserDataservice{
 	
 	private static final long serialVersionUID = 1L;
 	 
-	private static final Logger LOG = Logger.getLogger(OPPersoonsGegevensServiceImpl.class.getName());
- 
-
-//	private static final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
+	//private static final Logger LOG = Logger.getLogger(OPPersoonsGegevensServiceImpl.clasUserDataImpltatic final PersistenceManagerFactory PMF = JDOHelper.getPersistenceManagerFactory("transactions-optional");
 
  
 	@Override
-	public String[] getPersoonsGegevens() {
+	public String[] getUserData() {
 		return null;
 		 // onderstaande is voorbeeld van hoe data uit de databank kan worden gehaald
 		

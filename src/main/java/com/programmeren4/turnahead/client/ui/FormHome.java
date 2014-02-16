@@ -10,22 +10,24 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
-public class Form1 extends Composite {
+public class FormHome extends Composite {
 
 	private static Form1UiBinder uiBinder = GWT.create(Form1UiBinder.class);
 
-	interface Form1UiBinder  extends UiBinder<Widget, Form1> {
+	interface Form1UiBinder  extends UiBinder<Widget, FormHome> {
 	}
 
-	public Form1() {
+	public FormHome() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
 	@UiField
 	Button buttonAanmelden;
+	@UiField
 	Button buttonRegisteren;
+	
 
-	public Form1(String firstName) {
+	public FormHome(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		buttonAanmelden.setText("aanmelden");
 		buttonRegisteren.setText("registeren");

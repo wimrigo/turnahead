@@ -13,7 +13,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 */
 
-public class OPPersoonsGegevens {
+public class UserData {
 	
 	//voorbeeld voor aanspreking database
 	// weet momenteel de namen van de velden niet dus (note/id) gebruikt
@@ -22,11 +22,11 @@ public class OPPersoonsGegevens {
 	private Date createDate;
  
 	//a good way to use constructor
-	public OPPersoonsGegevens() {
+	public UserData() {
 		this.createDate = new Date();
 	}
  
-	public OPPersoonsGegevens(String symbol) {
+	public UserData(String symbol) {
 		this();
 		this.note = symbol;
 	}

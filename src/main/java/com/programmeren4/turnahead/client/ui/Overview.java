@@ -2,9 +2,9 @@ package com.programmeren4.turnahead.client.ui;
 
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class OverzichtsPagina {
+public class Overview {
 
-	private FormOverzichtsPagina form = new FormOverzichtsPagina();
+	private FormOverview form = new FormOverview();
 	
 	
 	public void onLoad() {

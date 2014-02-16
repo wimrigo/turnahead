@@ -12,15 +12,15 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class CharAanmaken extends Composite  {
+public class FormMakeChar extends Composite  {
 
 	private static CharAanmakenUiBinder uiBinder = GWT
 			.create(CharAanmakenUiBinder.class);
 
-	interface CharAanmakenUiBinder extends UiBinder<Widget, CharAanmaken> {
+	interface CharAanmakenUiBinder extends UiBinder<Widget, FormMakeChar> {
 	}
 
-	public CharAanmaken() {
+	public FormMakeChar() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
@@ -57,7 +57,7 @@ public class CharAanmaken extends Composite  {
 	@UiHandler("cancelButton")
 	void onClickcancelKnop(ClickEvent e) {
 		// de bewerking wordt afgebroken en men wordt terug gestuurd naar de overzichtspagina
-		FormOverzichtsPagina formOverzichtspagina = new FormOverzichtsPagina();
+		FormOverview formOverzichtspagina = new FormOverview();
 		RootPanel.get().clear();
 		RootPanel.get().add(formOverzichtspagina);
 	}

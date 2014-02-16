@@ -4,7 +4,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class Char {
 
-private CharAanmaken charForm = new CharAanmaken();
+private FormMakeChar charForm = new FormMakeChar();
 	
 	
 	public void onLoad() {

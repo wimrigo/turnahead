@@ -8,25 +8,21 @@
 	}
 	</ui:style>
 	<g:HTMLPanel>
-		<g:VerticalPanel styleName= "{style.important}" ui:field="persoonsGegevensPanel">
-		    <g:Label text="naam:" styleName= "{style.important}" ui:field="naam"></g:Label>
-		    <g:Label text="voornaam:" styleName= "{style.important}" ui:field="voorNaam"></g:Label>
-		    <g:Label text="email:"  styleName= "{style.important}" ui:field="email"></g:Label>
-		    <g:Label text="geboortedatum:" styleName= "{style.important}" ui:field="geboortedatum"></g:Label>
+		<g:VerticalPanel styleName= "{style.important}" ui:field="userDataPanel">
 		    <g:Button text="aanpassen" styleName="{style.important}" ui:field="aanpassenKnop" />
 		</g:VerticalPanel>
 		
-		<g:VerticalPanel styleName= "{style.important}" ui:field="karaktersPanel">
-		<g:ScrollPanel addStyleNames='{style.important}' width="250px" height="600px" ui:fiels="karakters">
-			<c:CellList ui:field="karaktersGegevens">   </c:CellList>             
-		</g:ScrollPanel>
+		<g:VerticalPanel styleName= "{style.important}" ui:field="charPanel">
+<!-- 		<g:ScrollPanel addStyleNames='{style.important}' width="250px" height="600px" ui:fiels="karakters"> -->
+<!-- 			<c:CellList ui:field="karaktersGegevens">   </c:CellList>              -->
+<!-- 		</g:ScrollPanel> -->
 		<g:Button text="verwijderen karakter" styleName="{style.important}" ui:field="verwijderCharKnop" />
 		<g:Button text="nieuw karakter" styleName="{style.important}" ui:field="nieuwCharKnop" />
 		</g:VerticalPanel>
 		
 		<g:VerticalPanel styleName= "{style.important}" ui:field="adminPanel">
-		<g:ListBox  ui:field='locaties'/> <!-- visibleItemCount='1' -->
-		<g:ListBox  ui:field='items'/> 
+		<g:ListBox  ui:field="locations"/> <!-- visibleItemCount='1' -->
+		
 		</g:VerticalPanel>
 				
 		<g:Button text="terug" styleName="{style.important}" ui:field="terugKnop" />
