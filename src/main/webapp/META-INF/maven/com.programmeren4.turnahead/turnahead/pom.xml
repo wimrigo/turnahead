@@ -90,7 +90,7 @@ i18n & generateAsync: laat GWT klassen genereren die nodig zijn voor de compilat
 </executions>
 <!-- Plugin configuratie. Er zijn veel opties te vinden op codehaus.org in de documentatie van de gwt-maven-plugin -->
 <configuration>
-<runTarget>testsomething.html</runTarget>
+<runTarget>index.html</runTarget>
 <hostedWebapp>${webappDirectory}</hostedWebapp>
 <i18nMessagesBundle>com.programmeren4.turnahead.client.Messages</i18nMessagesBundle>
 </configuration>

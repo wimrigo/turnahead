@@ -17,7 +17,7 @@
   <!-- Other module inherits                                      -->
 
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='com.programmeren4.turnahead.client.testsomething' />
+  <entry-point class='com.programmeren4.turnahead.client.ui.Home' />
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client' />
