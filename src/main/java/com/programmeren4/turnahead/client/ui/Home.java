@@ -11,9 +11,10 @@ public class Home implements EntryPoint  {
 	@Override
 	public void onModuleLoad() {
 		Form1 form = new Form1();
- 		RootPanel.get().add(form);
- 		//alert('hello world');
-		
+
+		RootPanel.get().add(form);
+        //alert('Hello world');
+
 
 	}
 
