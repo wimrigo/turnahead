@@ -1,6 +1,6 @@
 package com.programmeren4.turnahead.server;
 
-import com.programmeren4.turnahead.client.UserDataservice;
+import com.programmeren4.turnahead.client.UserDataService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class UserDataserviceImpl implements UserDataservice{
+public class UserDataserviceImpl implements UserDataService{
 	
 	private static final long serialVersionUID = 1L;
 	 
