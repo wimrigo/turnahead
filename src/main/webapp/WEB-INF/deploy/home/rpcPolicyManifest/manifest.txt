@@ -1,2 +1,2 @@
-# Module testsomething
+# Module home
 # RPC service class, partial path of RPC policy file

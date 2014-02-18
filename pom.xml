@@ -53,6 +53,18 @@
 		<!-- Genereert de gecompileerde klassen naar WEB-INF/classes voor dev mode -->
 		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
 
+		<!-- Resources -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/*.css</exclude>
+					<exclude>**/Messages.properties</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
 		<plugins>
 			<!-- GWT Maven Plugin -->
 			<plugin>
@@ -62,12 +74,10 @@
 				<executions>
 					<execution>
 						<goals>
-						<!-- Doelen die uitgevoerd worden bij GWT compilatie
-							Resources: voegt src/main/resources toe aan het classpath zodat de bestanden hierin gevonden kunnen worden
-							Compile: compileert
-							Test: voert alle beschikbare testen uit
-							i18n & generateAsync: laat GWT klassen genereren die nodig zijn voor de compilatie						
-						 -->
+							<!-- Doelen die uitgevoerd worden bij GWT compilatie Resources: voegt 
+								src/main/resources toe aan het classpath zodat de bestanden hierin gevonden 
+								kunnen worden Compile: compileert Test: voert alle beschikbare testen uit 
+								i18n & generateAsync: laat GWT klassen genereren die nodig zijn voor de compilatie -->
 							<goal>resources</goal>
 							<goal>compile</goal>
 							<goal>test</goal>
@@ -76,15 +86,17 @@
 						</goals>
 					</execution>
 				</executions>
-				<!-- Plugin configuratie. Er zijn veel opties te vinden op codehaus.org in de documentatie van de gwt-maven-plugin -->
+				<!-- Plugin configuratie. Er zijn veel opties te vinden op codehaus.org 
+					in de documentatie van de gwt-maven-plugin -->
 				<configuration>
-					<runTarget>testsomething.html</runTarget>
+					<runTarget>index.html</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<i18nMessagesBundle>com.programmeren4.turnahead.client.Messages</i18nMessagesBundle>
 				</configuration>
 			</plugin>
-			
-			<!-- Kopieert statische web files naar de webapp folder voor gwt:run uitgevoerd wordt -->
+
+			<!-- Kopieert statische web files naar de webapp folder voor gwt:run uitgevoerd 
+				wordt -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -103,7 +115,8 @@
 			</plugin>
 
 
-			<!-- Met deze plugin kunnen we de Java versie om te compileren op 1.7 zetten -->
+			<!-- Met deze plugin kunnen we de Java versie om te compileren op 1.7 
+				zetten -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -114,13 +127,14 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		
-		<!-- PluginManagement laat toe de goals i18n[gwt-maven-plugin] en exploded[maven-war-plugin] te negeren in Eclipse.
-			 Als deze niet genegeerd worden in de validatie krijg je permanent een error over i18n en exploded.
-			 Zolang er errors zouden staan in de pom kan er niet gecompileerd worden in eclipse (wel met mvn gwt:compile) en worden de Async klassen niet automatisch gegenereerd. 
-			 Dit heeft geen impact op de maven build zelf.
-		 -->
-		
+
+		<!-- PluginManagement laat toe de goals i18n[gwt-maven-plugin] en exploded[maven-war-plugin] 
+			te negeren in Eclipse. Als deze niet genegeerd worden in de validatie krijg 
+			je permanent een error over i18n en exploded. Zolang er errors zouden staan 
+			in de pom kan er niet gecompileerd worden in eclipse (wel met mvn gwt:compile) 
+			en worden de Async klassen niet automatisch gegenereerd. Dit heeft geen impact 
+			op de maven build zelf. -->
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -137,6 +151,7 @@
 										<versionRange>[2.4.0,)</versionRange>
 										<goals>
 											<goal>i18n</goal>
+											<goal>generateAsync</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
@@ -166,6 +181,8 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+
+
 	</build>
 
 </project>
