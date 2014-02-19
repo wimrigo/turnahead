@@ -25,7 +25,7 @@
 	          Deze wijzigingen kunnen onstaan door het spelverloop of tot stand gebracht worden door een admin.
 	    	</div>
 	    	<div class ="{style.table}">
-	    	    <g:Image url="com.lucypeeters.test2.client.g_lichter.gif" title="spel" altText="file not found"></g:Image>
+	    	    <g:Image url="g_lichter.gif" title="spel" altText="file not found"></g:Image>
 	    	</div>
 	    </form>    
 		

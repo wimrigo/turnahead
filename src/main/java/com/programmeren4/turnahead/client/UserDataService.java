@@ -7,4 +7,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("note")
 public interface UserDataService extends RemoteService{
 	public String[] getUserData();
+	public boolean createChar(String characterName, String lastLogin, String registrationDat);
 }

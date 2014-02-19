@@ -47,6 +47,47 @@
 			<classifier>sources</classifier>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- Recently added --> 
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-1.0-sdk</artifactId>
+			<version>1.8.9</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.jdo</groupId>
+			<artifactId>jdo-api</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-jpa</artifactId>
+			<version>2.1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-core</artifactId>
+			<version>[3.2.0, 3.2.99)</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-api-jpa</artifactId>
+			<version>3.3.7</version>
+		</dependency>
+		<!-- Recently added -->
+		
 	</dependencies>
 
 	<build>
@@ -126,6 +167,27 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			
+			<!-- Deze plugin maakt alle entiteitklassen persistent voor JPA -->
+			<!-- Recently added -->
+			<plugin>
+                <groupId>org.datanucleus</groupId>
+                <artifactId>maven-datanucleus-plugin</artifactId>
+                <version>2.0.0-release</version>
+                <configuration>
+                    <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration>
+                    <verbose>true</verbose>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>enhance</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Recently added -->
 		</plugins>
 
 		<!-- PluginManagement laat toe de goals i18n[gwt-maven-plugin] en exploded[maven-war-plugin] 
@@ -171,6 +233,21 @@
 										<execute />
 									</action>
 								</pluginExecution>
+								<!-- Recently added -->
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.datanucleus</groupId>
+                						<artifactId>maven-datanucleus-plugin</artifactId>
+										<versionRange>[2.0.0-release,)</versionRange>
+										<goals>
+                            				<goal>enhance</goal>
+                        				</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+								<!-- Recently added -->
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 						<webappDirectory>${webappDirectory}</webappDirectory>
