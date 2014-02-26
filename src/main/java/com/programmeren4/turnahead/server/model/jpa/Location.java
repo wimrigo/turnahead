@@ -1,4 +1,6 @@
-package com.programmeren4.turnahead.server.jpa;
+package com.programmeren4.turnahead.server.model.jpa;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,7 @@ import com.google.appengine.api.datastore.Key;
  *
  */
 @Entity
-public class Location {
+public class Location implements Serializable {
 	
 	//attributen
 	@Id

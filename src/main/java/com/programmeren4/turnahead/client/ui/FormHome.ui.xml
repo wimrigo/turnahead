@@ -31,6 +31,8 @@
 		
 		<g:Button text="aanmelden" styleName="{style.important}" ui:field="buttonAanmelden"  />
 		<g:Button text="registreren" styleName="{style.important}" ui:field="buttonRegisteren" />
+		<g:Button text="makeuser" styleName="{style.important}" ui:field="buttonMakeUser"  />
+		<g:Button text="getuser" styleName="{style.important}" ui:field="buttonGetUser" />
 	
 	</g:HTMLPanel>
 </ui:UiBinder> 

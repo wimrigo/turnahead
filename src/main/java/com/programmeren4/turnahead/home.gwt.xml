@@ -3,5 +3,6 @@
 <module rename-to="home">
 	<inherits name="com.google.gwt.user.User" />
 	<source path="client"></source>
+	<source path='shared'/> 
 	<entry-point class="com.programmeren4.turnahead.client.ui.Home" />	
 </module>

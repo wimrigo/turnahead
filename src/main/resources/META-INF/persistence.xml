@@ -4,10 +4,11 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
         http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
 
-    <persistence-unit name="turnPU">
-        <provider>org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider</provider>
-        <mapping-file>com.programmeren4.turnahead.server.jpa.orm</mapping-file>
-        <class>com.programmeren4.turnahead.server.jpa.Character</class>
+    <persistence-unit name="transactions-optional">
+        <!-- <provider>org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider</provider> -->
+        <provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider>
+         <class>com.programmeren4.turnahead.server.model.jpa.UserData</class>
+         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="datanucleus.NontransactionalRead" value="true"/>
             <property name="datanucleus.NontransactionalWrite" value="true"/>

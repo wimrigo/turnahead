@@ -10,12 +10,29 @@
 	<name>GWT Maven Archetype</name>
 
 	<properties>
+		<gaeVersion>1.8.9</gaeVersion>
 		<gwtVersion>2.6.0-rc3</gwtVersion>
+		<javaJDKVersion>1.7</javaJDKVersion>
+		<mavenWARVersion>2.3</mavenWARVersion>
+		<mavenCompilerVersion>2.3</mavenCompilerVersion>
+		<maven-datanucleus-plugin>3.0.0-release</maven-datanucleus-plugin>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
+		<!-- GWT dependecies -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-codeserver</artifactId>
+			<version>${gwtVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwtVersion}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
@@ -28,12 +45,16 @@
 			<version>${gwtVersion}</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- JUNIT -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Bean Validation Api for JPA 2.0 -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
@@ -47,17 +68,15 @@
 			<classifier>sources</classifier>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- Recently added --> 
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>javax.persistence</artifactId>
-			<version>2.1.0</version>
-		</dependency>
+
+		<!-- Recently added -->
+
+		<!-- GAE -->
 		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api-1.0-sdk</artifactId>
-			<version>1.8.9</version>
+			<version>${gaeVersion}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -65,29 +84,42 @@
 			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.google.appengine.orm</groupId>
+			<artifactId>datanucleus-appengine</artifactId>
+			<version>2.1.2</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.jdo</groupId>
 			<artifactId>jdo-api</artifactId>
-			<version>3.0</version>
+			<version>3.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-jpa</artifactId>
-			<version>2.1.8</version>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jpa_2.0_spec</artifactId>
+			<version>1.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-core</artifactId>
-			<version>[3.2.0, 3.2.99)</version>
+			<version>3.0.6</version>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-api-jpa</artifactId>
-			<version>3.3.7</version>
+			<version>3.0.6</version>
+			<scope>runtime</scope>
 		</dependency>
-		<!-- Recently added -->
-		
+
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-enhancer</artifactId>
+			<version>3.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -107,6 +139,52 @@
 		</resources>
 
 		<plugins>
+		<!-- Deze Datanucleus plugin maakt alle entiteitklassen persistent voor JPA -->
+			
+            <plugin>
+                <groupId>org.datanucleus</groupId>
+                <artifactId>datanucleus-maven-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                <!--	<mappingIncludes>**/bol/*.class</mappingIncludes> -->
+                    <api>JPA</api>
+                    <persistenceUnitName>transactions-optional</persistenceUnitName>
+                    <!--  <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration> -->
+                    <verbose>true</verbose>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>enhance</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>asm</groupId>
+                        <artifactId>asm-commons</artifactId>
+                        <version>3.3.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.datanucleus</groupId>
+                        <version>3.0.6</version>
+                        <artifactId>datanucleus-api-jpa</artifactId>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.datanucleus</groupId>
+                        <artifactId>datanucleus-core</artifactId>
+                        <version>3.0.6</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.datanucleus</groupId>
+                        <artifactId>datanucleus-enhancer</artifactId>
+                        <version>3.0.1</version>
+                    </dependency>
+                 </dependencies>
+            </plugin>
+		
+		
 			<!-- GWT Maven Plugin -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -122,7 +200,7 @@
 							<goal>resources</goal>
 							<goal>compile</goal>
 							<goal>test</goal>
-							<goal>i18n</goal>
+							<!--<goal>i18n</goal> -->
 							<goal>generateAsync</goal>
 						</goals>
 					</execution>
@@ -132,7 +210,6 @@
 				<configuration>
 					<runTarget>index.html</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
-					<i18nMessagesBundle>com.programmeren4.turnahead.client.Messages</i18nMessagesBundle>
 				</configuration>
 			</plugin>
 
@@ -141,7 +218,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<version>${mavenWARVersion}</version>
 				<executions>
 					<execution>
 						<phase>compile</phase>
@@ -161,32 +238,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>${mavenCompilerVersion}</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${javaJDKVersion}</source>
+					<target>${javaJDKVersion}</target>
 				</configuration>
 			</plugin>
 			
-			<!-- Deze plugin maakt alle entiteitklassen persistent voor JPA -->
-			<!-- Recently added -->
-			<plugin>
-                <groupId>org.datanucleus</groupId>
-                <artifactId>maven-datanucleus-plugin</artifactId>
-                <version>2.0.0-release</version>
-                <configuration>
-                    <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration>
-                    <verbose>true</verbose>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			
             <!-- Recently added -->
 		</plugins>
 
@@ -212,7 +271,7 @@
 										<artifactId>gwt-maven-plugin</artifactId>
 										<versionRange>[2.4.0,)</versionRange>
 										<goals>
-											<goal>i18n</goal>
+											<!--  <goal>i18n</goal> -->
 											<goal>generateAsync</goal>
 										</goals>
 									</pluginExecutionFilter>
@@ -237,8 +296,8 @@
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>org.datanucleus</groupId>
-                						<artifactId>maven-datanucleus-plugin</artifactId>
-										<versionRange>[2.0.0-release,)</versionRange>
+                						<artifactId>datanucleus-maven-plugin</artifactId>
+										<versionRange>3.0.2</versionRange>
 										<goals>
                             				<goal>enhance</goal>
                         				</goals>
@@ -251,9 +310,8 @@
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 						<webappDirectory>${webappDirectory}</webappDirectory>
-						<runTarget>testsomething.html</runTarget>
+						<runTarget>index.html</runTarget>
 						<hostedWebapp>${webappDirectory}</hostedWebapp>
-						<i18nMessagesBundle>com.programmeren4.turnahead.client.Messages</i18nMessagesBundle>
 					</configuration>
 				</plugin>
 			</plugins>

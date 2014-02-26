@@ -1,6 +1,7 @@
-package com.programmeren4.turnahead.server.jpa;
+package com.programmeren4.turnahead.server.model.jpa;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -18,8 +19,10 @@ import com.google.appengine.api.datastore.Key;
  */
 
 @Entity
-public class CharacterEnt {
-    //attributen
+public class CharacterEnt implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	//attributen
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key characterId; // Long voor JPA, Key voor JPA + GAE
@@ -42,15 +45,11 @@ public class CharacterEnt {
 		this.registrationDate = registrationDate;
 	}*/
 	
-	public CharacterEnt(String characterName, Date lastLogin,
-			Date registrationDate) {
+	public CharacterEnt(String characterName, Date lastLogin, Date registrationDate) {
 		this.characterName = characterName;
 		this.lastLogin = new Date();
 		this.registrationDate = new Date();
 	}
-
-	
-    //getters en setters
 	
 	public Key getCharacterId() {
 		return characterId;
@@ -63,7 +62,6 @@ public class CharacterEnt {
 	public void setCharacterName(String characterName) {
         this.characterName = characterName;
     }
-
     
     public Date getLastLogine() {
         return lastLogin;
@@ -72,10 +70,10 @@ public class CharacterEnt {
         this.lastLogin = lastLogin;
     }
     
-    
     public Date getRegistrationDate() {
         return registrationDate;
     }
+    
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }

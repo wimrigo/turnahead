@@ -1,4 +1,4 @@
-package com.programmeren4.turnahead.server.jpa;
+package com.programmeren4.turnahead.server.model.jpa;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import com.google.appengine.api.datastore.Key;
  * 
  */
 @Entity
-public class User {
+public class UserData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key userId; //Long key
@@ -26,9 +26,16 @@ public class User {
     private Date registrationDate;
     
     //constructor
-    public User(){}
+    public UserData(String firstName, String lastName, String eMail, String password){
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    	this.eMail = eMail;
+    	this.password = password;
+    }
     
-    //getters en setters
+    
+
+
     public Key getUserId() {
         return userId;
     }
@@ -66,7 +73,7 @@ public class User {
     }
 
     
-    public Date getLastLogine() {
+    public Date getLastLogin() {
         return lastLogin;
     }
     public void setLastLoginDate(Date lastLogin) {
