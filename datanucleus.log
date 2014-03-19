@@ -530,3 +530,5 @@
 13:42:55,380 (main) ERROR [DataNucleus.Persistence] - User-defined type mapping class "org.datanucleus.store.types.sco.simple.Set" was not found. Please check the mapping file class specifications and your CLASSPATH. The class must be in the CLASSPATH.
 13:42:55,380 (main) ERROR [DataNucleus.Persistence] - User-defined type mapping class "org.datanucleus.store.types.sco.simple.Set" was not found. Please check the mapping file class specifications and your CLASSPATH. The class must be in the CLASSPATH.
 13:42:55,391 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer (version 3.2.12) for API "JPA" using JRE "1.7"
+10:51:16,640 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer : Using ClassEnhancer "ASM" for API "JPA"
+10:51:16,877 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer (version 3.0.1) : Enhancement of classes

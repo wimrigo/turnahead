@@ -53,23 +53,36 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- Recently added -->
+
+		<!-- JPA API and RI -->
+		<dependency>
+		    <groupId>org.hibernate.javax.persistence</groupId>
+		    <artifactId>hibernate-jpa-2.0-api</artifactId>
+		    <version>1.0.1.Final</version>
+		</dependency>
 
 		<!-- Bean Validation Api for JPA 2.0 -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
-			<classifier>sources</classifier>
-			<scope>test</scope>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.0.2.GA</version>
+			<scope>runtime</scope>
 		</dependency>
-
-		<!-- Recently added -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>1.5.6</version>
+			<scope>runtime</scope>
+		</dependency>
+		
 
 		<!-- GAE -->
 		<dependency>
@@ -86,11 +99,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.google.appengine.orm</groupId>
-			<artifactId>datanucleus-appengine</artifactId>
-			<version>2.1.2</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.jdo</groupId>
 			<artifactId>jdo-api</artifactId>
 			<version>3.0.1</version>
@@ -98,23 +106,30 @@
 		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-jpa_2.0_spec</artifactId>
-			<version>1.1</version>
+			<version>1.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.google.appengine.orm</groupId>
+			<artifactId>datanucleus-appengine</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-api-jdo</artifactId>
+			<version>3.0.5</version>
+		</dependency>
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-core</artifactId>
 			<version>3.0.6</version>
 			<scope>runtime</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-api-jpa</artifactId>
 			<version>3.0.6</version>
 			<scope>runtime</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-enhancer</artifactId>
@@ -139,52 +154,53 @@
 		</resources>
 
 		<plugins>
-		<!-- Deze Datanucleus plugin maakt alle entiteitklassen persistent voor JPA -->
-			
-            <plugin>
-                <groupId>org.datanucleus</groupId>
-                <artifactId>datanucleus-maven-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                <!--	<mappingIncludes>**/bol/*.class</mappingIncludes> -->
-                    <api>JPA</api>
-                    <persistenceUnitName>transactions-optional</persistenceUnitName>
-                    <!--  <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration> -->
-                    <verbose>true</verbose>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>asm</groupId>
-                        <artifactId>asm-commons</artifactId>
-                        <version>3.3.1</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.datanucleus</groupId>
-                        <version>3.0.6</version>
-                        <artifactId>datanucleus-api-jpa</artifactId>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.datanucleus</groupId>
-                        <artifactId>datanucleus-core</artifactId>
-                        <version>3.0.6</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.datanucleus</groupId>
-                        <artifactId>datanucleus-enhancer</artifactId>
-                        <version>3.0.1</version>
-                    </dependency>
-                 </dependencies>
-            </plugin>
-		
-		
+			<!-- Deze Datanucleus plugin maakt alle entiteitklassen persistent voor 
+				JPA -->
+
+			<plugin>
+				<groupId>org.datanucleus</groupId>
+				<artifactId>datanucleus-maven-plugin</artifactId>
+				<version>3.2.0-release</version>
+				<configuration>
+					<!-- <mappingIncludes>**/bol/*.class</mappingIncludes> -->
+					<api>JPA</api>
+					<persistenceUnitName>transactions-optional</persistenceUnitName>
+					<!-- <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration> -->
+					<verbose>true</verbose>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>enhance</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>asm</groupId>
+						<artifactId>asm-commons</artifactId>
+						<version>3.3.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.datanucleus</groupId>
+						<version>3.0.6</version>
+						<artifactId>datanucleus-api-jpa</artifactId>
+					</dependency>
+					<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-core</artifactId>
+						<version>3.0.6</version>
+					</dependency>
+					<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-enhancer</artifactId>
+						<version>3.0.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+
 			<!-- GWT Maven Plugin -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -244,9 +260,9 @@
 					<target>${javaJDKVersion}</target>
 				</configuration>
 			</plugin>
-			
-			
-            <!-- Recently added -->
+
+
+			<!-- Recently added -->
 		</plugins>
 
 		<!-- PluginManagement laat toe de goals i18n[gwt-maven-plugin] en exploded[maven-war-plugin] 
@@ -271,7 +287,7 @@
 										<artifactId>gwt-maven-plugin</artifactId>
 										<versionRange>[2.4.0,)</versionRange>
 										<goals>
-											<!--  <goal>i18n</goal> -->
+											<!-- <goal>i18n</goal> -->
 											<goal>generateAsync</goal>
 										</goals>
 									</pluginExecutionFilter>
@@ -296,11 +312,11 @@
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>org.datanucleus</groupId>
-                						<artifactId>datanucleus-maven-plugin</artifactId>
+										<artifactId>datanucleus-maven-plugin</artifactId>
 										<versionRange>3.0.2</versionRange>
 										<goals>
-                            				<goal>enhance</goal>
-                        				</goals>
+											<goal>enhance</goal>
+										</goals>
 									</pluginExecutionFilter>
 									<action>
 										<execute />
