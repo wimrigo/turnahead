@@ -2,25 +2,15 @@ package com.programmeren4.turnahead.server.model.jpa;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import com.google.appengine.api.datastore.Key;
-
 
 /**
  * Locatie
  *
  */
-@Entity
 public class Location implements Serializable {
 	
 	//attributen
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key locationId; //Long locationId
+	private long locationId; //Long locationId
 	private String locationName;
 	private String locationDescription;
 	
@@ -28,7 +18,7 @@ public class Location implements Serializable {
 	
 	
 	//getters en setters
-	public Key getLocationId() {
+	public long getLocationId() {
         return locationId;
     }
 	

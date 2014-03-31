@@ -11,11 +11,12 @@
 
 	<properties>
 		<gaeVersion>1.8.9</gaeVersion>
-		<gwtVersion>2.6.0-rc3</gwtVersion>
+		<gwtVersion>2.6.0-rc4</gwtVersion>
 		<javaJDKVersion>1.7</javaJDKVersion>
 		<mavenWARVersion>2.3</mavenWARVersion>
+		<dataNucleusVersion>3.2.0-release</dataNucleusVersion>
+		
 		<mavenCompilerVersion>2.3</mavenCompilerVersion>
-		<maven-datanucleus-plugin>3.0.0-release</maven-datanucleus-plugin>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -24,116 +25,16 @@
 		<!-- GWT dependecies -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-codeserver</artifactId>
-			<version>${gwtVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-dev</artifactId>
-			<version>${gwtVersion}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
-			<version>${gwtVersion}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwtVersion}</version>
-			<scope>provided</scope>
 		</dependency>
 
-		<!-- JUNIT -->
+		<!-- Testing dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>
-		
-		<!-- Recently added -->
-
-		<!-- JPA API and RI -->
-		<dependency>
-		    <groupId>org.hibernate.javax.persistence</groupId>
-		    <artifactId>hibernate-jpa-2.0-api</artifactId>
-		    <version>1.0.1.Final</version>
-		</dependency>
-
-		<!-- Bean Validation Api for JPA 2.0 -->
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>4.0.2.GA</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-jdk14</artifactId>
-			<version>1.5.6</version>
-			<scope>runtime</scope>
-		</dependency>
-		
-
-		<!-- GAE -->
-		<dependency>
-			<groupId>com.google.appengine</groupId>
-			<artifactId>appengine-api-1.0-sdk</artifactId>
-			<version>${gaeVersion}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.jdo</groupId>
-			<artifactId>jdo-api</artifactId>
-			<version>3.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-jpa_2.0_spec</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.appengine.orm</groupId>
-			<artifactId>datanucleus-appengine</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-api-jdo</artifactId>
-			<version>3.0.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-core</artifactId>
-			<version>3.0.6</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-api-jpa</artifactId>
-			<version>3.0.6</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-enhancer</artifactId>
-			<version>3.0.1</version>
 		</dependency>
 	</dependencies>
 
@@ -154,58 +55,11 @@
 		</resources>
 
 		<plugins>
-			<!-- Deze Datanucleus plugin maakt alle entiteitklassen persistent voor 
-				JPA -->
-
-			<plugin>
-				<groupId>org.datanucleus</groupId>
-				<artifactId>datanucleus-maven-plugin</artifactId>
-				<version>3.2.0-release</version>
-				<configuration>
-					<!-- <mappingIncludes>**/bol/*.class</mappingIncludes> -->
-					<api>JPA</api>
-					<persistenceUnitName>transactions-optional</persistenceUnitName>
-					<!-- <log4jConfiguration>${basedir}/log4j.properties</log4jConfiguration> -->
-					<verbose>true</verbose>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>enhance</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>asm</groupId>
-						<artifactId>asm-commons</artifactId>
-						<version>3.3.1</version>
-					</dependency>
-					<dependency>
-						<groupId>org.datanucleus</groupId>
-						<version>3.0.6</version>
-						<artifactId>datanucleus-api-jpa</artifactId>
-					</dependency>
-					<dependency>
-						<groupId>org.datanucleus</groupId>
-						<artifactId>datanucleus-core</artifactId>
-						<version>3.0.6</version>
-					</dependency>
-					<dependency>
-						<groupId>org.datanucleus</groupId>
-						<artifactId>datanucleus-enhancer</artifactId>
-						<version>3.0.1</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-
-
 			<!-- GWT Maven Plugin -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwtVersion}</version>
+				<version>2.6.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -213,7 +67,7 @@
 								src/main/resources toe aan het classpath zodat de bestanden hierin gevonden 
 								kunnen worden Compile: compileert Test: voert alle beschikbare testen uit 
 								i18n & generateAsync: laat GWT klassen genereren die nodig zijn voor de compilatie -->
-							<goal>resources</goal>
+							<!--<goal>resources</goal> -->
 							<goal>compile</goal>
 							<goal>test</goal>
 							<!--<goal>i18n</goal> -->
@@ -261,8 +115,6 @@
 				</configuration>
 			</plugin>
 
-
-			<!-- Recently added -->
 		</plugins>
 
 		<!-- PluginManagement laat toe de goals i18n[gwt-maven-plugin] en exploded[maven-war-plugin] 
@@ -308,21 +160,6 @@
 										<execute />
 									</action>
 								</pluginExecution>
-								<!-- Recently added -->
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.datanucleus</groupId>
-										<artifactId>datanucleus-maven-plugin</artifactId>
-										<versionRange>3.0.2</versionRange>
-										<goals>
-											<goal>enhance</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute />
-									</action>
-								</pluginExecution>
-								<!-- Recently added -->
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 						<webappDirectory>${webappDirectory}</webappDirectory>

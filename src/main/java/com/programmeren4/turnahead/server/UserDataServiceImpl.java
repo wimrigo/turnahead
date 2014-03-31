@@ -21,7 +21,7 @@ public class UserDataServiceImpl extends RemoteServiceServlet implements UserDat
 	
 	@Override
 	public boolean createUser(UserDataDTO userDataDTO) throws DAOException {
-		services.addUser(userDataDTO);
+		//services.addUser(userDataDTO);
 		return true;
 	}
 		

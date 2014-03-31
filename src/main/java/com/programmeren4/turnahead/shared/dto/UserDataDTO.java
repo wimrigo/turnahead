@@ -3,8 +3,6 @@ package com.programmeren4.turnahead.shared.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.google.appengine.api.datastore.Key;
-
 /**
  * Gebruiker
  * 

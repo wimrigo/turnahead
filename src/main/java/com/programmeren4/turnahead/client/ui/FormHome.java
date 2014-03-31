@@ -10,9 +10,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import com.programmeren4.turnahead.client.services.UserDataService;
-import com.programmeren4.turnahead.client.services.UserDataServiceAsync;
-import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 
 public class FormHome extends Composite {
 
@@ -21,14 +18,14 @@ public class FormHome extends Composite {
 	private String lastName = "Stefaan";
 	private String password= "test";
 	private String eMail= "faandg@gmail.com";
-	UserDataServiceAsync userDataAsync;
+	//UserDataServiceAsync userDataAsync;
 	
 	interface Form1UiBinder extends UiBinder<Widget, FormHome> {
 	}
 
 	public FormHome() {
 		initWidget(uiBinder.createAndBindUi(this));
-		userDataAsync = GWT.create(UserDataService.class);
+		//userDataAsync = GWT.create(UserDataService.class);
 	}
 
 	 
@@ -79,7 +76,7 @@ public class FormHome extends Composite {
 				
 			}
 		};
-		userDataAsync.createUser(new UserDataDTO(firstName, lastName, eMail, password), callback);
+		//userDataAsync.createUser(new UserDataDTO(firstName, lastName, eMail, password), callback);
 		
 	}
 	

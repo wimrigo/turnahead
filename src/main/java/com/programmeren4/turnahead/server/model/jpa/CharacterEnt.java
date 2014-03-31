@@ -4,36 +4,22 @@ package com.programmeren4.turnahead.server.model.jpa;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import com.google.appengine.api.datastore.Key;
-
 
 /**
  * Karakter
  * 
  */
 
-@Entity
 public class CharacterEnt implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	//attributen
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key characterId; // Long voor JPA, Key voor JPA + GAE
+    private long characterId; // Long voor JPA, Key voor JPA + GAE
 	
-	@Basic
 	private String characterName;
 	
-	@Basic
     private Date lastLogin;
 	
-	@Basic
     private Date registrationDate;
     
     //constructor
@@ -51,7 +37,7 @@ public class CharacterEnt implements Serializable {
 		this.registrationDate = new Date();
 	}
 	
-	public Key getCharacterId() {
+	public long getCharacterId() {
 		return characterId;
 	}
 

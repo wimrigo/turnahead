@@ -2,22 +2,13 @@ package com.programmeren4.turnahead.server.model.jpa;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import com.google.appengine.api.datastore.Key;
-
 /**
  * Gebruiker
  * 
  */
-@Entity
+
 public class UserData {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key userId; //Long key
+    private long userId; //Long key
     private String firstName;
     private String lastName;
     private String eMail;
@@ -36,7 +27,7 @@ public class UserData {
     
 
 
-    public Key getUserId() {
+    public long getUserId() {
         return userId;
     }
 
