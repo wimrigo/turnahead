@@ -14,10 +14,6 @@ import com.google.gwt.user.client.ui.Widget;
 public class FormHome extends Composite {
 
 	private static Form1UiBinder uiBinder = GWT.create(Form1UiBinder.class);
-	private String firstName = "Stefaan";
-	private String lastName = "Stefaan";
-	private String password= "test";
-	private String eMail= "faandg@gmail.com";
 	//UserDataServiceAsync userDataAsync;
 	
 	interface Form1UiBinder extends UiBinder<Widget, FormHome> {

@@ -15,8 +15,8 @@
 		<javaJDKVersion>1.7</javaJDKVersion>
 		<mavenWARVersion>2.3</mavenWARVersion>
 		<dataNucleusVersion>3.2.0-release</dataNucleusVersion>
-		
 		<mavenCompilerVersion>2.3</mavenCompilerVersion>
+		
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -79,7 +79,6 @@
 							<!--<goal>resources</goal> -->
 							<goal>compile</goal>
 							<goal>test</goal>
-							<!--<goal>i18n</goal> -->
 							<goal>generateAsync</goal>
 						</goals>
 					</execution>
@@ -148,7 +147,6 @@
 										<artifactId>gwt-maven-plugin</artifactId>
 										<versionRange>[2.4.0,)</versionRange>
 										<goals>
-											<!-- <goal>i18n</goal> -->
 											<goal>generateAsync</goal>
 										</goals>
 									</pluginExecutionFilter>

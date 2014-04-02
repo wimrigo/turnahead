@@ -8,7 +8,7 @@ import java.io.Serializable;
  *
  */
 public class Location implements Serializable {
-	
+	private static final long serialVersionUID = 1615273709260526458L;
 	//attributen
 	private long locationId; //Long locationId
 	private String locationName;
