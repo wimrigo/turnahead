@@ -8,7 +8,7 @@
   <!-- Inherit the UiBinder module.                               -->
   <inherits name="com.google.gwt.uibinder.UiBinder"/>
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='com.palmbreweries.client.HelloWorld'/>
+  <entry-point class='com.programmeren4.turnahead.client.ui.HelloWorld'/>
   
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
