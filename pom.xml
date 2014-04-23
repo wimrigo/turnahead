@@ -10,25 +10,42 @@
 	<name>GWT Maven Archetype</name>
 
 	<properties>
-		<gaeVersion>1.8.9</gaeVersion>
 		<gwtVersion>2.6.0-rc4</gwtVersion>
 		<javaJDKVersion>1.7</javaJDKVersion>
-		<mavenWARVersion>2.3</mavenWARVersion>
-		<dataNucleusVersion>3.2.0-release</dataNucleusVersion>
-		<mavenCompilerVersion>2.3</mavenCompilerVersion>
-		
+		<mavenWARVersion>2.1.1</mavenWARVersion>
+		<mavenCompilerVersion>2.3.2</mavenCompilerVersion>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
-	
 		<!-- GWT dependecies -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwtVersion}</version>
+			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<classifier>sources</classifier>
+			<scope>test</scope>
+		</dependency>
+
 
 		<!-- Testing dependencies -->
 		<dependency>
@@ -37,21 +54,12 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- Mysql dependencies -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.29</version>
-		</dependency>            
-		
 	</dependencies>
 
 	<build>
 		<!-- Genereert de gecompileerde klassen naar WEB-INF/classes voor dev mode -->
 		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
-
-		<!-- Resources -->
+	
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -76,7 +84,7 @@
 								src/main/resources toe aan het classpath zodat de bestanden hierin gevonden 
 								kunnen worden Compile: compileert Test: voert alle beschikbare testen uit 
 								i18n & generateAsync: laat GWT klassen genereren die nodig zijn voor de compilatie -->
-							<!--<goal>resources</goal> -->
+						 	<goal>resources</goal> 
 							<goal>compile</goal>
 							<goal>test</goal>
 							<goal>generateAsync</goal>
@@ -90,13 +98,12 @@
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 				</configuration>
 			</plugin>
-
 			<!-- Kopieert statische web files naar de webapp folder voor gwt:run uitgevoerd 
 				wordt -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>${mavenWARVersion}</version>
+				<version>2.1.1</version>
 				<executions>
 					<execution>
 						<phase>compile</phase>
@@ -109,21 +116,19 @@
 					<webappDirectory>${webappDirectory}</webappDirectory>
 				</configuration>
 			</plugin>
-
-
 			<!-- Met deze plugin kunnen we de Java versie om te compileren op 1.7 
 				zetten -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${mavenCompilerVersion}</version>
+				<version>2.3.2</version>
 				<configuration>
-					<source>${javaJDKVersion}</source>
-					<target>${javaJDKVersion}</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
-
 		</plugins>
+
 
 		<!-- PluginManagement laat toe de goals i18n[gwt-maven-plugin] en exploded[maven-war-plugin] 
 			te negeren in Eclipse. Als deze niet genegeerd worden in de validatie krijg 
@@ -131,7 +136,6 @@
 			in de pom kan er niet gecompileerd worden in eclipse (wel met mvn gwt:compile) 
 			en worden de Async klassen niet automatisch gegenereerd. Dit heeft geen impact 
 			op de maven build zelf. -->
-
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -147,7 +151,9 @@
 										<artifactId>gwt-maven-plugin</artifactId>
 										<versionRange>[2.4.0,)</versionRange>
 										<goals>
+											<goal>i18n</goal> 
 											<goal>generateAsync</goal>
+											<goal>resources</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
@@ -176,8 +182,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
-
+		 
 	</build>
-
 </project>
