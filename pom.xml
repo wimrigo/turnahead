@@ -60,7 +60,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<build>
 		<!-- Genereert de gecompileerde klassen naar WEB-INF/classes voor dev mode -->
 		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
-		<!-- Resources 
+	
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -71,7 +71,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 				</excludes>
 			</resource>
 		</resources>
--->
+
 		<plugins>
 			<!-- GWT Maven Plugin -->
 			<plugin>
@@ -85,7 +85,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 								src/main/resources toe aan het classpath zodat de bestanden hierin gevonden 
 								kunnen worden Compile: compileert Test: voert alle beschikbare testen uit 
 								i18n & generateAsync: laat GWT klassen genereren die nodig zijn voor de compilatie -->
-							<!-- <goal>resources</goal> -->
+						 	<goal>resources</goal> 
 							<goal>compile</goal>
 							<goal>test</goal>
 							<goal>generateAsync</goal>
@@ -136,7 +136,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			je permanent een error over i18n en exploded. Zolang er errors zouden staan 
 			in de pom kan er niet gecompileerd worden in eclipse (wel met mvn gwt:compile) 
 			en worden de Async klassen niet automatisch gegenereerd. Dit heeft geen impact 
-			op de maven build zelf.
+			op de maven build zelf. -->
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -154,6 +154,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 										<goals>
 											<goal>i18n</goal> 
 											<goal>generateAsync</goal>
+											<goal>resources</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
@@ -182,6 +183,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		 -->
+		 
 	</build>
 </project>
