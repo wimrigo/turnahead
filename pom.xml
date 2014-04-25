@@ -11,7 +11,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<name>GWT Maven Archetype</name>
 
 	<properties>
-		<gwtVersion>2.6.0-rc4</gwtVersion>
+		<gwtVersion>2.6.0</gwtVersion>
 		<javaJDKVersion>1.7</javaJDKVersion>
 		<mavenWARVersion>2.1.1</mavenWARVersion>
 		<mavenCompilerVersion>2.3.2</mavenCompilerVersion>
@@ -30,6 +30,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
+			<version>${gwtVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
 			<version>${gwtVersion}</version>
 			<scope>provided</scope>
 		</dependency>
