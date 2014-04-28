@@ -24,10 +24,10 @@ public class LocationView extends Composite {
 
 	@UiField
 	Button button1;
-	
+
 	@UiHandler("button1")
 	void onClickButton(ClickEvent e) {
 		Window.alert("button1 clicked");
-		
+
 	}
 }

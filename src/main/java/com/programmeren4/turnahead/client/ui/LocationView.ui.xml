@@ -6,8 +6,8 @@
 	</ui:style>
 	<g:HTMLPanel>
 	
-	<g:Button ui:field="button1" ></g:Button>
-	<g:Button ui:field="button2" ></g:Button>
+	<g:Button ui:field="button1" >Return to homepage</g:Button>
+	<g:Button ui:field="button2" >Show basket</g:Button>
 	
 	</g:HTMLPanel>
 </ui:UiBinder> 
