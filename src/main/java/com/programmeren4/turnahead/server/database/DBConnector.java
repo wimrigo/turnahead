@@ -10,7 +10,7 @@ public class DBConnector {
 	//USN: prog4
 	//PW: programmeren4
 	
-	public static final String URL = "us-cdbr-cb-east-01.cleardb.net:3306/cb_faandgtestdb";
+	public static final String URL = "us-cdbr-cb-east-01.cleardb.net:3306";
     public static final String USER = "bb747cf5e0067f";
     public static final String PASSWORD = "554e032d";
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 
