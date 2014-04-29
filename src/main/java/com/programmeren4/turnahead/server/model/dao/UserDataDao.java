@@ -31,7 +31,7 @@ public class UserDataDao {
 		ResultSet rs = null;
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM USER WHERE USERID=" + userData.getUserId();
 			rs = conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
@@ -48,7 +48,7 @@ public class UserDataDao {
 			e.printStackTrace();
 		} finally {
 			DBConnector.close(rs);
-			DBConnector.closeConn();
+			DBConnector.getInstance().closeConn();
 		}
 		return userDataReturn;
 	}
