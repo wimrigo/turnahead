@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 
 public class Item implements Serializable{
-	
+	private static final long serialVersionUID = 7890731364995144947L;
 	//attributen
     private long itemId; //Long itemId
 	private String itemName;

@@ -32,3 +32,5 @@ war/
 # Maven #
 target
 
+# Cache files created by local testing #
+*/webapp/**/*.js
