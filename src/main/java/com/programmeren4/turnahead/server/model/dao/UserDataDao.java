@@ -52,6 +52,37 @@ public class UserDataDao {
 		}
 		return userDataReturn;
 	}
+	
+	
+	public boolean checkUserData(UserDataDTO userData) throws DAOException {
+		String username = userData.getEMail();
+		String password = userData.getPassword();
+		
+		try {
+			UserDataDTO userDataReturn = null;
+			ResultSet rs = null;
+			
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			this.conn = DBConnector.getConn();
+			String sql = "SELECT * FROM USER WHERE EMAIL= "+ userData.getEMail();
+			rs = conn.createStatement().executeQuery(sql);
+
+			
+			//if (rs 
+			
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.closeConn();
+		}
+		
+		
+		return false;	
+	}
+	
 
 	/**
 	 * Gebruiker toevoegen aan de database (INSERT) of een bestaande gebruiker bijwerken (UPDATE)
