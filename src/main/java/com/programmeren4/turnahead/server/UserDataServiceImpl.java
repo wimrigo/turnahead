@@ -3,7 +3,7 @@ package com.programmeren4.turnahead.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.programmeren4.turnahead.client.services.UserDataService;
 import com.programmeren4.turnahead.server.model.Services;
-import com.programmeren4.turnahead.shared.dto.LoginDTO;
+import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 import com.programmeren4.turnahead.shared.exception.DAOException;
 
 public class UserDataServiceImpl extends RemoteServiceServlet implements UserDataService{
@@ -20,7 +20,7 @@ public class UserDataServiceImpl extends RemoteServiceServlet implements UserDat
 	}*/
 	
 	@Override
-	public boolean createUser(LoginDTO userDataDTO) throws DAOException {
+	public boolean createUser(UserDataDTO userDataDTO) throws DAOException {
 		//services.addUser(userDataDTO);
 		return true;
 	}

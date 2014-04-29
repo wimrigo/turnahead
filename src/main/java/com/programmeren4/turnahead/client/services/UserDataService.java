@@ -8,6 +8,7 @@ import com.programmeren4.turnahead.shared.exception.DAOException;
 
 // methode om gegevens van speler op te vragen uit databank
 // om te kunnen tonen op de OverzichtsPagina.java
+
 @RemoteServiceRelativePath("userservice")
 public interface UserDataService extends RemoteService{
 	public boolean createUser(UserDataDTO userDataDTO) throws DAOException;
