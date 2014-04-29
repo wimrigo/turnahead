@@ -10,35 +10,38 @@ public class DBConnector {
 	//USN: prog4
 	//PW: programmeren4
 	
-	private static Connection CONN = null;
 	public static final String URL = "us-cdbr-cb-east-01.cleardb.net:3306/cb_faandgtestdb";
     public static final String USER = "bb747cf5e0067f";
     public static final String PASSWORD = "554e032d";
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 
+    private static DBConnector _instance = null;
+	private Connection conn = null;
 	
 	
-	//constructor 
-	public DBConnector() {
-		initConn();
+    public static synchronized DBConnector getInstance() {
+		if (_instance == null) {
+			_instance = new DBConnector();
+		}
+		return _instance;
 	}
-	
-	//method
-	private void initConn() {
-		System.out.println("Connection initiated");
+    
+    public void init(){
+    	System.out.println("Connection initiated");
 		try {
-			DBConnector.CONN = DriverManager.getConnection(URL, USER, PASSWORD);
+			this.conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			System.out.println("Connection set");
+			
 		} catch (SQLException e1) {
 			System.out.println("Connection Failed");
 		}		
 		System.out.println("Connection confirmed");
+    }
+	
+	public Connection getConn() {
+		return this.conn;
 	}
 	
-	public static Connection getConn() {
-		return CONN;
-	}
-	
-	public static void closeConn() {
+	public void closeConn() {
 		try {
 			getConn().close();
 		} catch (SQLException e) {

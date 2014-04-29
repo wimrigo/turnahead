@@ -31,7 +31,7 @@ public class UserDataDao {
 		ResultSet rs = null;
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM USER WHERE USERID=" + userData.getUserId();
 			rs = conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
@@ -48,7 +48,7 @@ public class UserDataDao {
 			e.printStackTrace();
 		} finally {
 			DBConnector.close(rs);
-			DBConnector.closeConn();
+			DBConnector.getInstance().closeConn();
 		}
 		return userDataReturn;
 	}
@@ -60,8 +60,8 @@ public class UserDataDao {
 		boolean indatabase = false;
 
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
 			//Controle (Bestaat User al in db ?)
 
 			if (indatabase == true) {
@@ -87,7 +87,7 @@ public class UserDataDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnector.closeConn();
+			DBConnector.getInstance().closeConn();
 		}
 	}
 
@@ -98,7 +98,7 @@ public class UserDataDao {
 
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			this.conn = DBConnector.getInstance().getConn();
 			sql = "DELETE FROM USER WHERE USERID=" + userData.getUserId();
 			conn.createStatement().executeUpdate(sql);
 		} catch (SQLException se) {
@@ -106,7 +106,7 @@ public class UserDataDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnector.closeConn();
+			DBConnector.getInstance().closeConn();
 		}
 	}
 
@@ -119,8 +119,8 @@ public class UserDataDao {
 		UserDataDTO userDataReturn = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
 			rs = conn.createStatement().executeQuery(query);
 
 			while (rs.next()) {
@@ -140,7 +140,7 @@ public class UserDataDao {
 			e.printStackTrace();
 		} finally {
 			DBConnector.close(rs);
-			DBConnector.closeConn();
+			DBConnector.getInstance().closeConn();
 		}
 		return list;
 	}
