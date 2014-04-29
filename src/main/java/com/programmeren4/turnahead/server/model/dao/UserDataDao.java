@@ -26,7 +26,7 @@ public class UserDataDao {
 	/**
 	 * Gebruikerinformatie opvragen uit de database
 	 */
-	public UserDataDTO getUserData(UserDataDTO userData) throws DAOException {
+	public UserDataDTO getUserData(UserDataDTO userData) throws SQLException {
 		UserDataDTO userDataReturn = null;
 		ResultSet rs = null;
 		try {
@@ -56,7 +56,7 @@ public class UserDataDao {
 	/**
 	 * Gebruiker toevoegen aan de database (INSERT) of een bestaande gebruiker bijwerken (UPDATE)
 	 */
-	public void addUserData(UserDataDTO userData) throws DAOException {
+	public void addUserData(UserDataDTO userData) throws SQLException {
 		boolean indatabase = false;
 
 		try {
