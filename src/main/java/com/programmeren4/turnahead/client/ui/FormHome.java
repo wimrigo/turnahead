@@ -86,7 +86,9 @@ public class FormHome extends Composite {
 			
 			@Override
 			public void onSuccess(List<UserDataDTO> result) {
-				Window.alert(result.get(2).getFirstName());
+				//TODO check if list not empty
+				String msg = "Retrieved user with userID "+result.get(0).getUserId()+" succesfully!"+" - "+result.get(0).getFirstName()+" - "+result.get(0).getLastName()+" - "+result.get(0).getEMail()+" - "+result.get(0).getPassword();
+				Window.alert(msg);
 				
 			}
 			

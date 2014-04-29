@@ -67,7 +67,7 @@ public class UserDataDao {
 			if (indatabase == true) {
 				// JA -> UPDATE bestaande record 
 				// "UPDATE USER SET *='userData.getX()',*='userData.getY()', WHERE USERID=" + userData.getUserId();
-				String sql = "UPDATE USER SET "; 
+				String sql = "UPDATE cb_faandgtestdb.USER SET "; 
 				sql += "FIRSTNAME='" + userData.getFirstName() +  "',";
 				sql += "LASTNAME='" + userData.getLastName() +  "',";
 				sql += "EMAIL='" + userData.getEMail() +  "',";
@@ -77,7 +77,7 @@ public class UserDataDao {
 			} else {
 				// NEEN -> User toevoegen aan de database> 
 				// INSERT INTO USER(Columns db) VALUES (userData.getXXX(), userData.getXXX(), userData.getXXX())
-				String sql = "INSERT INTO USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES (" ;
+				String sql = "INSERT INTO cb_faandgtestdb.USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES (" ;
 				sql += userData.getFirstName() + ", " + userData.getLastName() + ", " + userData.getEMail() + ", " + userData.getPassword() ;
 				sql += ")";
 				conn.createStatement().executeUpdate(sql);
@@ -115,7 +115,7 @@ public class UserDataDao {
 	 * Alle gebruikers uit de db ophalen
 	 */
 	public List<UserDataDTO> getUsers() throws SQLException {
-		String query = "SELECT * FROM USER";
+		String query = "SELECT * FROM cb_faandgtestdb.USER";
 		List<UserDataDTO> list = new ArrayList<UserDataDTO>();
 		UserDataDTO userDataReturn = null;
 		ResultSet rs = null;
