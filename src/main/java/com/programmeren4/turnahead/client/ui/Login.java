@@ -2,17 +2,17 @@ package com.programmeren4.turnahead.client.ui;
 
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class Overview {
+public class Login {
 
-	private FormOverview overview = new FormOverview();
+	private LoginView login = new LoginView();
 
-	public Overview() {
+	public Login() {
 		onLoad();
 	}
 
 	public void onLoad() {
 		RootPanel.get().clear();
-		RootPanel.get().add(overview);
+		RootPanel.get().add(login);
 	}
 
 }

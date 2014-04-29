@@ -4,107 +4,119 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Gebruiker
- * 
- */
-public class UserDataDTO implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private Long userId; // Long key
-	private String firstName;
-	private String lastName;
-	private String eMail;
-	private String password;
-	private Date lastLogin;
-	private Date registrationDate;
+* Gebruiker
+*
+*/
+public class UserDataDTO implements Serializable{
+private static final long serialVersionUID = 1L;
+private Long userId; //Long key
+    private String firstName;
+    private String lastName;
+    private String eMail;
+    private String password;
+private Date lastLogin;
+    private Date registrationDate;
+    
+    //constructor
+    public UserDataDTO(String firstName, String lastName, String eMail, String password){
+     this.firstName = firstName;
+     this.lastName = lastName;
+     this.eMail = eMail;
+     this.password = password;
+    }
+    
+    
 
-	// constructor
-	public UserDataDTO(String firstName, String lastName, String eMail,
-			String password) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.eMail = eMail;
-		this.password = password;
-	}
 
-	public UserDataDTO() {
-		super();
-	}
+    public UserDataDTO() {
+super();
+}
 
-	public Long getUserId() {
-		return userId;
-	}
 
-	public String getFirstName() {
-		return firstName;
-	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 
-	public String getLastName() {
-		return lastName;
-	}
+public Long getUserId() {
+        return userId;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    
+    public String getPassword() {
+return password;
+}
+public void setPassword(String password) {
+this.password = password;
+}
+    
+    
+    public String getEMail() {
+        return eMail;
+    }
+    public void setEMail(String EMail) {
+        this.eMail = EMail;
+    }
 
-	public String getEMail() {
-		return eMail;
-	}
+    
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+    public void setLastLoginDate(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+    
+    
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
 
-	public void setEMail(String EMail) {
-		this.eMail = EMail;
-	}
 
-	public Date getLastLogin() {
-		return lastLogin;
-	}
 
-	public void setLastLoginDate(Date lastLogin) {
-		this.lastLogin = lastLogin;
-	}
 
-	public Date getRegistrationDate() {
-		return registrationDate;
-	}
+@Override
+public int hashCode() {
+final int prime = 31;
+int result = 1;
+result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+return result;
+}
 
-	public void setRegistrationDate(Date registrationDate) {
-		this.registrationDate = registrationDate;
-	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserDataDTO other = (UserDataDTO) obj;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
-		return true;
-	}
+
+@Override
+public boolean equals(Object obj) {
+if (this == obj)
+return true;
+if (obj == null)
+return false;
+if (getClass() != obj.getClass())
+return false;
+UserDataDTO other = (UserDataDTO) obj;
+if (userId == null) {
+if (other.userId != null)
+return false;
+} else if (!userId.equals(other.userId))
+return false;
+return true;
+}
+    
 
 }
