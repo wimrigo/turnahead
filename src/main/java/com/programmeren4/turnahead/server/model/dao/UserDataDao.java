@@ -16,13 +16,12 @@ public class UserDataDao {
 	private String sql;
 
 	// constructor
-	public UserDataDao() {}
+	public UserDataDao() {
+	}
 
-	
-	//getters en setters
-	
-	
-	//methoden
+	// getters en setters
+
+	// methoden
 	/**
 	 * Gebruikerinformatie opvragen uit de database
 	 */
@@ -54,7 +53,8 @@ public class UserDataDao {
 	}
 
 	/**
-	 * Gebruiker toevoegen aan de database (INSERT) of een bestaande gebruiker bijwerken (UPDATE)
+	 * Gebruiker toevoegen aan de database (INSERT) of een bestaande gebruiker
+	 * bijwerken (UPDATE)
 	 */
 	public void addUserData(UserDataDTO userData) throws SQLException {
 		boolean indatabase = false;
@@ -62,26 +62,30 @@ public class UserDataDao {
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			//Controle (Bestaat User al in db ?)
+			// Controle (Bestaat User al in db ?)
 
 			if (indatabase == true) {
-				// JA -> UPDATE bestaande record 
-				// "UPDATE USER SET *='userData.getX()',*='userData.getY()', WHERE USERID=" + userData.getUserId();
-				String sql = "UPDATE cb_faandgtestdb.USER SET "; 
-				sql += "FIRSTNAME='" + userData.getFirstName() +  "',";
-				sql += "LASTNAME='" + userData.getLastName() +  "',";
-				sql += "EMAIL='" + userData.getEMail() +  "',";
-				sql += "PASSWORD='" + userData.getPassword() +  "',";
+				// JA -> UPDATE bestaande record
+				// "UPDATE USER SET *='userData.getX()',*='userData.getY()', WHERE USERID="
+				// + userData.getUserId();
+				String sql = "UPDATE cb_faandgtestdb.USER SET ";
+				sql += "FIRSTNAME='" + userData.getFirstName() + "',";
+				sql += "LASTNAME='" + userData.getLastName() + "',";
+				sql += "EMAIL='" + userData.getEMail() + "',";
+				sql += "PASSWORD='" + userData.getPassword() + "',";
 				sql += " WHERE USERID=" + userData.getUserId();
 				conn.createStatement().executeUpdate(sql);
 			} else {
-				// NEEN -> User toevoegen aan de database> 
-				// INSERT INTO USER(Columns db) VALUES (userData.getXXX(), userData.getXXX(), userData.getXXX())
-				String sql = "INSERT INTO cb_faandgtestdb.USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES ('" ;
-				sql += userData.getFirstName() + "', '" + userData.getLastName() + "', '" + userData.getEMail() + "', '" + userData.getPassword() ;
+				// NEEN -> User toevoegen aan de database>
+				// INSERT INTO USER(Columns db) VALUES (userData.getXXX(),
+				// userData.getXXX(), userData.getXXX())
+				String sql = "INSERT INTO cb_faandgtestdb.USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES ('";
+				sql += userData.getFirstName() + "', '"
+						+ userData.getLastName() + "', '" + userData.getEMail()
+						+ "', '" + userData.getPassword();
 				sql += "')";
 				conn.createStatement().executeUpdate(sql);
-				//ExecuteUpdate ook voor inserts
+				// ExecuteUpdate ook voor inserts
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -131,7 +135,11 @@ public class UserDataDao {
 				userDataReturn.setLastName(rs.getString("LASTNAME"));
 				userDataReturn.setEMail(rs.getString("EMAIL"));
 				userDataReturn.setPassword(rs.getString("PASSWORD"));
+
 				list.add(userDataReturn);
+			}
+			if (list.isEmpty()) {
+				System.out.println("List fetched from database is empty.");
 			}
 		} catch (SQLException se) {
 			// Handle errors for JDBC

@@ -1,6 +1,7 @@
 package com.programmeren4.turnahead.server;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -35,9 +36,12 @@ public class UserDataServiceImpl extends RemoteServiceServlet implements UserDat
 	
 	@Override
 	public List<UserDataDTO> getUserData(){
-		List<UserDataDTO> userList = null;
+		List<UserDataDTO> userList = new ArrayList<UserDataDTO>();
 		try {
-			userList = userDataDao.getUsers();
+			userList.addAll(userDataDao.getUsers());
+			if (userList.isEmpty()){
+				System.out.println("The returned arraylist is empty");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
