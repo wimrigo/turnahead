@@ -11,6 +11,7 @@ public class DBConnector {
 	//PW: programmeren4
 	
 	public static final String URL = "us-cdbr-cb-east-01.cleardb.net:3306";
+	public static final String DRIVERURL = "jdbc:mysql://";
     public static final String USER = "bb747cf5e0067f";
     public static final String PASSWORD = "554e032d";
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 
@@ -28,13 +29,12 @@ public class DBConnector {
     public void init(){
     	System.out.println("Connection initiated");
 		try {
-			this.conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			this.conn = DriverManager.getConnection(DRIVERURL+URL, USER, PASSWORD);
 			System.out.println("Connection set");
 			
 		} catch (SQLException e1) {
 			System.out.println("Connection Failed");
 		}		
-		System.out.println("Connection confirmed");
     }
 	
 	public Connection getConn() {
