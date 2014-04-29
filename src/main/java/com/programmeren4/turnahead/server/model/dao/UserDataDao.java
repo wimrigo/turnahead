@@ -77,9 +77,9 @@ public class UserDataDao {
 			} else {
 				// NEEN -> User toevoegen aan de database> 
 				// INSERT INTO USER(Columns db) VALUES (userData.getXXX(), userData.getXXX(), userData.getXXX())
-				String sql = "INSERT INTO cb_faandgtestdb.USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES (" ;
-				sql += userData.getFirstName() + ", " + userData.getLastName() + ", " + userData.getEMail() + ", " + userData.getPassword() ;
-				sql += ")";
+				String sql = "INSERT INTO cb_faandgtestdb.USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES ('" ;
+				sql += userData.getFirstName() + "', '" + userData.getLastName() + "', '" + userData.getEMail() + "', '" + userData.getPassword() ;
+				sql += "')";
 				conn.createStatement().executeUpdate(sql);
 				//ExecuteUpdate ook voor inserts
 			}
