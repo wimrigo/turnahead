@@ -80,7 +80,8 @@ public class UserDataDao {
 				String sql = "INSERT INTO USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES (" ;
 				sql += userData.getFirstName() + ", " + userData.getLastName() + ", " + userData.getEMail() + ", " + userData.getPassword() ;
 				sql += ")";
-				conn.createStatement().executeQuery(sql);
+				conn.createStatement().executeUpdate(sql);
+				//ExecuteUpdate ook voor inserts
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
