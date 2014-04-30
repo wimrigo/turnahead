@@ -10,35 +10,38 @@ public class DBConnector {
 	//USN: prog4
 	//PW: programmeren4
 	
-	private static Connection CONN = null;
+	private Connection conn = null;
+	public static final String DRIVERURL = "jdbc:mysql://";
 	public static final String URL = "ec2-50-19-213-178.compute-1.amazonaws.com:3306/programmeren4";
     public static final String USER = "prog4";
     public static final String PASSWORD = "programmeren4";
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 
+    private static DBConnector _instance = null;
 	
 	
-	//constructor 
-	public DBConnector() {
-		initConn();
+    public static synchronized DBConnector getInstance() {
+		if (_instance == null) {
+			_instance = new DBConnector();
+		}
+		return _instance;
 	}
-	
-	//method
-	private void initConn() {
-		System.out.println("Connection initiated");
+    
+    public void init(){
+    	System.out.println("Connection initiated");
 		try {
-			DBConnector.CONN = DriverManager.getConnection(URL, USER, PASSWORD);
+			this.conn = DriverManager.getConnection(DRIVERURL+URL, USER, PASSWORD);
 			System.out.println("Connection set");
+			
 		} catch (SQLException e1) {
 			System.out.println("Connection Failed");
 		}		
-		System.out.println("Connection confirmed");
+    }
+	
+	public Connection getConn() {
+		return this.conn;
 	}
 	
-	public static Connection getConn() {
-		return CONN;
-	}
-	
-	public static void closeConn() {
+	public void closeConn() {
 		try {
 			getConn().close();
 		} catch (SQLException e) {
@@ -46,7 +49,7 @@ public class DBConnector {
 		}
 	}
 	
-	public static void close(ResultSet resultSet) {
+	public void close(ResultSet resultSet) {
 		if (resultSet != null) {
 			try {
 				resultSet.close();

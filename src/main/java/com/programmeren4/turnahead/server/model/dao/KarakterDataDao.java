@@ -29,7 +29,8 @@ public class KarakterDataDao {
 		ResultSet rs = null;
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM KARAKTER WHERE CHARACTERID=" + userData.getKarakterId();
 			rs = conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
@@ -43,8 +44,8 @@ public class KarakterDataDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnector.close(rs);
-			DBConnector.closeConn();
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
 		}
 		return karakterReturn;
 	}
@@ -60,7 +61,8 @@ public class KarakterDataDao {
 	public void deleteUserData(KarakterDTO userData) throws DAOException {
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
 			sql = "DELETE FROM KARAKTER WHERE CHARACTERID=" + userData.getKarakterId();
 			conn.createStatement().executeUpdate(sql);
 		} catch (SQLException se) {
@@ -68,7 +70,7 @@ public class KarakterDataDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnector.closeConn();
+			DBConnector.getInstance().closeConn();
 		}
 	}
 	
