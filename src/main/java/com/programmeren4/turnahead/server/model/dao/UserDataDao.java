@@ -89,8 +89,6 @@ public class UserDataDao {
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			DBConnector.getInstance().closeConn();
 		}
@@ -144,9 +142,6 @@ public class UserDataDao {
 		} catch (SQLException se) {
 			// Handle errors for JDBC
 			se.printStackTrace();
-		} catch (Exception e) {
-			// Handle errors for Class.forName
-			e.printStackTrace();
 		} finally {
 			DBConnector.close(rs);
 			DBConnector.getInstance().closeConn();
