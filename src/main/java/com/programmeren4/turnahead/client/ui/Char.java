@@ -4,12 +4,15 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class Char {
 
-private FormMakeChar charForm = new FormMakeChar();
-	
-	
+	private FormMakeChar charForm = new FormMakeChar();
+
+	public Char() {
+		super();
+		onLoad();
+	}
+
 	public void onLoad() {
 		RootPanel.get().add(charForm);
 	}
-	
-	
+
 }

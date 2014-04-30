@@ -36,15 +36,16 @@ public class LoginView extends Composite {
 	Button inloggen;
 	@UiField
 	Button reset;
-	
+
 	@UiHandler("inloggen")
 	void onClickButtonInloggen(ClickEvent e) {
-		Window.alert("inloggen");	
+		Window.alert("Je gaat naar het overzichtscherm zonder username/password");
+		new Overview();
 	}
-	
+
 	@UiHandler("reset")
 	void onClickButtonResetten(ClickEvent e) {
-		Window.alert("resetten");	
+		Window.alert("resetten");
 	}
-	
+
 }

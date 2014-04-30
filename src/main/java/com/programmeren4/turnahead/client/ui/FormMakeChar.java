@@ -12,7 +12,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class FormMakeChar extends Composite  {
+public class FormMakeChar extends Composite {
 
 	private static CharAanmakenUiBinder uiBinder = GWT
 			.create(CharAanmakenUiBinder.class);
@@ -23,8 +23,6 @@ public class FormMakeChar extends Composite  {
 	public FormMakeChar() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-	
-
 
 	@UiField
 	Button OKbutton;
@@ -33,39 +31,33 @@ public class FormMakeChar extends Composite  {
 	TextBox geslacht;
 
 	@UiHandler("naam")
-	public String getName(){
+	public String getName() {
 		// naam return die in textbox in ingegeven
 		return name.getText();
-		
+
 	}
-	
-	public String getGeslacht(){
+
+	public String getGeslacht() {
 		// return geslacht dat in textbox geslacht is ingevuld
 		return geslacht.getText();
-		
+
 	}
-	
-	
-	
+
 	@UiHandler("OKbutton")
 	void onClickOKknop(ClickEvent e) {
 		// char wordt toegevoegd aan databankwindow
 		Window.alert("char toegevoegd aan databank");
 		// char toevoegen aan databank
-		
-		
-		
+
 	}
+
 	@UiHandler("cancelButton")
 	void onClickcancelKnop(ClickEvent e) {
-		// de bewerking wordt afgebroken en men wordt terug gestuurd naar de overzichtspagina
+		// de bewerking wordt afgebroken en men wordt terug gestuurd naar de
+		// overzichtspagina
 		FormOverview formOverzichtspagina = new FormOverview();
 		RootPanel.get().clear();
 		RootPanel.get().add(formOverzichtspagina);
 	}
-
-	
-
-	
 
 }
