@@ -37,7 +37,6 @@ public class LoginDao {
 				LoginReturn.setEMail(rs.getString("EMAIL"));
 				LoginReturn.setPassword(rs.getString("PASSWORD"));
 			}
-			
 
 		} catch (SQLException se) {
 			se.printStackTrace();
