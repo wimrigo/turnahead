@@ -30,7 +30,7 @@ public class LoginDao {
 			ResultSet rs; // = null;
 
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			this.conn = DBConnector.getInstance().getConn();
 			String sql = "SELECT PASSWORD FROM USER WHERE EMAIL= "+ login.getEMail();
 			rs = conn.createStatement().executeQuery(sql);
 
@@ -43,7 +43,7 @@ public class LoginDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnector.closeConn();
+			DBConnector.getInstance().closeConn();
 		}
 
 		return false;
