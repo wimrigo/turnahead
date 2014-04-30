@@ -30,18 +30,18 @@ public class FormMakeChar extends Composite {
 	TextBox name;
 	TextBox geslacht;
 
-	@UiHandler("naam")
-	public String getName() {
-		// naam return die in textbox in ingegeven
-		return name.getText();
-
-	}
-
-	public String getGeslacht() {
-		// return geslacht dat in textbox geslacht is ingevuld
-		return geslacht.getText();
-
-	}
+//	@UiHandler("naam")
+//	public String getName() {
+//		// naam return die in textbox in ingegeven
+//		return name.getText();
+//
+//	}
+//
+//	public String getGeslacht() {
+//		// return geslacht dat in textbox geslacht is ingevuld
+//		return geslacht.getText();
+//
+//	}
 
 	@UiHandler("OKbutton")
 	void onClickOKknop(ClickEvent e) {
