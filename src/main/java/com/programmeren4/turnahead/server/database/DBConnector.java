@@ -10,13 +10,13 @@ public class DBConnector {
 	//USN: prog4
 	//PW: programmeren4
 	
-	private static Connection CONN = null;
+	private Connection conn = null;
+	public static final String DRIVERURL = "jdbc:mysql://";
 	public static final String URL = "ec2-50-19-213-178.compute-1.amazonaws.com:3306/programmeren4";
     public static final String USER = "prog4";
     public static final String PASSWORD = "programmeren4";
     public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 
     private static DBConnector _instance = null;
-	private Connection conn = null;
 	
 	
     public static synchronized DBConnector getInstance() {
@@ -49,7 +49,7 @@ public class DBConnector {
 		}
 	}
 	
-	public static void close(ResultSet resultSet) {
+	public void close(ResultSet resultSet) {
 		if (resultSet != null) {
 			try {
 				resultSet.close();

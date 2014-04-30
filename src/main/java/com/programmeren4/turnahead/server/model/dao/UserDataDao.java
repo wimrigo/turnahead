@@ -46,7 +46,7 @@ public class UserDataDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnector.close(rs);
+			DBConnector.getInstance().close(rs);
 			DBConnector.getInstance().closeConn();
 		}
 		return userDataReturn;
@@ -143,7 +143,7 @@ public class UserDataDao {
 			// Handle errors for JDBC
 			se.printStackTrace();
 		} finally {
-			DBConnector.close(rs);
+			DBConnector.getInstance().close(rs);
 			DBConnector.getInstance().closeConn();
 		}
 		return list;
