@@ -1,8 +1,8 @@
 package com.programmeren4.turnahead.server.model.dao;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,18 +25,17 @@ public class UserDataDao {
 	/**
 	 * Gebruikerinformatie opvragen uit de database
 	 */
-	public UserDataDTO getUserData(UserDataDTO userData) throws DAOException {
+	public UserDataDTO getUserData(UserDataDTO userData) throws SQLException {
 		UserDataDTO userDataReturn = null;
 		ResultSet rs = null;
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			//this.conn = DBConnector.getInstance().getConn();
-			this.conn = DBConnector.getConn();
+			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM USER WHERE USERID=" + userData.getUserId();
 			rs = conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
 				userDataReturn = new UserDataDTO();
-//				userDataReturn.setUserId(rs.getLong("USERID"));
+				userDataReturn.setUserId(rs.getLong("USERID"));
 				userDataReturn.setFirstName(rs.getString("FIRSTNAME"));
 				userDataReturn.setLastName(rs.getString("LASTNAME"));
 				userDataReturn.setEMail(rs.getString("EMAIL"));
@@ -47,57 +46,29 @@ public class UserDataDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnector.close(rs);
-			//DBConnector.getInstance().closeConn();
-			DBConnector.closeConn();
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
 		}
 		return userDataReturn;
-	}
-
-	public boolean checkUserData(UserDataDTO userData) throws DAOException {
-		String username = userData.getEMail();
-		String password = userData.getPassword();
-
-		try {
-			UserDataDTO userDataReturn = null;
-			ResultSet rs = null;
-
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
-			String sql = "SELECT * FROM USER WHERE EMAIL= "
-					+ userData.getEMail();
-			rs = conn.createStatement().executeQuery(sql);
-
-			// if (rs
-
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBConnector.closeConn();
-		}
-
-		return false;
 	}
 
 	/**
 	 * Gebruiker toevoegen aan de database (INSERT) of een bestaande gebruiker
 	 * bijwerken (UPDATE)
 	 */
-	public void addUserData(UserDataDTO userData) throws DAOException {
+	public void addUserData(UserDataDTO userData) throws SQLException {
 		boolean indatabase = false;
 
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
 			// Controle (Bestaat User al in db ?)
 
 			if (indatabase == true) {
 				// JA -> UPDATE bestaande record
 				// "UPDATE USER SET *='userData.getX()',*='userData.getY()', WHERE USERID="
 				// + userData.getUserId();
-				String sql = "UPDATE USER SET ";
+				String sql = "UPDATE programmeren4.USER SET ";
 				sql += "FIRSTNAME='" + userData.getFirstName() + "',";
 				sql += "LASTNAME='" + userData.getLastName() + "',";
 				sql += "EMAIL='" + userData.getEMail() + "',";
@@ -108,19 +79,18 @@ public class UserDataDao {
 				// NEEN -> User toevoegen aan de database>
 				// INSERT INTO USER(Columns db) VALUES (userData.getXXX(),
 				// userData.getXXX(), userData.getXXX())
-				String sql = "INSERT INTO USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES (";
-				sql += userData.getFirstName() + ", " + userData.getLastName()
-						+ ", " + userData.getEMail() + ", "
-						+ userData.getPassword();
-				sql += ")";
-				conn.createStatement().executeQuery(sql);
+				String sql = "INSERT INTO programmeren4.USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES ('";
+				sql += userData.getFirstName() + "', '"
+						+ userData.getLastName() + "', '" + userData.getEMail()
+						+ "', '" + userData.getPassword();
+				sql += "')";
+				conn.createStatement().executeUpdate(sql);
+				// ExecuteUpdate ook voor inserts
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
-			DBConnector.closeConn();
+			DBConnector.getInstance().closeConn();
 		}
 	}
 
@@ -131,7 +101,7 @@ public class UserDataDao {
 
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			this.conn = DBConnector.getInstance().getConn();
 			sql = "DELETE FROM USER WHERE USERID=" + userData.getUserId();
 			conn.createStatement().executeUpdate(sql);
 		} catch (SQLException se) {
@@ -139,7 +109,7 @@ public class UserDataDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnector.closeConn();
+			DBConnector.getInstance().closeConn();
 		}
 	}
 
@@ -147,33 +117,34 @@ public class UserDataDao {
 	 * Alle gebruikers uit de db ophalen
 	 */
 	public List<UserDataDTO> getUsers() throws SQLException {
-		String query = "SELECT * FROM USER";
+		String query = "SELECT * FROM programmeren4.USER";
 		List<UserDataDTO> list = new ArrayList<UserDataDTO>();
 		UserDataDTO userDataReturn = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			this.conn = DBConnector.getConn();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
 			rs = conn.createStatement().executeQuery(query);
 
 			while (rs.next()) {
 				userDataReturn = new UserDataDTO();
-				//userDataReturn.setUserId(rs.getLong("USERID"));
+				userDataReturn.setUserId(rs.getLong("USERID"));
 				userDataReturn.setFirstName(rs.getString("FIRSTNAME"));
 				userDataReturn.setLastName(rs.getString("LASTNAME"));
 				userDataReturn.setEMail(rs.getString("EMAIL"));
 				userDataReturn.setPassword(rs.getString("PASSWORD"));
+
 				list.add(userDataReturn);
+			}
+			if (list.isEmpty()) {
+				System.out.println("List fetched from database is empty.");
 			}
 		} catch (SQLException se) {
 			// Handle errors for JDBC
 			se.printStackTrace();
-		} catch (Exception e) {
-			// Handle errors for Class.forName
-			e.printStackTrace();
 		} finally {
-			DBConnector.close(rs);
-			DBConnector.closeConn();
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
 		}
 		return list;
 	}
