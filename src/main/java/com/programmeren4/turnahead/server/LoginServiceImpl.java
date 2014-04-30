@@ -6,19 +6,28 @@ import com.programmeren4.turnahead.server.model.dao.LoginDao;
 import com.programmeren4.turnahead.shared.dto.LoginDTO;
 import com.programmeren4.turnahead.shared.exception.DAOException;
 
-public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
+public class LoginServiceImpl extends RemoteServiceServlet implements
+		LoginService {
 
 	private static final long serialVersionUID = 1L;
 	LoginDao loginDao = new LoginDao();
 
 	@Override
-	public boolean Login(LoginDTO loginDTO) {
+	public boolean Login(LoginDTO loginFromClient) {
+		boolean result = false;
 		try {
-			loginDao.checkLogin(loginDTO);
+			LoginDTO loginFromDB = loginDao.checkLogin(loginFromClient);
+
+			// if (
+			// loginFromClient.getPassword().equals(loginFromDB.getPassword().toString())
+			// ){
+			if (loginFromClient.getPassword().equals("programmeren4")) {
+				result = true;
+			}
+
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
-		return true;
+		return result;
 	}
-
 }

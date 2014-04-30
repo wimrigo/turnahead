@@ -20,11 +20,10 @@ public class LoginDao {
 
 		LoginDTO LoginReturn = null;
 		ResultSet rs = null;
-		try {
-			//Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+		try {		
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			String sql = "SELECT * FROM USER";// WHERE EMAIL=" + login.getEMail();
+			String sql = "SELECT * FROM user"; // WHERE EMAIL=" + login.getEMail();
 			rs = conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
 				LoginReturn = new LoginDTO();
@@ -37,7 +36,7 @@ public class LoginDao {
 			e.printStackTrace();
 		} finally {
 			DBConnector.getInstance().close(rs);
-			DBConnector.getInstance().closeConn();
+//			DBConnector.getInstance().closeConn();
 		}
 
 		return LoginReturn;
