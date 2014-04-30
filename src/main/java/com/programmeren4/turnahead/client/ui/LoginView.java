@@ -46,11 +46,12 @@ public class LoginView extends Composite {
 	void onClickButtonInloggen(ClickEvent e) {
 
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			
 			@Override
 			public void onSuccess(Boolean result) {
 				if (result) {
-					Window.alert("Logged in!");
-					//new Overview();
+					Window.alert("Logged in");
+					new Overview();
 				}
 				else{
 					Window.alert("Crap");
@@ -64,6 +65,7 @@ public class LoginView extends Composite {
 
 			}
 		};
+		
 		LoginAsync.Login(new LoginDTO("WARD.PEER@HOTMAIL.COM", "programmeren4"), callback);
 	}
 

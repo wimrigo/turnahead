@@ -11,14 +11,13 @@ public class LoginDTO implements Serializable {
 	private String email;
 	private String password;
 
-	// constructor
+	public LoginDTO() {
+		super();
+	}
+	
 	public LoginDTO(String email, String password) {
 		this.email = email;
 		this.password = password;
-	}
-
-	public LoginDTO() {
-		super();
 	}
 
 	public String getEMail() {
