@@ -1,21 +1,30 @@
 package com.programmeren4.turnahead.shared.dto;
 
+import java.io.Serializable;
+
 /**
  * Basket DTO (Items in een basket van een Karakter)
  *
  */
-public class BasketDTO {
+public class BasketDTO implements Serializable{
 	//attributen
-	//private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private Long basketID; //int basketID;
 	private String karakterName;
 	private Long itemID;
 	private String itemName;
 	
 	
-	//constructor (?)
+	//constructor
+	public BasketDTO(String karakterName){
+		this.karakterName = karakterName;
+    }
 	
+    public BasketDTO() {
+		super();
+	}
 	
+    
 	//getters en setters
 	public Long getBasketID() {
 		return basketID;

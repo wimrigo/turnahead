@@ -1,18 +1,28 @@
 package com.programmeren4.turnahead.shared.dto;
 
+import java.io.Serializable;
+
 
 /**
  * Locatie DTO
  * 
  */
-public class LocationDTO {
+public class LocationDTO implements Serializable{
 	//attributen
-	//private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private Long locationId; //int locationId;
     private String locationName;
     private String locationDescription;
 
     //constructor (?)
+    public LocationDTO(String locationName, String locationDescription) {
+		this.locationName = locationName;
+		this.locationDescription = locationDescription; 
+	}
+    
+    public LocationDTO() {
+		super();
+	}
     
     
     //getters en setters
@@ -20,7 +30,7 @@ public class LocationDTO {
         return locationId;
     }
     
-    public String getFirstName() {
+	public String getFirstName() {
         return locationName;
     }
     public void setFirstName(String locationName) {

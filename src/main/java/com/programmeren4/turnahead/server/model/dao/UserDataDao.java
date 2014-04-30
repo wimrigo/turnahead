@@ -1,8 +1,8 @@
 package com.programmeren4.turnahead.server.model.dao;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +16,12 @@ public class UserDataDao {
 	private String sql;
 
 	// constructor
-	public UserDataDao() {}
+	public UserDataDao() {
+	}
 
-	
-	//getters en setters
-	
-	
-	//methoden
+	// getters en setters
+
+	// methoden
 	/**
 	 * Gebruikerinformatie opvragen uit de database
 	 */
@@ -31,12 +30,13 @@ public class UserDataDao {
 		ResultSet rs = null;
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			//this.conn = DBConnector.getInstance().getConn();
 			this.conn = DBConnector.getConn();
 			sql = "SELECT * FROM USER WHERE USERID=" + userData.getUserId();
 			rs = conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
 				userDataReturn = new UserDataDTO();
-				userDataReturn.setUserId(rs.getLong("USERID"));
+//				userDataReturn.setUserId(rs.getLong("USERID"));
 				userDataReturn.setFirstName(rs.getString("FIRSTNAME"));
 				userDataReturn.setLastName(rs.getString("LASTNAME"));
 				userDataReturn.setEMail(rs.getString("EMAIL"));
@@ -48,13 +48,42 @@ public class UserDataDao {
 			e.printStackTrace();
 		} finally {
 			DBConnector.close(rs);
+			//DBConnector.getInstance().closeConn();
 			DBConnector.closeConn();
 		}
 		return userDataReturn;
 	}
 
+	public boolean checkUserData(UserDataDTO userData) throws DAOException {
+		String username = userData.getEMail();
+		String password = userData.getPassword();
+
+		try {
+			UserDataDTO userDataReturn = null;
+			ResultSet rs = null;
+
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			this.conn = DBConnector.getConn();
+			String sql = "SELECT * FROM USER WHERE EMAIL= "
+					+ userData.getEMail();
+			rs = conn.createStatement().executeQuery(sql);
+
+			// if (rs
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.closeConn();
+		}
+
+		return false;
+	}
+
 	/**
-	 * Gebruiker toevoegen aan de database (INSERT) of een bestaande gebruiker bijwerken (UPDATE)
+	 * Gebruiker toevoegen aan de database (INSERT) of een bestaande gebruiker
+	 * bijwerken (UPDATE)
 	 */
 	public void addUserData(UserDataDTO userData) throws DAOException {
 		boolean indatabase = false;
@@ -62,23 +91,27 @@ public class UserDataDao {
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			this.conn = DBConnector.getConn();
-			//Controle (Bestaat User al in db ?)
+			// Controle (Bestaat User al in db ?)
 
 			if (indatabase == true) {
-				// JA -> UPDATE bestaande record 
-				// "UPDATE USER SET *='userData.getX()',*='userData.getY()', WHERE USERID=" + userData.getUserId();
-				String sql = "UPDATE USER SET "; 
-				sql += "FIRSTNAME='" + userData.getFirstName() +  "',";
-				sql += "LASTNAME='" + userData.getLastName() +  "',";
-				sql += "EMAIL='" + userData.getEMail() +  "',";
-				sql += "PASSWORD='" + userData.getPassword() +  "',";
+				// JA -> UPDATE bestaande record
+				// "UPDATE USER SET *='userData.getX()',*='userData.getY()', WHERE USERID="
+				// + userData.getUserId();
+				String sql = "UPDATE USER SET ";
+				sql += "FIRSTNAME='" + userData.getFirstName() + "',";
+				sql += "LASTNAME='" + userData.getLastName() + "',";
+				sql += "EMAIL='" + userData.getEMail() + "',";
+				sql += "PASSWORD='" + userData.getPassword() + "',";
 				sql += " WHERE USERID=" + userData.getUserId();
 				conn.createStatement().executeUpdate(sql);
 			} else {
-				// NEEN -> User toevoegen aan de database> 
-				// INSERT INTO USER(Columns db) VALUES (userData.getXXX(), userData.getXXX(), userData.getXXX())
-				String sql = "INSERT INTO USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES (" ;
-				sql += userData.getFirstName() + ", " + userData.getLastName() + ", " + userData.getEMail() + ", " + userData.getPassword() ;
+				// NEEN -> User toevoegen aan de database>
+				// INSERT INTO USER(Columns db) VALUES (userData.getXXX(),
+				// userData.getXXX(), userData.getXXX())
+				String sql = "INSERT INTO USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES (";
+				sql += userData.getFirstName() + ", " + userData.getLastName()
+						+ ", " + userData.getEMail() + ", "
+						+ userData.getPassword();
 				sql += ")";
 				conn.createStatement().executeQuery(sql);
 			}
@@ -125,7 +158,7 @@ public class UserDataDao {
 
 			while (rs.next()) {
 				userDataReturn = new UserDataDTO();
-				userDataReturn.setUserId(rs.getLong("USERID"));
+				//userDataReturn.setUserId(rs.getLong("USERID"));
 				userDataReturn.setFirstName(rs.getString("FIRSTNAME"));
 				userDataReturn.setLastName(rs.getString("LASTNAME"));
 				userDataReturn.setEMail(rs.getString("EMAIL"));
