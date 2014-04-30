@@ -6,22 +6,27 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.programmeren4.turnahead.client.services.LoginService;
+import com.programmeren4.turnahead.client.services.LoginServiceAsync;
+import com.programmeren4.turnahead.shared.dto.LoginDTO;
 
 public class LoginView extends Composite {
 
-	private static LoginViewUiBinder uiBinder = GWT
-			.create(LoginViewUiBinder.class);
+	private static LoginViewUiBinder uiBinder = GWT.create(LoginViewUiBinder.class);
+	LoginServiceAsync LoginAsync;
 
 	interface LoginViewUiBinder extends UiBinder<Widget, LoginView> {
 	}
 
 	public LoginView() {
 		initWidget(uiBinder.createAndBindUi(this));
+		LoginAsync = GWT.create(LoginService.class);
 	}
 
 	@UiField
@@ -39,8 +44,27 @@ public class LoginView extends Composite {
 
 	@UiHandler("inloggen")
 	void onClickButtonInloggen(ClickEvent e) {
-		Window.alert("Je gaat naar het overzichtscherm zonder username/password");
-		new Overview();
+
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			@Override
+			public void onSuccess(Boolean result) {
+				if (result) {
+					Window.alert("Logged in!");
+					//new Overview();
+				}
+				else{
+					Window.alert("Crap");
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+				caught.printStackTrace();
+
+			}
+		};
+		LoginAsync.Login(new LoginDTO("WARD.PEER@HOTMAIL.COM", "programmeren4"), callback);
 	}
 
 	@UiHandler("reset")

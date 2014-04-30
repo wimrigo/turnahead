@@ -12,9 +12,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 import com.programmeren4.turnahead.client.services.UserDataService;
 import com.programmeren4.turnahead.client.services.UserDataServiceAsync;
-import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 
 public class FormHome extends Composite {
 
@@ -46,7 +46,7 @@ public class FormHome extends Composite {
 
 	@UiHandler("buttonAanmelden")
 	void onClickLogin(ClickEvent e) {
-		// open new window ipv hello login scherm
+		// open new window ipv hello login scherm //
 		// Window.alert("aanmelden window");
 		new Login();
 	}
