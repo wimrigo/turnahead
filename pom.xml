@@ -37,14 +37,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
 			<classifier>sources</classifier>
-			<scope>test</scope>
 		</dependency>
 
 
@@ -85,9 +83,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 								kunnen worden Compile: compileert Test: voert alle beschikbare testen uit 
 								i18n & generateAsync: laat GWT klassen genereren die nodig zijn voor de compilatie -->
 						 	<goal>resources</goal> 
+						 	<goal>generateAsync</goal>
 							<goal>compile</goal>
-							<goal>test</goal>
-							<goal>generateAsync</goal>
+							<goal>test</goal>							
 						</goals>
 					</execution>
 				</executions>
