@@ -33,7 +33,7 @@ public class DBConnector {
 		try {
 			this.conn = DriverManager.getConnection(DRIVERURL + URL, USER,
 					PASSWORD);
-			System.out.println("Connection set");
+			System.out.println("Connection Set");
 
 		} catch (SQLException e1) {
 			System.out.println("Connection Failed");
