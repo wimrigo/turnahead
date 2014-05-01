@@ -50,7 +50,7 @@ public class LoginView extends Composite {
 			@Override
 			public void onSuccess(Boolean result) {
 				if (result) {
-					Window.alert("Logged in");
+//					Window.alert("Logged in");
 					new Overview();
 				}
 				else{
