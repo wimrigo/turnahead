@@ -66,7 +66,8 @@ public class LoginView extends Composite {
 			}
 		};
 		
-		LoginAsync.Login(new LoginDTO("WARD.PEER@HOTMAIL.COM", "programmeren4"), callback);
+		//LoginAsync.Login(new LoginDTO("WARD.PEER@HOTMAIL.COM", "programmeren4"), callback);
+		LoginAsync.Login(new LoginDTO(user.getText(), pass.getText()), callback);
 	}
 
 	@UiHandler("reset")

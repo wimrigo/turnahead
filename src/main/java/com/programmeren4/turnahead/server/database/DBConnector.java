@@ -1,9 +1,10 @@
 package com.programmeren4.turnahead.server.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
+import java.sql.*;
 
 public class DBConnector {
 	// Gegevens DB programmeren4
@@ -37,6 +38,7 @@ public class DBConnector {
 
 		} catch (SQLException e1) {
 			System.out.println("Connection Failed");
+			System.out.println(e1);
 		}
 	}
 

@@ -48,7 +48,7 @@ public class FormHome extends Composite {
 	void onClickLogin(ClickEvent e) {
 		// open new window ipv hello login scherm //
 		// Window.alert("aanmelden window");
-		new Login();
+		new LoginController();
 	}
 
 	@UiHandler("buttonRegisteren")

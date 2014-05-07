@@ -2,11 +2,11 @@ package com.programmeren4.turnahead.client.ui;
 
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class Login {
+public class LoginController {
 
 	private LoginView login = new LoginView();
 
-	public Login() {
+	public LoginController() {
 		onLoad();
 	}
 

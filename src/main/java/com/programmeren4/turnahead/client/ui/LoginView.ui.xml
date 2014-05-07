@@ -5,7 +5,8 @@
 	
 	</ui:style>
 	<g:HTMLPanel>
-
+		je kan het testen met een naam uit de DB... e.g. WARD.PEER@HOTMAIL.COM
+		en het paswoord is programmeren4
 		<g:Label ui:field="username">gebruikersnaam</g:Label>
 		<g:TextBox ui:field="user">Vul hier je e-mail adres in...</g:TextBox>
 		<g:Label ui:field="password">paswoord</g:Label>

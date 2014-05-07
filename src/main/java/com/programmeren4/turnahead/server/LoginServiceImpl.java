@@ -18,10 +18,8 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 		try {
 			LoginDTO loginFromDB = loginDao.checkLogin(loginFromClient);
 
-			// if (
-			// loginFromClient.getPassword().equals(loginFromDB.getPassword().toString())
-			// ){
-			if (loginFromClient.getPassword().equals("programmeren4")) {
+			if ( loginFromClient.getPassword().equals(loginFromDB.getPassword().toString()) ){
+//			if ( loginFromClient.getPassword().equals("programmeren4")) {
 				result = true;
 			}
 
