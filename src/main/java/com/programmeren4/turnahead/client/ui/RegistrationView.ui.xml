@@ -1,0 +1,26 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	
+	</ui:style>
+	<g:HTMLPanel>
+
+		Een nieuwe gebruiker toevoegen aan de DB
+		<g:Label ui:field="lblfname">voornaam</g:Label>
+		<g:TextBox ui:field="fname">Vul hier je voornaam in...</g:TextBox>
+		
+		<g:Label ui:field="lbllname">achternaam</g:Label>
+		<g:TextBox ui:field="lname">Vul hier je achternaam in...</g:TextBox>
+		
+		<g:Label ui:field="lblmail">e-mailadres</g:Label>
+		<g:TextBox ui:field="mail">Vul hier je e-mail adres in...</g:TextBox>
+		
+		<g:Label ui:field="lblpassword">paswoord</g:Label>
+		<g:TextBox ui:field="pass">Vul hier je paswoord in</g:TextBox>
+		
+		<g:Button ui:field="register">Voltooien</g:Button>
+		<g:Button ui:field="reset">reset velden</g:Button>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 

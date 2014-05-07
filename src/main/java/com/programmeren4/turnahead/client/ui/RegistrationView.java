@@ -12,62 +12,70 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.programmeren4.turnahead.client.services.LoginService;
-import com.programmeren4.turnahead.client.services.LoginServiceAsync;
-import com.programmeren4.turnahead.shared.dto.LoginDTO;
+import com.programmeren4.turnahead.client.services.UserDataService;
+import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 
-public class LoginView extends Composite {
+public class RegistrationView extends Composite {
 
-	private static LoginViewUiBinder uiBinder = GWT.create(LoginViewUiBinder.class);
-	LoginServiceAsync LoginAsync;
-
-	interface LoginViewUiBinder extends UiBinder<Widget, LoginView> {
+	private static RegistrationViewUiBinder uiBinder = GWT.create(RegistrationViewUiBinder.class);
+	UserDataServiceAsync LoginAsync;
+	
+	interface RegistrationViewUiBinder extends
+			UiBinder<Widget, RegistrationView> {
 	}
 
-	public LoginView() {
+	public RegistrationView() {
 		initWidget(uiBinder.createAndBindUi(this));
-		LoginAsync = GWT.create(LoginService.class);
+		UserDataServiceAsync = GWT.create(UserDataService.class);
 	}
-
+	
 	@UiField
-	Label username;
+	Label lblfname;
 	@UiField
-	TextBox user;
+	TextBox fname;
 	@UiField
-	Label password;
+	Label lbllname;
+	@UiField
+	TextBox lname;
+		
+	@UiField
+	Label lblmail;
+	@UiField
+	TextBox mail;
+	@UiField
+	Label lblpassword;
 	@UiField
 	TextBox pass;
+
 	@UiField
-	Button inloggen;
+	Button register;
 	@UiField
 	Button reset;
 
-	@UiHandler("inloggen")
+	
+	@UiHandler("register")
 	void onClickButtonInloggen(ClickEvent e) {
 
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 			
 			@Override
 			public void onSuccess(Boolean result) {
-				new Overview();
+				Window.alert("Gebruiker toegevoegd aan de DB");
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-//				Window.alert(caught.getMessage());
-//				caught.printStackTrace();
 				Window.alert("Try again loser!");
 			}
 		};
-		
-		//LoginAsync.Login(new LoginDTO("WARD.PEER@HOTMAIL.COM", "programmeren4"), callback);
-		LoginAsync.Login(new LoginDTO(user.getText(), pass.getText()), callback);
+		UserDataServiceAsync.createUser(new UserDataDTO(fname.getText(), lname.getText(), mail.getText(), pass.getText()), callback)
 	}
 
 	@UiHandler("reset")
 	void onClickButtonResetten(ClickEvent e) {
-		user.setText("");
+		fname.setText("");
+		lname.setText("");
+		mail.setText("");
 		pass.setText("");
 	}
-
 }

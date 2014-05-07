@@ -16,15 +16,15 @@ import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 import com.programmeren4.turnahead.client.services.UserDataService;
 import com.programmeren4.turnahead.client.services.UserDataServiceAsync;
 
-public class FormHome extends Composite {
+public class HomeView extends Composite {
 
 	private static Form1UiBinder uiBinder = GWT.create(Form1UiBinder.class);
 	UserDataServiceAsync userDataAsync;
 
-	interface Form1UiBinder extends UiBinder<Widget, FormHome> {
+	interface Form1UiBinder extends UiBinder<Widget, HomeView> {
 	}
 
-	public FormHome() {
+	public HomeView() {
 		initWidget(uiBinder.createAndBindUi(this));
 		userDataAsync = GWT.create(UserDataService.class);
 	}
@@ -38,7 +38,7 @@ public class FormHome extends Composite {
 	@UiField
 	Button buttonGetUser;
 
-	public FormHome(String firstName) {
+	public HomeView(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		buttonAanmelden.setText("aanmelden");
 		buttonRegisteren.setText("registeren");
@@ -53,7 +53,7 @@ public class FormHome extends Composite {
 
 	@UiHandler("buttonRegisteren")
 	void onClickRegister(ClickEvent e) {
-		Window.alert("registeren window");
+		new RegistrationController();
 
 	}
 

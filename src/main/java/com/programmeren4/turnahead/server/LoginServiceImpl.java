@@ -15,8 +15,10 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public boolean Login(LoginDTO loginFromClient) {
 		boolean result = false;
+		System.out.println("e-mail gegeven door invoerveld   : " +loginFromClient.getEMail());
+		System.out.println("paswoord gegeven door invoerveld : " +loginFromClient.getPassword());
 		try {
-			result = loginFromClient.getPassword().equals(loginDao.checkLogin(loginFromClient).getPassword().toString()) ? true : false;
+			result = loginFromClient.equals(loginDao.checkLogin(loginFromClient)) ? true : false;
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
