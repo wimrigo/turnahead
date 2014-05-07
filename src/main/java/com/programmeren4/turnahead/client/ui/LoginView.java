@@ -49,20 +49,14 @@ public class LoginView extends Composite {
 			
 			@Override
 			public void onSuccess(Boolean result) {
-				if (result) {
-//					Window.alert("Logged in");
-					new Overview();
-				}
-				else{
-					Window.alert("Crap");
-				}
+				new Overview();
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert(caught.getMessage());
-				caught.printStackTrace();
-
+//				Window.alert(caught.getMessage());
+//				caught.printStackTrace();
+				Window.alert("Try again loser!");
 			}
 		};
 		

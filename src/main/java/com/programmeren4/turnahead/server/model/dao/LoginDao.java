@@ -24,7 +24,7 @@ public class LoginDao {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
 			System.out.println("De email is : "+login.getEMail());
-			String sql = "SELECT * FROM programmeren4.USER WHERE EMAIL='"+login.getEMail()+"'";
+			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL='"+login.getEMail()+"'";
 			rs = this.conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
 				LoginReturn = new LoginDTO();
