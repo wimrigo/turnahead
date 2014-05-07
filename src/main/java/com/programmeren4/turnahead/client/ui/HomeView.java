@@ -12,9 +12,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 import com.programmeren4.turnahead.client.services.UserDataService;
 import com.programmeren4.turnahead.client.services.UserDataServiceAsync;
+import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 
 public class HomeView extends Composite {
 
@@ -46,15 +46,12 @@ public class HomeView extends Composite {
 
 	@UiHandler("buttonAanmelden")
 	void onClickLogin(ClickEvent e) {
-		// open new window ipv hello login scherm //
-		// Window.alert("aanmelden window");
 		new LoginController();
 	}
 
 	@UiHandler("buttonRegisteren")
 	void onClickRegister(ClickEvent e) {
 		new RegistrationController();
-
 	}
 
 	@UiHandler("buttonMakeUser")

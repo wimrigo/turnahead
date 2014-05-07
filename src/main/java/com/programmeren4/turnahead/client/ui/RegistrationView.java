@@ -13,12 +13,13 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.programmeren4.turnahead.client.services.UserDataService;
+import com.programmeren4.turnahead.client.services.UserDataServiceAsync;
 import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 
 public class RegistrationView extends Composite {
 
 	private static RegistrationViewUiBinder uiBinder = GWT.create(RegistrationViewUiBinder.class);
-	UserDataServiceAsync LoginAsync;
+	UserDataServiceAsync UserDataAsync;
 	
 	interface RegistrationViewUiBinder extends
 			UiBinder<Widget, RegistrationView> {
@@ -26,7 +27,7 @@ public class RegistrationView extends Composite {
 
 	public RegistrationView() {
 		initWidget(uiBinder.createAndBindUi(this));
-		UserDataServiceAsync = GWT.create(UserDataService.class);
+		UserDataAsync = GWT.create(UserDataService.class);
 	}
 	
 	@UiField
@@ -54,13 +55,14 @@ public class RegistrationView extends Composite {
 
 	
 	@UiHandler("register")
-	void onClickButtonInloggen(ClickEvent e) {
+	void onClickButtonRegister(ClickEvent e) {
 
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 			
 			@Override
 			public void onSuccess(Boolean result) {
-				Window.alert("Gebruiker toegevoegd aan de DB");
+				Window.alert("Gebruiker toegevoegd aan de DB, login om verder te gaan...");
+				new LoginController();
 			}
 
 			@Override
@@ -68,7 +70,7 @@ public class RegistrationView extends Composite {
 				Window.alert("Try again loser!");
 			}
 		};
-		UserDataServiceAsync.createUser(new UserDataDTO(fname.getText(), lname.getText(), mail.getText(), pass.getText()), callback)
+		UserDataAsync.createUser(new UserDataDTO(fname.getText(), lname.getText(), mail.getText(), pass.getText()), callback);
 	}
 
 	@UiHandler("reset")

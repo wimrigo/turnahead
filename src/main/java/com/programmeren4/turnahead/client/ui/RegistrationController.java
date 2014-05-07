@@ -7,6 +7,7 @@ public class RegistrationController {
 	private RegistrationView register = new RegistrationView();
 
 	public RegistrationController() {
+		System.out.println("Registratie Controller geladen");
 		onLoad();
 	}
 
