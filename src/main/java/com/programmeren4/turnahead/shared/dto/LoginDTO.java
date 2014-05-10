@@ -11,14 +11,13 @@ public class LoginDTO implements Serializable {
 	private String email;
 	private String password;
 
-	// constructor
+	public LoginDTO() {
+		super();
+	}
+
 	public LoginDTO(String email, String password) {
 		this.email = email;
 		this.password = password;
-	}
-
-	public LoginDTO() {
-		super();
 	}
 
 	public String getEMail() {
@@ -53,12 +52,11 @@ public class LoginDTO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		// UserDataDTO other = (UserDataDTO) obj;
-		// if (userId == null) {
-		// if (other.userId != null)
-		// return false;
-		// } else if (!userId.equals(other.userId))
-		// return false;
+		LoginDTO object = (LoginDTO) obj;
+		if (this.getEMail() != object.getEMail())
+			return false;
+		if (this.getPassword() != object.getPassword())
+			return false;
 		return true;
 	}
 

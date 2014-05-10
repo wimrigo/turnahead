@@ -1,19 +1,21 @@
 package com.programmeren4.turnahead.shared.dto;
 
+import java.io.Serializable;
+
 /**
  * Location Store DTO (Items beschikbaar op een locatie)
  * 
  */
-public class LocationStoreDTO {
+public class LocationStoreDTO implements Serializable{
 	//attributen
-	//private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private Long locationStoreID; //int locationStoreID;
 	private String karakterName;
 	private Long ltemID;
 	private String itemName;
 	
 	
-	//constructor (?)
+	//constructor
 	
 	
 	//getters en setters 

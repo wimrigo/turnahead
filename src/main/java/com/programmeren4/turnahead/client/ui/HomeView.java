@@ -16,15 +16,15 @@ import com.programmeren4.turnahead.client.services.UserDataService;
 import com.programmeren4.turnahead.client.services.UserDataServiceAsync;
 import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 
-public class FormHome extends Composite {
+public class HomeView extends Composite {
 
 	private static Form1UiBinder uiBinder = GWT.create(Form1UiBinder.class);
 	UserDataServiceAsync userDataAsync;
 
-	interface Form1UiBinder extends UiBinder<Widget, FormHome> {
+	interface Form1UiBinder extends UiBinder<Widget, HomeView> {
 	}
 
-	public FormHome() {
+	public HomeView() {
 		initWidget(uiBinder.createAndBindUi(this));
 		userDataAsync = GWT.create(UserDataService.class);
 	}
@@ -38,7 +38,7 @@ public class FormHome extends Composite {
 	@UiField
 	Button buttonGetUser;
 
-	public FormHome(String firstName) {
+	public HomeView(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		buttonAanmelden.setText("aanmelden");
 		buttonRegisteren.setText("registeren");
@@ -46,15 +46,12 @@ public class FormHome extends Composite {
 
 	@UiHandler("buttonAanmelden")
 	void onClickLogin(ClickEvent e) {
-		// open new window ipv hello login scherm
-		// Window.alert("aanmelden window");
-		new Login();
+		new LoginController();
 	}
 
 	@UiHandler("buttonRegisteren")
 	void onClickRegister(ClickEvent e) {
-		Window.alert("registeren window");
-
+		new RegistrationController();
 	}
 
 	@UiHandler("buttonMakeUser")
@@ -88,10 +85,15 @@ public class FormHome extends Composite {
 
 			@Override
 			public void onSuccess(List<UserDataDTO> result) {
-				//TODO check if list not empty
-				String msg = "Retrieved user with userID "+result.get(0).getUserId()+" succesfully!"+" - "+result.get(0).getFirstName()+" - "+result.get(0).getLastName()+" - "+result.get(0).getEMail()+" - "+result.get(0).getPassword();
+				// TODO check if list not empty
+				String msg = "Retrieved user with userID "
+						+ result.get(0).getUserId() + " succesfully!" + " - "
+						+ result.get(0).getFirstName() + " - "
+						+ result.get(0).getLastName() + " - "
+						+ result.get(0).getEMail() + " - "
+						+ result.get(0).getPassword();
 				Window.alert(msg);
-				
+
 			}
 
 			@Override
@@ -100,11 +102,8 @@ public class FormHome extends Composite {
 
 			}
 
-			
-
 		};
 		userDataAsync.getUserData(callback);
-		
 
 	}
 }

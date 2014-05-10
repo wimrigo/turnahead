@@ -1,23 +1,35 @@
 package com.programmeren4.turnahead.shared.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Karakter DTO
  * 
  */
-public class KarakterDTO {
+public class KarakterDTO implements Serializable {
 	//attributen
-	//private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	private Long karakterId; //int karakterId;
 	private String karakterName;
     private String currentLocation;
 	private Date creationDate;
     private Date lastUseDate;
 	
-    //constructor(?)
+    //constructor
+    public KarakterDTO(Long karakterId, String karakterName, String currentLocation) {
+		super();
+		this.karakterId = karakterId;
+		this.karakterName = karakterName;
+		this.currentLocation = currentLocation;
+	}
     
-    //getters en setters
+    public KarakterDTO(){
+    	super();
+    }
+    
+    
+	//getters en setters
     public Long getKarakterId() {
 		return karakterId;
 	}

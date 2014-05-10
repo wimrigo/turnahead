@@ -1,7 +1,5 @@
-<project 
-xmlns="http://maven.apache.org/POM/4.0.0" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.programmeren4.turnahead</groupId>
@@ -45,6 +43,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<classifier>sources</classifier>
 		</dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
 
 		<!-- Testing dependencies -->
 		<dependency>
@@ -58,7 +61,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<build>
 		<!-- Genereert de gecompileerde klassen naar WEB-INF/classes voor dev mode -->
 		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
-	
+
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -82,10 +85,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 								src/main/resources toe aan het classpath zodat de bestanden hierin gevonden 
 								kunnen worden Compile: compileert Test: voert alle beschikbare testen uit 
 								i18n & generateAsync: laat GWT klassen genereren die nodig zijn voor de compilatie -->
-						 	<goal>resources</goal> 
-						 	<goal>generateAsync</goal>
+							<goal>resources</goal>
+							<goal>generateAsync</goal>
 							<goal>compile</goal>
-							<goal>test</goal>							
+							<goal>test</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -149,7 +152,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 										<artifactId>gwt-maven-plugin</artifactId>
 										<versionRange>[2.4.0,)</versionRange>
 										<goals>
-											<goal>i18n</goal> 
+											<goal>i18n</goal>
 											<goal>generateAsync</goal>
 											<goal>resources</goal>
 										</goals>
@@ -180,6 +183,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		 
+
 	</build>
 </project>

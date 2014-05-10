@@ -2,11 +2,11 @@ package com.programmeren4.turnahead.client.ui;
 
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class Location {
+public class LocationController {
 
 	private LocationView loc = new LocationView();
 
-	public Location() {
+	public LocationController() {
 		onLoad();
 	}
 
