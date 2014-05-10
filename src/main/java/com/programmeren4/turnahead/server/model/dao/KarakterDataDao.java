@@ -28,7 +28,7 @@ public class KarakterDataDao {
 		KarakterDTO karakterReturn = null;
 		ResultSet rs = null;
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			//Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM KARAKTER WHERE CHARACTERID=" + userData.getKarakterId();
@@ -44,7 +44,7 @@ public class KarakterDataDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBConnector.getInstance().close(rs);
+			DBConnector.close(rs);
 			DBConnector.getInstance().closeConn();
 		}
 		return karakterReturn;

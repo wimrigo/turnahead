@@ -100,7 +100,7 @@ public class UserDataDao {
 	public void deleteUserData(UserDataDTO userData) throws DAOException {
 
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			//Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "DELETE FROM USER WHERE USERID=" + userData.getUserId();
 			conn.createStatement().executeUpdate(sql);
@@ -143,7 +143,7 @@ public class UserDataDao {
 			// Handle errors for JDBC
 			se.printStackTrace();
 		} finally {
-			DBConnector.getInstance().close(rs);
+			DBConnector.close(rs);
 			DBConnector.getInstance().closeConn();
 		}
 		return list;

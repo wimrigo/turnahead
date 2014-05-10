@@ -34,6 +34,7 @@ public class DBConnector {
 			
 		} catch (SQLException e1) {
 			System.out.println("Connection Failed");
+			e1.printStackTrace();
 		}		
     }
 	
@@ -49,7 +50,7 @@ public class DBConnector {
 		}
 	}
 	
-	public void close(ResultSet resultSet) {
+	public static void close(ResultSet resultSet) {
 		if (resultSet != null) {
 			try {
 				resultSet.close();
