@@ -15,7 +15,7 @@ public class UserDataDao {
 	private Connection conn;
 	private String sql;
 	//private String tabelnaam = "USER";
-	//private String[] tabelvelden = {"","","",""};
+	//private String[] tabelvelden = {"USERID","FIRSTNAME","LASTNAME","EMAIL","PASSWORD"};
 
 	// constructor
 	public UserDataDao() {
@@ -23,11 +23,12 @@ public class UserDataDao {
 
 	// getters en setters
 
+	
 	// methoden
 	/**
 	 * Gebruikerinformatie opvragen uit de database
 	 */
-	public UserDataDTO getUserData(UserDataDTO userData) throws SQLException {
+	public UserDataDTO getUserData(UserDataDTO userData) throws DAOException {
 		UserDataDTO userDataReturn = null;
 		ResultSet rs = null;
 		try {
@@ -82,9 +83,10 @@ public class UserDataDao {
 				// INSERT INTO USER(Columns db) VALUES (userData.getXXX(),
 				// userData.getXXX(), userData.getXXX())
 				String sql = "INSERT INTO programmeren4.USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES ('";
-				sql += userData.getFirstName() + "', '"
-						+ userData.getLastName() + "', '" + userData.getEMail()
-						+ "', '" + userData.getPassword();
+				sql += userData.getFirstName() + "', '";
+				sql += userData.getLastName() + "', '" ;
+				sql += userData.getEMail() + "', '";
+				sql += userData.getPassword();
 				sql += "')";
 				conn.createStatement().executeUpdate(sql);
 				// ExecuteUpdate ook voor inserts

@@ -28,7 +28,7 @@ public class KarakterDataDao {
 	/**
 	 * Gegevens van een karakter opvragen (SELECT)
 	 */
-	public KarakterDTO getUserData(KarakterDTO karakterData) throws DAOException {
+	public KarakterDTO getKarakterData(KarakterDTO karakterData) throws DAOException {
 		KarakterDTO karakterReturn = null;
 		ResultSet rs = null;
 		try {
@@ -58,7 +58,7 @@ public class KarakterDataDao {
 	 * Karakter toevoegen (INSERT) of wijzigen (UPDATE)<br>
 	 * 
 	 */
-	public void addUserData(KarakterDTO karakterData) throws DAOException {
+	public void addKarakterData(KarakterDTO karakterData) throws DAOException {
 			
 		try {
 			DBConnector.getInstance().init();
@@ -95,7 +95,7 @@ public class KarakterDataDao {
 	}
 	
 	/**
-	 * Methode om te controleren of een karakter al aanwezig is in de db
+	 * Methode om te controleren of een karakter al aanwezig is (in de database)
 	 */
 	public boolean checkKarakter(KarakterDTO karakterData) throws DAOException{
 		ResultSet rs = null;
@@ -148,9 +148,9 @@ public class KarakterDataDao {
 	
 	
 	/**
-	 * List karakters
+	 * Lijst van alle karakters (LIST)
 	 */
-	public List<KarakterDTO> getUsers()  {
+	public List<KarakterDTO> getKarakters() throws DAOException  {
 		List<KarakterDTO> list = new ArrayList<KarakterDTO>();
 		ResultSet rs = null;
 		
@@ -182,9 +182,5 @@ public class KarakterDataDao {
 		return list;
 	}
 	
-	
 
-	
-	
-	
 }

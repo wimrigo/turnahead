@@ -29,11 +29,15 @@ public class LocationDTO implements Serializable{
 	public Long getLocationId() {
         return locationId;
     }
+	public void setLocationId(Long locationID) {
+        this.locationId = locationID;
+    }
+	
     
-	public String getFirstName() {
+	public String getLocationName() {
         return locationName;
     }
-    public void setFirstName(String locationName) {
+    public void setLocationName(String locationName) {
         this.locationName = locationName;
     }
 

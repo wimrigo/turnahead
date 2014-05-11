@@ -26,8 +26,33 @@ public class LocationDataDao {
 	
 	//methoden
 	/**
-	 * Opvragen (SELECT)
+	 * Gegevens van een Location opvragen (SELECT)
 	 */
+	public LocationDTO getKarakterData(LocationDTO karakterData) throws DAOException {
+		LocationDTO locationReturn = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
+			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERID=" + karakterData.getLocationId();
+			rs = conn.createStatement().executeQuery(sql);
+			if (rs.next()) {
+				locationReturn = new LocationDTO();
+				locationReturn.setLocationId(rs.getLong("LOCATIONID"));
+				locationReturn.setLocationName(rs.getString("LOCATIONNAME"));
+				locationReturn.setLocationDescription(rs.getString("CURRENTLOCATION"));
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
+		}
+		return locationReturn;
+	}
 	
 	
 	
@@ -47,9 +72,9 @@ public class LocationDataDao {
 			rs = conn.createStatement().executeQuery(query);
 
 			while (rs.next()) {
-				//locationReturn.setKarakterId(rs.getLong("CHARACTERID"));
-				//locationReturn.setKarakterName(rs.getString("CHARACTERNAME"));
-				//locationReturn.setCurrentLocation(rs.getString("CURRENTLOCATION"));
+				locationReturn.setLocationId(rs.getLong("LOCATIONID"));
+				locationReturn.setLocationName(rs.getString("LOCATIONNAME"));
+				locationReturn.setLocationDescription(rs.getString("CURRENTLOCATION"));
 
 				list.add(locationReturn);
 			}
@@ -65,6 +90,7 @@ public class LocationDataDao {
 		}
 		return list;
 	}
+	
 	
 	/**
 	 * Location verwijderen (DELETE)
@@ -86,14 +112,42 @@ public class LocationDataDao {
 	}
 	
 	
-	
 	/**
-	 * List
+	 * Lijst van alle Locations (LIST)
 	 */
+	public List<LocationDTO> getKarakters() throws DAOException  {
+		List<LocationDTO> list = new ArrayList<LocationDTO>();
+		ResultSet rs = null;
+		
+		try {
+			DBConnector.getInstance().init();
+			String query = "SELECT * FROM programmeren4.KARAKTER";
+			LocationDTO locationReturn = null;
+			
+			this.conn = DBConnector.getInstance().getConn();
+			rs = conn.createStatement().executeQuery(query);
+
+			while (rs.next()) {
+				
+
+				list.add(locationReturn);
+			}
+			if (list.isEmpty()) {
+				System.out.println("List fetched from database is empty.");
+			}
+		} catch (SQLException se) {
+			// Handle errors for JDBC
+			se.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
+		}
+		return list;
+	}
 	
-	
-	
+
 	/**
+	 * TODO
 	 * Methode om de eerste record van de table op te vragen<br>
 	 * Default location (de eerste locatie in een tabel)
 	 */
