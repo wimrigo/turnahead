@@ -14,6 +14,8 @@ public class UserDataDao {
 	// attributen
 	private Connection conn;
 	private String sql;
+	//private String tabelnaam = "USER";
+	//private String[] tabelvelden = {"","","",""};
 
 	// constructor
 	public UserDataDao() {
