@@ -28,7 +28,7 @@ public class LocationDataDao {
 	/**
 	 * Gegevens van een Location opvragen (SELECT)
 	 */
-	public LocationDTO getKarakterData(LocationDTO karakterData) throws DAOException {
+	public LocationDTO getLocationData(LocationDTO karakterData) throws DAOException {
 		LocationDTO locationReturn = null;
 		ResultSet rs = null;
 		try {
@@ -55,41 +55,11 @@ public class LocationDataDao {
 	}
 	
 	
-	
 	/**
+	 * TODO
 	 * Location toevoegen (INSERT) of wijzigen (UPDATE)
 	 */
-	public List<LocationDTO> getLocations() throws DAOException {
-		List<LocationDTO> list = new ArrayList<LocationDTO>();
-		ResultSet rs = null;
-		
-		try {
-			DBConnector.getInstance().init();
-			String query = "SELECT * FROM programmeren4.LOCATION";
-			LocationDTO locationReturn = null;
-			
-			this.conn = DBConnector.getInstance().getConn();
-			rs = conn.createStatement().executeQuery(query);
-
-			while (rs.next()) {
-				locationReturn.setLocationId(rs.getLong("LOCATIONID"));
-				locationReturn.setLocationName(rs.getString("LOCATIONNAME"));
-				locationReturn.setLocationDescription(rs.getString("CURRENTLOCATION"));
-
-				list.add(locationReturn);
-			}
-			if (list.isEmpty()) {
-				System.out.println("List fetched from database is empty.");
-			}
-		} catch (SQLException se) {
-			// Handle errors for JDBC
-			se.printStackTrace();
-		} finally {
-			DBConnector.getInstance().close(rs);
-			DBConnector.getInstance().closeConn();
-		}
-		return list;
-	}
+	
 	
 	
 	/**
@@ -115,7 +85,7 @@ public class LocationDataDao {
 	/**
 	 * Lijst van alle Locations (LIST)
 	 */
-	public List<LocationDTO> getKarakters() throws DAOException  {
+	public List<LocationDTO> getLocations() throws DAOException  {
 		List<LocationDTO> list = new ArrayList<LocationDTO>();
 		ResultSet rs = null;
 		
