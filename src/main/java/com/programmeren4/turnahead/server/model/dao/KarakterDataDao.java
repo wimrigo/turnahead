@@ -54,6 +54,8 @@ public class KarakterDataDao {
 		return karakterReturn;
 	}
 	
+	
+	
 	/**
 	 * Karakter toevoegen (INSERT) of wijzigen (UPDATE)<br>
 	 * 
@@ -64,7 +66,7 @@ public class KarakterDataDao {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
 			
-			// Controle (Bestaat User al in db ?)
+			// Controle (Karakter al in de database ?)
 			if (this.checkKarakter(karakterData) == true) {
 				// JA -> UPDATE bestaande record
 				// "UPDATE programmeren4.KARAKTER SET *veld='karakterData.getX()',*veld='karakterData.getY()', 
@@ -89,6 +91,8 @@ public class KarakterDataDao {
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();	
 		} finally {
 			DBConnector.getInstance().closeConn();
 		}
@@ -99,6 +103,7 @@ public class KarakterDataDao {
 	 */
 	public boolean checkKarakter(KarakterDTO karakterData) throws DAOException{
 		ResultSet rs = null;
+		boolean inDatabase = false;
 		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
@@ -106,7 +111,7 @@ public class KarakterDataDao {
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERID=" + karakterData.getKarakterId();
 			rs = conn.createStatement().executeQuery(sql);
-			boolean inDatabase = false;
+			
 			
 			if (rs.getLong("CHARACTERID")== karakterData.getKarakterId()){
 				inDatabase = true;
@@ -122,8 +127,9 @@ public class KarakterDataDao {
 			DBConnector.getInstance().close(rs);
 			DBConnector.getInstance().closeConn();
 		}
-		return false;
+		return inDatabase;
 	}
+	
 	
 	
 	/**
@@ -175,6 +181,8 @@ public class KarakterDataDao {
 		} catch (SQLException se) {
 			// Handle errors for JDBC
 			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			DBConnector.getInstance().close(rs);
 			DBConnector.getInstance().closeConn();

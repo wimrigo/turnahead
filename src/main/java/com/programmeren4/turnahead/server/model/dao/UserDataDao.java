@@ -26,7 +26,7 @@ public class UserDataDao {
 	
 	// methoden
 	/**
-	 * Gebruikerinformatie opvragen uit de database
+	 * User/Gebruikerinformatie opvragen uit de database
 	 */
 	public UserDataDTO getUserData(UserDataDTO userData) throws DAOException {
 		UserDataDTO userDataReturn = null;
@@ -34,7 +34,7 @@ public class UserDataDao {
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM USER WHERE USERID=" + userData.getUserId();
+			sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
 			rs = conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
 				userDataReturn = new UserDataDTO();
@@ -56,31 +56,30 @@ public class UserDataDao {
 	}
 
 	/**
-	 * Gebruiker toevoegen aan de database (INSERT) of een bestaande gebruiker
+	 * User/Gebruiker toevoegen aan de database (INSERT) of een bestaande User/Gebruiker
 	 * bijwerken (UPDATE)
 	 */
-	public void addUserData(UserDataDTO userData) throws SQLException {
-		boolean indatabase = false;
+	public void addUserData(UserDataDTO userData) throws DAOException {
 
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
+			
 			// Controle (Bestaat User al in db ?)
-
-			if (indatabase == true) {
+			if (this.checkUser(userData) == true) {
 				// JA -> UPDATE bestaande record
-				// "UPDATE USER SET *='userData.getX()',*='userData.getY()', WHERE USERID="
+				// "UPDATE programmeren4.USER SET *='userData.getX()',*='userData.getY()', WHERE USERID="
 				// + userData.getUserId();
 				String sql = "UPDATE programmeren4.USER SET ";
 				sql += "FIRSTNAME='" + userData.getFirstName() + "',";
 				sql += "LASTNAME='" + userData.getLastName() + "',";
 				sql += "EMAIL='" + userData.getEMail() + "',";
-				sql += "PASSWORD='" + userData.getPassword() + "',";
+				sql += "PASSWORD='" + userData.getPassword() + "'";
 				sql += " WHERE USERID=" + userData.getUserId();
 				conn.createStatement().executeUpdate(sql);
 			} else {
 				// NEEN -> User toevoegen aan de database>
-				// INSERT INTO USER(Columns db) VALUES (userData.getXXX(),
+				// INSERT INTO programmeren4.USER(Columns db) VALUES (userData.getXXX(),
 				// userData.getXXX(), userData.getXXX())
 				String sql = "INSERT INTO programmeren4.USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES ('";
 				sql += userData.getFirstName() + "', '";
@@ -93,20 +92,55 @@ public class UserDataDao {
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			DBConnector.getInstance().closeConn();
 		}
 	}
 
+	
 	/**
-	 * Gebruiker verwijderen uit de db
+	 * Methode om te controleren of een User/Gebruiker al aanwezig is (in de database)
+	 */
+	public boolean checkUser(UserDataDTO userData) throws DAOException{
+		ResultSet rs = null;
+		boolean inDatabase = false;
+		
+		try {
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
+			sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
+			rs = conn.createStatement().executeQuery(sql);
+			
+			if (rs.getLong("USERID") == userData.getUserId()){
+				inDatabase = true;
+			} else { 
+				inDatabase = false;
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
+		}
+		return inDatabase;
+	}
+	
+	
+	/**
+	 * Gebruiker verwijderen (DELETE)
 	 */
 	public void deleteUserData(UserDataDTO userData) throws DAOException {
 
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "DELETE FROM USER WHERE USERID=" + userData.getUserId();
+			sql = "DELETE FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
 			conn.createStatement().executeUpdate(sql);
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -118,7 +152,7 @@ public class UserDataDao {
 	}
 
 	/**
-	 * Alle gebruikers uit de db ophalen
+	 * Lijst van alle Users/Gebruikers (LIST)
 	 */
 	public List<UserDataDTO> getUsers() throws SQLException {
 		String query = "SELECT * FROM programmeren4.USER";
@@ -146,6 +180,8 @@ public class UserDataDao {
 		} catch (SQLException se) {
 			// Handle errors for JDBC
 			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();	
 		} finally {
 			DBConnector.getInstance().close(rs);
 			DBConnector.getInstance().closeConn();

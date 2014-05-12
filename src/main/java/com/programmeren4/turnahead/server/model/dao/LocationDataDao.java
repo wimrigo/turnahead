@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.programmeren4.turnahead.server.database.DBConnector;
+import com.programmeren4.turnahead.shared.dto.KarakterDTO;
 import com.programmeren4.turnahead.shared.dto.LocationDTO;
 import com.programmeren4.turnahead.shared.exception.DAOException;
 
@@ -59,7 +60,7 @@ public class LocationDataDao {
 	 * TODO
 	 * Location toevoegen (INSERT) of wijzigen (UPDATE)
 	 */
-	
+	public void addLocationData(LocationDTO locationData) throws DAOException {}
 	
 	
 	/**
