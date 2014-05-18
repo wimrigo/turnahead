@@ -71,12 +71,14 @@ public class UserDataDao {
 		long userId = this.getUserId(userData);
 		userData.setUserId(userId);
 		
+		// Controle (Bestaat User al in db ?)
+		boolean userTest = this.checkUser(userData);
+		
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			
-			// Controle (Bestaat User al in db ?)
-			if (this.checkUser(userData) == true) {
+				
+			if (userTest == true) {	
 				// JA -> UPDATE bestaande record
 				// "UPDATE programmeren4.USER SET *='userData.getX()',*='userData.getY()', WHERE USERID="
 				// + userData.getUserId();
@@ -97,6 +99,7 @@ public class UserDataDao {
 				sql += userData.getEMail() + "', '";
 				sql += userData.getPassword();
 				sql += "')";
+				System.out.println(sql);
 				// ExecuteUpdate ook voor inserts
 				conn.createStatement().executeUpdate(sql);
 			}
@@ -119,7 +122,7 @@ public class UserDataDao {
 		userData.setUserId(userId);
 		
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "DELETE FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
 			conn.createStatement().executeUpdate(sql);
@@ -179,21 +182,28 @@ public class UserDataDao {
 		ResultSet rs = null;
 		boolean inDatabase = false;
 		
+		long userId = this.getUserId(userData);
+		userData.setUserId(userId);
+		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
+			System.out.println(sql);
 			rs = conn.createStatement().executeQuery(sql);
+			System.out.println(userData.getUserId());
+			System.out.println(rs.getLong("USERID"));
 			
-			rs.next();
+			if (rs.next()){
+				if (new Long(rs.getLong("USERID")) == userData.getUserId()){
+					inDatabase = true;
+					System.out.println("IF-true");
+				} else { 
+					inDatabase = false;
+					System.out.println("IF-false");
+				}}
 			
-			
-			if (new Long(rs.getLong("USERID")) == userData.getUserId()){
-				inDatabase = true;
-			} else { 
-				inDatabase = false;
-			}
 			System.out.println(inDatabase);
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -230,6 +240,7 @@ public class UserDataDao {
 					inDatabase = false;
 				}
 			}
+			System.out.println(inDatabase);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
@@ -255,7 +266,7 @@ public class UserDataDao {
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL=" + "'" + userData.getEMail() + "'";
 			rs = conn.createStatement().executeQuery(sql);
-			System.out.println("DTO: " +userData.getEMail());
+			//System.out.println("DTO: " +userData.getEMail());
 			
 			if (rs.next()){
 				//System.out.println("Numbers of rows: " + rs.getRow());
