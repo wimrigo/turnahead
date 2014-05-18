@@ -25,7 +25,7 @@ public class LocationDataDao {
 	//getters en setters
 	
 	
-	//methoden
+	//SELECT - UPDATE - INSERT - DELETE
 	/**
 	 * Gegevens van een Location opvragen (SELECT)
 	 */
@@ -117,6 +117,14 @@ public class LocationDataDao {
 	}
 	
 
+	//Overige methoden
+	/**
+	 * TODO
+	 * 
+	 */
+	
+	
+	
 	/**
 	 * TODO
 	 * Methode om de eerste record van de table op te vragen<br>

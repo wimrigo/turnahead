@@ -14,27 +14,31 @@ public class ItemDataDao {
 	//getters en setters
 	
 	
-	//methoden
+	//SELECT - INSERT - UPDATE - DELETE
 	/**
-	 * Opvragen
+	 * Gegevens van een Item opvragen (SELECT)
 	 */
 	
 	
 	
 	/**
-	 * Toevoegen wijzigen
+	 * Item toevoegen aan de database (INSERT) of een bestaand Item
+	 * bijwerken (UPDATE)
 	 */
 	
 	
 	
 	/**
-	 * Verwijderen
+	 * Item verwijderen (DELETE)
 	 */
 	
 	
 	
 	/**
-	 * List
+	 * Lijst van alle Items (LIST)
 	 */
+	
+	
+	//Overige methodes
 }
 

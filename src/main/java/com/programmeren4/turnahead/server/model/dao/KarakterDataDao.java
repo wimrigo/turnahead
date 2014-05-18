@@ -24,7 +24,7 @@ public class KarakterDataDao {
 	//getters en setters
 	
 	
-	//methoden
+	//SELECT - UPDATE - INSERT - DELETE
 	/**
 	 * Gegevens van een karakter opvragen (SELECT)
 	 */
@@ -99,42 +99,6 @@ public class KarakterDataDao {
 	}
 	
 	/**
-	 * Methode om te controleren of een karakter al aanwezig is (in de database)
-	 * @param karakterData
-	 * @return
-	 * @throws DAOException
-	 */
-	public boolean checkKarakter(KarakterDTO karakterData) throws DAOException{
-		ResultSet rs = null;
-		boolean inDatabase = false;
-		
-		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			DBConnector.getInstance().init();
-			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERID=" + karakterData.getKarakterId();
-			rs = conn.createStatement().executeQuery(sql);
-			
-			if (rs.getLong("CHARACTERID")== karakterData.getKarakterId()){
-				inDatabase = true;
-			} else { 
-				inDatabase = false;
-			}
-
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBConnector.getInstance().close(rs);
-			DBConnector.getInstance().closeConn();
-		}
-		return inDatabase;
-	}
-	
-	
-	
-	/**
 	 * Karakter verwijderen (DELETE)
 	 */
 	public void deleteKarakterData(KarakterDTO userData) throws DAOException {
@@ -192,5 +156,39 @@ public class KarakterDataDao {
 		return list;
 	}
 	
+	//Overige methodes
+	/**
+	 * Methode om te controleren of een karakter al aanwezig is (in de database)
+	 * @param karakterData
+	 * @return
+	 * @throws DAOException
+	 */
+	public boolean checkKarakter(KarakterDTO karakterData) throws DAOException{
+		ResultSet rs = null;
+		boolean inDatabase = false;
+		
+		try {
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
+			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERID=" + karakterData.getKarakterId();
+			rs = conn.createStatement().executeQuery(sql);
+			
+			if (rs.getLong("CHARACTERID")== karakterData.getKarakterId()){
+				inDatabase = true;
+			} else { 
+				inDatabase = false;
+			}
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
+		}
+		return inDatabase;
+	}
 
 }

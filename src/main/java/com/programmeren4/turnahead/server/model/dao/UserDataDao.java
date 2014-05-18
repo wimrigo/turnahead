@@ -18,19 +18,26 @@ public class UserDataDao {
 	//private String tabelnaam = "USER";
 	//private String[] tabelvelden = {"USERID","FIRSTNAME","LASTNAME","EMAIL","PASSWORD"};
 
+	
 	// constructor
 	public UserDataDao() {
 	}
 
+	
 	// getters en setters
 	
-	//SELECT - UPDATE - INSERT - DELETE
+	
+	//SELECT - UPDATE - INSERT - DELETE - LIST
 	/**
 	 * User/Gebruikerinformatie opvragen uit de database
 	 */
 	public UserDataDTO getUserData(UserDataDTO userData) throws DAOException {
 		UserDataDTO userDataReturn = null;
 		ResultSet rs = null;
+		
+		long userId = this.getUserId(userData);
+		userData.setUserId(userId);
+		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			this.conn = DBConnector.getInstance().getConn();
@@ -61,6 +68,9 @@ public class UserDataDao {
 	 */
 	public void addUserData(UserDataDTO userData) throws DAOException {
 
+		long userId = this.getUserId(userData);
+		userData.setUserId(userId);
+		
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
@@ -87,8 +97,8 @@ public class UserDataDao {
 				sql += userData.getEMail() + "', '";
 				sql += userData.getPassword();
 				sql += "')";
-				conn.createStatement().executeUpdate(sql);
 				// ExecuteUpdate ook voor inserts
+				conn.createStatement().executeUpdate(sql);
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -105,6 +115,9 @@ public class UserDataDao {
 	 */
 	public void deleteUserData(UserDataDTO userData) throws DAOException {
 
+		long userId = this.getUserId(userData);
+		userData.setUserId(userId);
+		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			this.conn = DBConnector.getInstance().getConn();
@@ -127,6 +140,7 @@ public class UserDataDao {
 		List<UserDataDTO> list = new ArrayList<UserDataDTO>();
 		UserDataDTO userDataReturn = null;
 		ResultSet rs = null;
+		
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
@@ -153,11 +167,11 @@ public class UserDataDao {
 		} finally {
 			DBConnector.getInstance().close(rs);
 			DBConnector.getInstance().closeConn();
-		}
+		}	
 		return list;
 	}
 	
-	//methodes
+	//Overige methodes
 	/**
 	 * Methode om te controleren of een User/Gebruiker al aanwezig is (in de database)
 	 */
@@ -193,7 +207,8 @@ public class UserDataDao {
 	}
 	
 	/**
-	 * Methode om te controleren of een e-mail 
+	 * Methode om te controleren of een User/Gebruiker al aanwezig is (in de database) 
+	 * op basis van de e-mail (case sensitive) van de User/Gebruiker.
 	 */
 	public boolean verifyEmailUser(UserDataDTO userData) throws DAOException{
 		ResultSet rs = null;
@@ -203,7 +218,6 @@ public class UserDataDao {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			//sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
 			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL=" + "'" + userData.getEMail() + "'";
 			rs = conn.createStatement().executeQuery(sql);
 			//System.out.println("DTO: " +userData.getEMail());
@@ -216,7 +230,6 @@ public class UserDataDao {
 					inDatabase = false;
 				}
 			}
-			//System.out.println(inDatabase);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
@@ -228,6 +241,39 @@ public class UserDataDao {
 		return inDatabase;
 	}
 	
-	
+	/**
+	 * Methode om de UserId van een User/Gebruiker op te vragen op basis van de 
+	 * e-mail (case sensitive) van een User/Gebruiker 
+	 */
+	public long getUserId(UserDataDTO userData) throws DAOException{
+		ResultSet rs = null;
+		long userId = 0;
+		
+		try {
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
+			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL=" + "'" + userData.getEMail() + "'";
+			rs = conn.createStatement().executeQuery(sql);
+			System.out.println("DTO: " +userData.getEMail());
+			
+			if (rs.next()){
+				//System.out.println("Numbers of rows: " + rs.getRow());
+				if (rs.getRow() == 1 & new String(rs.getString("EMAIL")).equals(userData.getEMail())){
+					userId = rs.getLong("USERID");
+				}
+				System.out.println(userId);
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
+		}
+		return userId;
+	}
 	
 }
