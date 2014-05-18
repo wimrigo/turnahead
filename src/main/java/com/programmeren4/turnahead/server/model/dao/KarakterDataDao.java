@@ -72,7 +72,7 @@ public class KarakterDataDao {
 				// "UPDATE programmeren4.KARAKTER SET *veld='karakterData.getX()',*veld='karakterData.getY()', 
 				//"WHERE KARAKTERID=" + karakterData.getKarakterId();
 				String sql = "UPDATE programmeren4.KARAKTER SET ";
-				
+				sql += "CHARACTERNAME=" + karakterData.getKarakterName();
 				sql += "WHERE KARAKTERID=" + karakterData.getKarakterId();
 
 				conn. createStatement().executeUpdate(sql);
@@ -100,6 +100,9 @@ public class KarakterDataDao {
 	
 	/**
 	 * Methode om te controleren of een karakter al aanwezig is (in de database)
+	 * @param karakterData
+	 * @return
+	 * @throws DAOException
 	 */
 	public boolean checkKarakter(KarakterDTO karakterData) throws DAOException{
 		ResultSet rs = null;
@@ -111,7 +114,6 @@ public class KarakterDataDao {
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERID=" + karakterData.getKarakterId();
 			rs = conn.createStatement().executeQuery(sql);
-			
 			
 			if (rs.getLong("CHARACTERID")== karakterData.getKarakterId()){
 				inDatabase = true;

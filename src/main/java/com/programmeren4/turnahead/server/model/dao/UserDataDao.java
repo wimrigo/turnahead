@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.programmeren4.turnahead.server.database.DBConnector;
+import com.programmeren4.turnahead.shared.dto.LoginDTO;
 import com.programmeren4.turnahead.shared.dto.UserDataDTO;
 import com.programmeren4.turnahead.shared.exception.DAOException;
 
@@ -22,9 +23,8 @@ public class UserDataDao {
 	}
 
 	// getters en setters
-
 	
-	// methoden
+	//SELECT - UPDATE - INSERT - DELETE
 	/**
 	 * User/Gebruikerinformatie opvragen uit de database
 	 */
@@ -101,38 +101,6 @@ public class UserDataDao {
 
 	
 	/**
-	 * Methode om te controleren of een User/Gebruiker al aanwezig is (in de database)
-	 */
-	public boolean checkUser(UserDataDTO userData) throws DAOException{
-		ResultSet rs = null;
-		boolean inDatabase = false;
-		
-		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
-			DBConnector.getInstance().init();
-			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
-			rs = conn.createStatement().executeQuery(sql);
-			
-			if (rs.getLong("USERID") == userData.getUserId()){
-				inDatabase = true;
-			} else { 
-				inDatabase = false;
-			}
-
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBConnector.getInstance().close(rs);
-			DBConnector.getInstance().closeConn();
-		}
-		return inDatabase;
-	}
-	
-	
-	/**
 	 * Gebruiker verwijderen (DELETE)
 	 */
 	public void deleteUserData(UserDataDTO userData) throws DAOException {
@@ -188,4 +156,78 @@ public class UserDataDao {
 		}
 		return list;
 	}
+	
+	//methodes
+	/**
+	 * Methode om te controleren of een User/Gebruiker al aanwezig is (in de database)
+	 */
+	public boolean checkUser(UserDataDTO userData) throws DAOException{
+		ResultSet rs = null;
+		boolean inDatabase = false;
+		
+		try {
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
+			sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
+			rs = conn.createStatement().executeQuery(sql);
+			
+			rs.next();
+			
+			
+			if (new Long(rs.getLong("USERID")) == userData.getUserId()){
+				inDatabase = true;
+			} else { 
+				inDatabase = false;
+			}
+			System.out.println(inDatabase);
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
+		}
+		return inDatabase;
+	}
+	
+	/**
+	 * Methode om te controleren of een e-mail 
+	 */
+	public boolean verifyEmailUser(UserDataDTO userData) throws DAOException{
+		ResultSet rs = null;
+		boolean inDatabase = false;
+		
+		try {
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
+			//sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
+			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL=" + "'" + userData.getEMail() + "'";
+			rs = conn.createStatement().executeQuery(sql);
+			//System.out.println("DTO: " +userData.getEMail());
+			
+			if (rs.next()){
+				//System.out.println("Numbers of rows: " + rs.getRow());
+				if (rs.getRow() == 1 & new String(rs.getString("EMAIL")).equals(userData.getEMail())){
+					inDatabase = true;
+				} else { 
+					inDatabase = false;
+				}
+			}
+			//System.out.println(inDatabase);
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
+		}
+		return inDatabase;
+	}
+	
+	
+	
 }

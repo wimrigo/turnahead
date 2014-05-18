@@ -19,6 +19,16 @@ public class UserDataDTO implements Serializable {
 	private Date registrationDate;
 
 	// constructor (?)
+	public UserDataDTO(Long userId, String firstName, String lastName, String eMail,
+			String password) {
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.eMail = eMail;
+		this.password = password;
+	}
+	
+	
 	public UserDataDTO(String firstName, String lastName, String eMail,
 			String password) {
 		this.firstName = firstName;
@@ -26,7 +36,8 @@ public class UserDataDTO implements Serializable {
 		this.eMail = eMail;
 		this.password = password;
 	}
-
+	
+	
 	public UserDataDTO() {
 		super();
 	}
