@@ -24,13 +24,17 @@ public class KarakterDataDao {
 	//getters en setters
 	
 	
-	//SELECT - UPDATE - INSERT - DELETE
+	//SELECT - UPDATE - INSERT - DELETE - LIST
 	/**
 	 * Gegevens van een karakter opvragen (SELECT)
 	 */
 	public KarakterDTO getKarakterData(KarakterDTO karakterData) throws DAOException {
 		KarakterDTO karakterReturn = null;
 		ResultSet rs = null;
+		
+		long karakterId = this.getKarakterId(karakterData);
+		karakterData.setKarakterId(karakterId);
+		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
@@ -58,16 +62,19 @@ public class KarakterDataDao {
 	
 	/**
 	 * Karakter toevoegen (INSERT) of wijzigen (UPDATE)<br>
-	 * 
+	 * TODO: default location (locationDAO),
 	 */
 	public void addKarakterData(KarakterDTO karakterData) throws DAOException {
-			
+		
+		karakterData.setKarakterId(this.getKarakterId(karakterData));
+		boolean karakterTest = this.checkKarakter(karakterData);
+		
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
 			
 			// Controle (Karakter al in de database ?)
-			if (this.checkKarakter(karakterData) == true) {
+			if (karakterTest == true) {
 				// JA -> UPDATE bestaande record
 				// "UPDATE programmeren4.KARAKTER SET *veld='karakterData.getX()',*veld='karakterData.getY()', 
 				//"WHERE KARAKTERID=" + karakterData.getKarakterId();
@@ -101,12 +108,15 @@ public class KarakterDataDao {
 	/**
 	 * Karakter verwijderen (DELETE)
 	 */
-	public void deleteKarakterData(KarakterDTO userData) throws DAOException {
+	public void deleteKarakterData(KarakterDTO karakterData) throws DAOException {
+		
+		karakterData.setKarakterId(this.getKarakterId(karakterData));
+		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "DELETE FROM programmeren4.KARAKTER WHERE CHARACTERID=" + userData.getKarakterId();
+			sql = "DELETE FROM programmeren4.KARAKTER WHERE CHARACTERID=" + karakterData.getKarakterId();
 			conn.createStatement().executeUpdate(sql);
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -159,13 +169,12 @@ public class KarakterDataDao {
 	//Overige methodes
 	/**
 	 * Methode om te controleren of een karakter al aanwezig is (in de database)
-	 * @param karakterData
-	 * @return
-	 * @throws DAOException
 	 */
 	public boolean checkKarakter(KarakterDTO karakterData) throws DAOException{
 		ResultSet rs = null;
 		boolean inDatabase = false;
+		
+		karakterData.setKarakterId(this.getKarakterId(karakterData));
 		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
@@ -173,13 +182,21 @@ public class KarakterDataDao {
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERID=" + karakterData.getKarakterId();
 			rs = conn.createStatement().executeQuery(sql);
-			
-			if (rs.getLong("CHARACTERID")== karakterData.getKarakterId()){
-				inDatabase = true;
-			} else { 
-				inDatabase = false;
+			//System.out.println("karakterData KarakterID: " + userData.getUserId());
+						
+			if (rs.next()){
+				long a = new Long(rs.getLong("CHARACTERID"));
+				//System.out.println(a);
+				if ( a == karakterData.getKarakterId()){
+					inDatabase = true;
+					//System.out.println("IF-true");
+				} else { 
+					inDatabase = false;
+					//System.out.println("IF-false");
+				}
 			}
-
+				
+			System.out.println(inDatabase);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
@@ -189,6 +206,41 @@ public class KarakterDataDao {
 			DBConnector.getInstance().closeConn();
 		}
 		return inDatabase;
+	}
+	 
+	
+	/**
+	 * Methode om KarakterID van een Karakter op te vragen
+	 */
+	public long getKarakterId(KarakterDTO karakterData) throws DAOException{
+		ResultSet rs = null;
+		long karakterId = 0;
+		
+		try {
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
+			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERNAME=" + "'" + karakterData.getKarakterName()  + "'";
+			rs = conn.createStatement().executeQuery(sql);
+			//System.out.println("DTO: " +userData.getEMail());
+			
+			if (rs.next()){
+				//System.out.println("Numbers of rows: " + rs.getRow());
+				if (rs.getRow() == 1 & new String(rs.getString("CHARACTERNAME")).equals(karakterData.getKarakterName())){
+					karakterId = rs.getLong("CHARACTERID");
+				}
+				System.out.println(karakterId);
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
+		}
+		return karakterId;
 	}
 
 }

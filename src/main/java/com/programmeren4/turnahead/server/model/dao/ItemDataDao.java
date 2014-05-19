@@ -14,7 +14,7 @@ public class ItemDataDao {
 	//getters en setters
 	
 	
-	//SELECT - INSERT - UPDATE - DELETE
+	//SELECT - UPDATE - INSERT - DELETE - LIST
 	/**
 	 * Gegevens van een Item opvragen (SELECT)
 	 */
@@ -40,5 +40,12 @@ public class ItemDataDao {
 	
 	
 	//Overige methodes
+	/**
+	 * Methode om ItemID van een Item op te vragen
+	 */
+	
+	/**
+	 * Methode om te controleren of een item al aanwezig is in de database
+	 */
 }
 

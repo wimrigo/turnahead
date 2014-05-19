@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.programmeren4.turnahead.server.database.DBConnector;
-import com.programmeren4.turnahead.shared.dto.KarakterDTO;
 import com.programmeren4.turnahead.shared.dto.LocationDTO;
 import com.programmeren4.turnahead.shared.exception.DAOException;
 
@@ -25,24 +24,26 @@ public class LocationDataDao {
 	//getters en setters
 	
 	
-	//SELECT - UPDATE - INSERT - DELETE
+	//SELECT - UPDATE - INSERT - DELETE - LIST
 	/**
 	 * Gegevens van een Location opvragen (SELECT)
 	 */
-	public LocationDTO getLocationData(LocationDTO karakterData) throws DAOException {
+	public LocationDTO getLocationData(LocationDTO locationData) throws DAOException {
 		LocationDTO locationReturn = null;
 		ResultSet rs = null;
+		
+		locationData.setLocationId(this.getLocationId(locationData));
+		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERID=" + karakterData.getLocationId();
+			sql = "SELECT * FROM programmeren4.LOCATION WHERE LOCATIONID=" + locationData.getLocationId();
 			rs = conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
 				locationReturn = new LocationDTO();
 				locationReturn.setLocationId(rs.getLong("LOCATIONID"));
 				locationReturn.setLocationName(rs.getString("LOCATIONNAME"));
-				locationReturn.setLocationDescription(rs.getString("CURRENTLOCATION"));
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -67,6 +68,9 @@ public class LocationDataDao {
 	 * Location verwijderen (DELETE)
 	 */
 	public void deleteLocationData(LocationDTO locationData) throws DAOException {
+		
+		locationData.setLocationId(this.getLocationId(locationData));
+		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
@@ -91,15 +95,18 @@ public class LocationDataDao {
 		ResultSet rs = null;
 		
 		try {
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
-			String query = "SELECT * FROM programmeren4.KARAKTER";
+			this.conn = DBConnector.getInstance().getConn();
+			String query = "SELECT * FROM programmeren4.LOCATION";
 			LocationDTO locationReturn = null;
 			
 			this.conn = DBConnector.getInstance().getConn();
 			rs = conn.createStatement().executeQuery(query);
 
 			while (rs.next()) {
-				
+				locationReturn.setLocationId(rs.getLong("LOCATIONID"));
+				locationReturn.setLocationName(rs.getString("LOCATIONNAME"));
 
 				list.add(locationReturn);
 			}
@@ -109,6 +116,8 @@ public class LocationDataDao {
 		} catch (SQLException se) {
 			// Handle errors for JDBC
 			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			DBConnector.getInstance().close(rs);
 			DBConnector.getInstance().closeConn();
@@ -119,15 +128,84 @@ public class LocationDataDao {
 
 	//Overige methoden
 	/**
-	 * TODO
-	 * 
+	 * Methode om te controleren of een Locatie al aanwezig is in de database
 	 */
-	
+	public boolean checkLocation(LocationDTO locationData) throws DAOException{
+		ResultSet rs = null;
+		boolean inDatabase = false;
+		
+		locationData.setLocationId(this.getLocationId(locationData));
+		
+		try {
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
+			sql = "SELECT * FROM programmeren4.LOCATION WHERE LOCATIONID=" + locationData.getLocationId();
+			rs = conn.createStatement().executeQuery(sql);
+			//System.out.println("locationData LocationID: " + locationData.getLocationId());
+						
+			if (rs.next()){
+				long a = new Long(rs.getLong("CHARACTERID"));
+				//System.out.println(a);
+				if ( a == locationData.getLocationId()){
+					inDatabase = true;
+					//System.out.println("IF-true");
+				} else { 
+					inDatabase = false;
+					//System.out.println("IF-false");
+				}
+			}
+				
+			System.out.println(inDatabase);
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
+		}
+		return inDatabase;
+	}
 	
 	
 	/**
+	 * Methode om LocationID van een Locatie op te vragen
+	 */
+	public long getLocationId(LocationDTO locationData) throws DAOException{
+		ResultSet rs = null;
+		long locationId = 0;
+		
+		try {
+			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();
+			sql = "SELECT * FROM programmeren4.LOCATION WHERE LOCATIONNAME=" + "'" + locationData.getLocationName()  + "'";
+			rs = conn.createStatement().executeQuery(sql);
+			//System.out.println("DTO: " +locationData.getLocationName());
+			
+			if (rs.next()){
+				//System.out.println("Numbers of rows: " + rs.getRow());
+				if (rs.getRow() == 1 & new String(rs.getString("LOCATIONNAME")).equals(locationData.getLocationName())){
+					locationId = rs.getLong("LOCATIONID");
+				}
+				System.out.println(locationId);
+			}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().close(rs);
+			DBConnector.getInstance().closeConn();
+		}
+		return locationId;
+	}
+	
+	/**
 	 * TODO
-	 * Methode om de eerste record van de table op te vragen<br>
+	 * Methode om de eerste record van de LOCATION tabel op te vragen<br>
 	 * Default location (de eerste locatie in een tabel)
 	 */
 }

@@ -67,9 +67,8 @@ public class UserDataDao {
 	 * bijwerken (UPDATE)
 	 */
 	public void addUserData(UserDataDTO userData) throws DAOException {
-
-		long userId = this.getUserId(userData);
-		userData.setUserId(userId);
+		//Userid van UserDataDTO opvragen
+		userData.setUserId(this.getUserId(userData));
 		
 		// Controle (Bestaat User al in db ?)
 		boolean userTest = this.checkUser(userData);
@@ -182,28 +181,28 @@ public class UserDataDao {
 		ResultSet rs = null;
 		boolean inDatabase = false;
 		
-		long userId = this.getUserId(userData);
-		userData.setUserId(userId);
+		userData.setUserId(this.getUserId(userData));
 		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
-			System.out.println(sql);
 			rs = conn.createStatement().executeQuery(sql);
-			System.out.println(userData.getUserId());
-			System.out.println(rs.getLong("USERID"));
-			
+			//System.out.println("userData UserID: " + userData.getUserId());
+						
 			if (rs.next()){
-				if (new Long(rs.getLong("USERID")) == userData.getUserId()){
+				long a = new Long(rs.getLong("USERID"));
+				//System.out.println(a);
+				if ( a == userData.getUserId()){
 					inDatabase = true;
 					System.out.println("IF-true");
 				} else { 
 					inDatabase = false;
 					System.out.println("IF-false");
-				}}
-			
+				}
+			}
+				
 			System.out.println(inDatabase);
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -240,7 +239,7 @@ public class UserDataDao {
 					inDatabase = false;
 				}
 			}
-			System.out.println(inDatabase);
+			//System.out.println(inDatabase);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
