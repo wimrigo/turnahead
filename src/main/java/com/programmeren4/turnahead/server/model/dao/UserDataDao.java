@@ -29,18 +29,17 @@ public class UserDataDao {
 	
 	//SELECT - UPDATE - INSERT - DELETE - LIST
 	/**
+	 * SELECT<br>
 	 * User/Gebruikerinformatie opvragen uit de database
 	 */
 	public UserDataDTO getUserData(UserDataDTO userData) throws DAOException {
 		UserDataDTO userDataReturn = null;
 		ResultSet rs = null;
 		
-		long userId = this.getUserId(userData);
-		userData.setUserId(userId);
-		
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
+			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
+			
 			sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
 			rs = conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
@@ -63,15 +62,16 @@ public class UserDataDao {
 	}
 
 	/**
+	 * INSERT / UPDATE<br>
 	 * User/Gebruiker toevoegen aan de database (INSERT) of een bestaande User/Gebruiker
 	 * bijwerken (UPDATE)
 	 */
 	public void addUserData(UserDataDTO userData) throws DAOException {
 		//Userid van UserDataDTO opvragen
-		userData.setUserId(this.getUserId(userData));
+		//userData.setUserId(this.getUserId(userData));
 		
 		// Controle (Bestaat User al in db ?)
-		boolean userTest = this.checkUser(userData);
+		boolean userTest = this.verifyUserId(userData);
 		
 		try {
 			DBConnector.getInstance().init();
@@ -87,9 +87,11 @@ public class UserDataDao {
 				sql += "EMAIL='" + userData.getEMail() + "',";
 				sql += "PASSWORD='" + userData.getPassword() + "'";
 				sql += " WHERE USERID=" + userData.getUserId();
+				//System.out.println(sql);
 				conn.createStatement().executeUpdate(sql);
+			
 			} else {
-				// NEEN -> User toevoegen aan de database>
+				// NEEN -> User toevoegen aan de database
 				// INSERT INTO programmeren4.USER(Columns db) VALUES (userData.getXXX(),
 				// userData.getXXX(), userData.getXXX())
 				String sql = "INSERT INTO programmeren4.USER(FIRSTNAME, LASTNAME, EMAIL, PASSWORD) VALUES ('";
@@ -113,13 +115,10 @@ public class UserDataDao {
 
 	
 	/**
+	 * DELETE<br>
 	 * Gebruiker verwijderen (DELETE)
 	 */
 	public void deleteUserData(UserDataDTO userData) throws DAOException {
-
-		long userId = this.getUserId(userData);
-		userData.setUserId(userId);
-		
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
@@ -135,6 +134,7 @@ public class UserDataDao {
 	}
 
 	/**
+	 * LIST<br>
 	 * Lijst van alle Users/Gebruikers (LIST)
 	 */
 	public List<UserDataDTO> getUsers() throws SQLException {
@@ -176,17 +176,15 @@ public class UserDataDao {
 	//Overige methodes
 	/**
 	 * Methode om te controleren of een User/Gebruiker al aanwezig is (in de database)
+	 * op basis van een UserID
 	 */
-	public boolean checkUser(UserDataDTO userData) throws DAOException{
+	public boolean verifyUserId(UserDataDTO userData) throws DAOException{
 		ResultSet rs = null;
 		boolean inDatabase = false;
 		
-		userData.setUserId(this.getUserId(userData));
-		
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
-			this.conn = DBConnector.getInstance().getConn();
+			this.conn = DBConnector.getInstance().getConn();;
 			sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
 			rs = conn.createStatement().executeQuery(sql);
 			//System.out.println("userData UserID: " + userData.getUserId());
@@ -224,7 +222,6 @@ public class UserDataDao {
 		boolean inDatabase = false;
 		
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL=" + "'" + userData.getEMail() + "'";
@@ -239,7 +236,7 @@ public class UserDataDao {
 					inDatabase = false;
 				}
 			}
-			//System.out.println(inDatabase);
+			System.out.println(inDatabase);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
@@ -260,19 +257,15 @@ public class UserDataDao {
 		long userId = 0;
 		
 		try {
-			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL=" + "'" + userData.getEMail() + "'";
 			rs = conn.createStatement().executeQuery(sql);
-			//System.out.println("DTO: " +userData.getEMail());
 			
 			if (rs.next()){
-				//System.out.println("Numbers of rows: " + rs.getRow());
 				if (rs.getRow() == 1 & new String(rs.getString("EMAIL")).equals(userData.getEMail())){
 					userId = rs.getLong("USERID");
 				}
-				System.out.println(userId);
 			}
 			
 		} catch (SQLException se) {

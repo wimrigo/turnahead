@@ -6,6 +6,8 @@ public class ItemDataDao {
 	//attributen
 	private Connection conn;
 	private String sql;
+	//private String tabelnaam = "ITEM";
+	//private String[] tabelvelden = {"","","",""};
 	
 	//constructor
 	public ItemDataDao() {}

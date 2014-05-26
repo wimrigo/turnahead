@@ -32,9 +32,6 @@ public class KarakterDataDao {
 		KarakterDTO karakterReturn = null;
 		ResultSet rs = null;
 		
-		long karakterId = this.getKarakterId(karakterData);
-		karakterData.setKarakterId(karakterId);
-		
 		try {
 			Class.forName(DBConnector.DRIVER_CLASS).newInstance();
 			DBConnector.getInstance().init();
