@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 
 /**
- * Locatie DTO
- * 
+ * Locatie/Location DTO
  */
 public class LocationDTO implements Serializable{
 	//attributen
@@ -14,7 +13,13 @@ public class LocationDTO implements Serializable{
     private String locationName;
     private String locationDescription;
 
-    //constructor (?)
+    //constructor
+    public LocationDTO(Long locationId, String locationName, String locationDescription) {
+		this.locationId = locationId;
+    	this.locationName = locationName;
+		this.locationDescription = locationDescription; 
+	}
+    
     public LocationDTO(String locationName, String locationDescription) {
 		this.locationName = locationName;
 		this.locationDescription = locationDescription; 

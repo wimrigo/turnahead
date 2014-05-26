@@ -42,6 +42,10 @@ public class UserDataDao {
 			
 			sql = "SELECT * FROM programmeren4.USER WHERE USERID=" + userData.getUserId();
 			rs = conn.createStatement().executeQuery(sql);
+			if (!rs.isBeforeFirst() ) {    
+				 System.out.println("No data"); 
+			} 
+			
 			if (rs.next()) {
 				userDataReturn = new UserDataDTO();
 				userDataReturn.setUserId(rs.getLong("USERID"));
@@ -50,6 +54,7 @@ public class UserDataDao {
 				userDataReturn.setEMail(rs.getString("EMAIL"));
 				userDataReturn.setPassword(rs.getString("PASSWORD"));
 			}
+		
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {

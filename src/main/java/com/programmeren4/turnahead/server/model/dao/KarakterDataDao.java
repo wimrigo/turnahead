@@ -47,6 +47,10 @@ public class KarakterDataDao {
 				karakterReturn.setUserId(rs.getLong("USERID"));
 				karakterReturn.setLocationId(rs.getLong("LOCATIONID"));
 			}
+			if (!rs.isBeforeFirst() ) {    
+				 System.out.println("No data"); 
+			} 
+			
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
@@ -77,8 +81,9 @@ public class KarakterDataDao {
 				// *veld='karakterData.getX()',*veld='karakterData.getY()',
 				// "WHERE KARAKTERID=" + karakterData.getKarakterId();
 				String sql = "UPDATE programmeren4.KARAKTER SET ";
-				sql += "CHARACTERNAME='" + karakterData.getKarakterName().toUpperCase() + "'";
-				sql += "WHERE KARAKTERID=" + karakterData.getKarakterId();
+				sql += "CHARACTERNAME='" + karakterData.getKarakterName().toUpperCase() + "', ";
+				sql += " CURRENTLOCATION='" + karakterData.getCurrentLocation().toUpperCase() + "'";
+				sql += " WHERE CHARACTERID=" + karakterData.getKarakterId();
 
 				conn.createStatement().executeUpdate(sql);
 			} else {
@@ -88,10 +93,10 @@ public class KarakterDataDao {
 				// karakterData.getYYY(), karakterData.getZZZ())
 				String sql = "INSERT INTO programmeren4.KARAKTER(";
 				sql += "CHARACTERNAME, CURRENTLOCATION, USERID, LOCATIONID) VALUES ('";
-				sql += karakterData.getKarakterName() + ",";
-				sql += " SMIDSE,";
-				sql += karakterData.getUserId() + ","; // UserId van de User die Karakter
-				sql += " 1";
+				sql += karakterData.getKarakterName() + "', '";
+				sql += "SMIDSE', '";
+				sql += karakterData.getUserId() + "','"; // UserId van de User die Karakter
+				sql += "1";
 				sql += "')";
 				conn.createStatement().executeUpdate(sql);
 			}
@@ -188,12 +193,12 @@ public class KarakterDataDao {
 				karakterReturn.setCurrentLocation(rs.getString("CURRENTLOCATION"));
 				karakterReturn.setUserId(rs.getLong("USERID"));
 				karakterReturn.setLocationId(rs.getLong("LOCATIONID"));
-
+				System.out.println(karakterReturn);
 				list.add(karakterReturn);
 			}
 			if (list.isEmpty()) {
 				System.out.println("List fetched from database is empty.");
-			}
+			}		
 		} catch (SQLException se) {
 			// Handle errors for JDBC
 			se.printStackTrace();
@@ -248,6 +253,7 @@ public class KarakterDataDao {
 		return list;
 	}
 
+	
 	// Overige methodes
 	/**
 	 * Methode om te controleren of een karakter al aanwezig is (in de database)
@@ -271,10 +277,10 @@ public class KarakterDataDao {
 				// System.out.println(a);
 				if (a == karakterData.getKarakterId()) {
 					inDatabase = true;
-					// System.out.println("IF-true");
+					System.out.println("IF-true");
 				} else {
 					inDatabase = false;
-					// System.out.println("IF-false");
+					System.out.println("IF-false");
 				}
 			}
 			System.out.println(inDatabase);
@@ -301,8 +307,8 @@ public class KarakterDataDao {
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM programmeren4.CHARACTER WHERE CHARACTERNAME="
-					+ karakterData.getKarakterName().toUpperCase();
+			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERNAME='"
+					+ karakterData.getKarakterName().toUpperCase() + "'";
 			rs = conn.createStatement().executeQuery(sql);
 			// System.out.println("karakterData KarakterID: " +  karakterData.getKarakterId());
 

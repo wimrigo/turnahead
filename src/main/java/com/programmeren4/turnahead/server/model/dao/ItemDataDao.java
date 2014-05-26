@@ -24,11 +24,11 @@ public class ItemDataDao {
 	//getters en setters
 	
 	
-	//SELECT - UPDATE - INSERT - DELETE - LIST
+	//SELECT - UPDATE - INSERT - DELETE
 	/**
 	 * Gegevens van een Item opvragen (SELECT)
 	 */
-	public ItemDTO getLocationData(ItemDTO itemData) throws DAOException {
+	public ItemDTO getItemData(ItemDTO itemData) throws DAOException {
 		ItemDTO itemReturn = null;
 		ResultSet rs = null;
 
@@ -37,12 +37,17 @@ public class ItemDataDao {
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM programmeren4.ITEM WHERE ITEMID=" + itemData.getItemId();
 			rs = conn.createStatement().executeQuery(sql);
+			if (!rs.isBeforeFirst() ) {    
+				 System.out.println("No data"); 
+			} 
+			
 			if (rs.next()) {
 				itemReturn = new ItemDTO();
 				itemReturn.setItemId(rs.getLong("ITEMID"));
 				itemReturn.setItemName(rs.getString("ITEMNAME"));
 				itemReturn.setDescription(rs.getString("ITEM_DESCRIPTION"));
 			}
+
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
@@ -59,7 +64,7 @@ public class ItemDataDao {
 	 * Item toevoegen aan de database (INSERT) of een bestaand Item
 	 * bijwerken (UPDATE)
 	 */
-	public void addLocationData(ItemDTO itemData) throws DAOException {		
+	public void addItemData(ItemDTO itemData) throws DAOException {		
 		// Controle (Bestaat Locatie al in tabel Location ?)
 		boolean itemTest = this.verifyItemId(itemData);
 		
@@ -72,7 +77,7 @@ public class ItemDataDao {
 				// "UPDATE programmeren4.ITEM SET *veld='itemData.getX()',*veld='itemData.getY()', 
 				// "WHERE ITEMID=" + itemData.getKarakterId();
 				String sql = "UPDATE programmeren4.ITEM SET";
-				sql += " ITEMNAME='" + itemData.getItemName().toUpperCase() + "'";
+				sql += " ITEMNAME='" + itemData.getItemName().toUpperCase() + "', ";
 				sql += " ITEM_DESCRIPTION='" + itemData.getDescription() + "'";
 				sql += " WHERE ITEMID=" + itemData.getItemId();
 				conn.createStatement().executeUpdate(sql);
@@ -82,8 +87,8 @@ public class ItemDataDao {
 				// INSERT INTO programmeren4.ITEM(Columns db) VALUES (locationData.getX(),
 				// locationData.getY(), locationData.getZ())
 				String sql = "INSERT INTO programmeren4.ITEM(";
-				sql += " LOCATION_NAME, LOCATION_DESCRIPTION) VALUES ('";
-				sql += itemData.getItemName().toUpperCase() +", ";
+				sql += "ITEMNAME, ITEM_DESCRIPTION) VALUES ('";
+				sql += itemData.getItemName().toUpperCase() +"', '";
 				sql += itemData.getDescription();
 				sql += "')";
 				conn.createStatement().executeUpdate(sql);
@@ -118,6 +123,7 @@ public class ItemDataDao {
 	}
 	
 	
+	//LIST
 	/**
 	 * Lijst van alle Items (LIST)
 	 */
@@ -204,7 +210,7 @@ public class ItemDataDao {
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM programmeren4.ITEM WHERE ITEMNAME=" + itemData.getItemName().toUpperCase();
+			sql = "SELECT * FROM programmeren4.ITEM WHERE ITEMNAME='" + itemData.getItemName().toUpperCase() + "'";
 			rs = conn.createStatement().executeQuery(sql);
 			//System.out.println("itemData ItemID: " + itemData.getItemId();
 						

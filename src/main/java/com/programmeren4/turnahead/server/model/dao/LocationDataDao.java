@@ -37,12 +37,18 @@ public class LocationDataDao {
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM programmeren4.LOCATION WHERE LOCATIONID=" + locationData.getLocationId();
 			rs = conn.createStatement().executeQuery(sql);
+			if (!rs.isBeforeFirst() ) {    
+				 System.out.println("No data"); 
+			} 
+			
 			if (rs.next()) {
 				locationReturn = new LocationDTO();
 				locationReturn.setLocationId(rs.getLong("LOCATIONID"));
 				locationReturn.setLocationName(rs.getString("LOCATION_NAME"));
 				locationReturn.setLocationDescription(rs.getString("LOCATION_DESCRIPTION"));
+				System.out.println(locationReturn);
 			}
+
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
@@ -71,7 +77,7 @@ public class LocationDataDao {
 				// "UPDATE programmeren4.LOCATION SET *veld='locationData.getX()',*veld='locationData.getY()', 
 				// "WHERE LOCATIONID=" + karakterData.getKarakterId();
 				String sql = "UPDATE programmeren4.LOCATION SET";
-				sql += " LOCATION_NAME='" + locationData.getLocationName().toUpperCase() + "'";
+				sql += " LOCATION_NAME='" + locationData.getLocationName().toUpperCase() + "',";
 				sql += " LOCATION_DESCRIPTION='" + locationData.getLocationDescription() + "'";
 				sql += " WHERE LOCATIONID=" + locationData.getLocationId();
 				conn.createStatement().executeUpdate(sql);
@@ -82,7 +88,7 @@ public class LocationDataDao {
 				// locationData.getY(), locationData.getZ())
 				String sql = "INSERT INTO programmeren4.LOCATION(";
 				sql += " LOCATION_NAME, LOCATION_DESCRIPTION) VALUES ('";
-				sql += locationData.getLocationName().toUpperCase() +", ";
+				sql += locationData.getLocationName().toUpperCase() +"', '";
 				sql += locationData.getLocationDescription();
 				sql += "')";
 				conn.createStatement().executeUpdate(sql);
@@ -203,9 +209,9 @@ public class LocationDataDao {
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM programmeren4.LOCATION WHERE LOCATION_NAME=" + locationData.getLocationName().toUpperCase();
+			sql = "SELECT * FROM programmeren4.LOCATION WHERE LOCATION_NAME='" + locationData.getLocationName().toUpperCase() + "'";
 			rs = conn.createStatement().executeQuery(sql);
-			//System.out.println("locationData LocationID: " + locationData.getLocationName().toUpperCase()
+			//System.out.println("locationData LocationID: " + locationData.getLocationName().toUpperCase());
 						
 			if (rs.next()){
 				if (rs.getRow() == 1 & new String(rs.getString("LOCATION_NAME").toUpperCase()).equals(locationData.getLocationName().toUpperCase())){
@@ -239,16 +245,16 @@ public class LocationDataDao {
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM programmeren4.LOCATION WHERE LOCATIONNAME=" + "'" + locationData.getLocationName()  + "'";
+			sql = "SELECT * FROM programmeren4.LOCATION WHERE LOCATION_NAME='" + locationData.getLocationName().toUpperCase()  + "'";
 			rs = conn.createStatement().executeQuery(sql);
 			//System.out.println("DTO: " +locationData.getLocationName());
 			
 			if (rs.next()){
 				//System.out.println("Numbers of rows: " + rs.getRow());
-				if (rs.getRow() == 1 & new String(rs.getString("LOCATIONNAME")).equals(locationData.getLocationName())){
+				if (rs.getRow() == 1 & new String(rs.getString("LOCATION_NAME").toUpperCase()).equals(locationData.getLocationName().toUpperCase())){
 					locationId = rs.getLong("LOCATIONID");
 				}
-				System.out.println(locationId);
+				//System.out.println(locationId);
 			}
 			
 		} catch (SQLException se) {
@@ -275,18 +281,19 @@ public class LocationDataDao {
 			this.conn = DBConnector.getInstance().getConn();
 			sql = "SELECT * FROM location LIMIT 1";
 			rs = conn.createStatement().executeQuery(sql);
-			//System.out.println("DTO: " +locationData.getLocationName());
+			//System.out.println("DTO: " + locationData.getLocationName());
 			
+			if (!rs.isBeforeFirst() ) {    
+				 System.out.println("No data"); 
+			} 
 			if (rs.next()){
 				//System.out.println("Numbers of rows: " + rs.getRow());
-				if (rs.getRow() == 1 & new String(rs.getString("LOCATIONNAME")).equals(locationData.getLocationName())){
+				if (rs.getRow() == 1 & new String(rs.getString("LOCATION_NAME")).equals(locationData.getLocationName())){
 					locationId = rs.getLong("LOCATIONID");
 				}
 				System.out.println(locationId);
 			}
-			if (!rs.isBeforeFirst() ) {    
-				 System.out.println("No data"); 
-			} 
+
 			
 			
 		} catch (SQLException se) {
