@@ -77,8 +77,7 @@ public class KarakterDataDao {
 				// *veld='karakterData.getX()',*veld='karakterData.getY()',
 				// "WHERE KARAKTERID=" + karakterData.getKarakterId();
 				String sql = "UPDATE programmeren4.KARAKTER SET ";
-				sql += "CHARACTERNAME='"
-						+ karakterData.getKarakterName().toUpperCase() + "'";
+				sql += "CHARACTERNAME='" + karakterData.getKarakterName().toUpperCase() + "'";
 				sql += "WHERE KARAKTERID=" + karakterData.getKarakterId();
 
 				conn.createStatement().executeUpdate(sql);
@@ -91,8 +90,7 @@ public class KarakterDataDao {
 				sql += "CHARACTERNAME, CURRENTLOCATION, USERID, LOCATIONID) VALUES ('";
 				sql += karakterData.getKarakterName() + ",";
 				sql += " SMIDSE,";
-				sql += karakterData.getUserId() + ","; // UserId van de User die
-														// Karakter
+				sql += karakterData.getUserId() + ","; // UserId van de User die Karakter
 				sql += " 1";
 				sql += "')";
 				conn.createStatement().executeUpdate(sql);
@@ -115,8 +113,7 @@ public class KarakterDataDao {
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "DELETE FROM programmeren4.KARAKTER WHERE CHARACTERID="
-					+ karakterData.getKarakterId();
+			sql = "DELETE FROM programmeren4.KARAKTER WHERE CHARACTERID=" + karakterData.getKarakterId();
 			conn.createStatement().executeUpdate(sql);
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -146,8 +143,7 @@ public class KarakterDataDao {
 				karakterReturn = new KarakterDTO();
 				karakterReturn.setKarakterId(rs.getLong("CHARACTERID"));
 				karakterReturn.setKarakterName(rs.getString("CHARACTERNAME"));
-				karakterReturn.setCurrentLocation(rs
-						.getString("CURRENTLOCATION"));
+				karakterReturn.setCurrentLocation(rs.getString("CURRENTLOCATION"));
 				karakterReturn.setUserId(rs.getLong("USERID"));
 				karakterReturn.setLocationId(rs.getLong("LOCATIONID"));
 
@@ -189,8 +185,7 @@ public class KarakterDataDao {
 				karakterReturn = new KarakterDTO();
 				karakterReturn.setKarakterId(rs.getLong("CHARACTERID"));
 				karakterReturn.setKarakterName(rs.getString("CHARACTERNAME"));
-				karakterReturn.setCurrentLocation(rs
-						.getString("CURRENTLOCATION"));
+				karakterReturn.setCurrentLocation(rs.getString("CURRENTLOCATION"));
 				karakterReturn.setUserId(rs.getLong("USERID"));
 				karakterReturn.setLocationId(rs.getLong("LOCATIONID"));
 
@@ -232,8 +227,7 @@ public class KarakterDataDao {
 				karakterReturn = new KarakterDTO();
 				karakterReturn.setKarakterId(rs.getLong("CHARACTERID"));
 				karakterReturn.setKarakterName(rs.getString("CHARACTERNAME"));
-				karakterReturn.setCurrentLocation(rs
-						.getString("CURRENTLOCATION"));
+				karakterReturn.setCurrentLocation(rs.getString("CURRENTLOCATION"));
 				karakterReturn.setUserId(rs.getLong("USERID"));
 				karakterReturn.setLocationId(rs.getLong("LOCATIONID"));
 
@@ -267,8 +261,7 @@ public class KarakterDataDao {
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERID="
-					+ karakterData.getKarakterId();
+			sql = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERID=" + karakterData.getKarakterId();
 			rs = conn.createStatement().executeQuery(sql);
 			// System.out.println("karakterData KarakterID: " +
 			// userData.getUserId());
@@ -311,14 +304,11 @@ public class KarakterDataDao {
 			sql = "SELECT * FROM programmeren4.CHARACTER WHERE CHARACTERNAME="
 					+ karakterData.getKarakterName().toUpperCase();
 			rs = conn.createStatement().executeQuery(sql);
-			// System.out.println("karakterData KarakterID: " +
-			// karakterData.getKarakterId());
+			// System.out.println("karakterData KarakterID: " +  karakterData.getKarakterId());
 
 			if (rs.next()) {
 				if (rs.getRow() == 1
-						& new String(rs.getString("CHARACTERNAME")
-								.toUpperCase()).equals(karakterData
-								.getKarakterName().toUpperCase())) {
+						& new String(rs.getString("CHARACTERNAME").toUpperCase()).equals(karakterData.getKarakterName().toUpperCase())) {
 					inDatabase = true;
 				} else {
 					inDatabase = false;
