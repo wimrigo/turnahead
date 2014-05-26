@@ -215,7 +215,7 @@ public class UserDataDao {
 	
 	/**
 	 * Methode om te controleren of een User/Gebruiker al aanwezig is (in de database) 
-	 * op basis van de e-mail (case sensitive) van de User/Gebruiker.
+	 * op basis van de e-mail van de User/Gebruiker.
 	 */
 	public boolean verifyEmailUser(UserDataDTO userData) throws DAOException{
 		ResultSet rs = null;
@@ -224,13 +224,13 @@ public class UserDataDao {
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL=" + "'" + userData.getEMail() + "'";
+			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL=" + "'" + userData.getEMail().toUpperCase() + "'";
 			rs = conn.createStatement().executeQuery(sql);
 			//System.out.println("DTO: " +userData.getEMail());
 			
 			if (rs.next()){
 				//System.out.println("Numbers of rows: " + rs.getRow());
-				if (rs.getRow() == 1 & new String(rs.getString("EMAIL")).equals(userData.getEMail())){
+				if (rs.getRow() == 1 & new String(rs.getString("EMAIL").toUpperCase()).equals(userData.getEMail().toUpperCase())){
 					inDatabase = true;
 				} else { 
 					inDatabase = false;
@@ -263,7 +263,7 @@ public class UserDataDao {
 			rs = conn.createStatement().executeQuery(sql);
 			
 			if (rs.next()){
-				if (rs.getRow() == 1 & new String(rs.getString("EMAIL")).equals(userData.getEMail())){
+				if (rs.getRow() == 1 & new String(rs.getString("EMAIL").toUpperCase()).equals(userData.getEMail().toUpperCase())){
 					userId = rs.getLong("USERID");
 				}
 			}
