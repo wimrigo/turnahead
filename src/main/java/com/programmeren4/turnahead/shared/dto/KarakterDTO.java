@@ -5,67 +5,113 @@ import java.util.Date;
 
 /**
  * Karakter DTO
- * 
  */
 public class KarakterDTO implements Serializable {
-	//attributen
+	// attributen
 	private static final long serialVersionUID = 1L;
-	private Long karakterId; //int karakterId;
+	private Long karakterId; // int karakterId;
 	private String karakterName;
-    private String currentLocation;
+	private String currentLocation;
+	private Long userId;
+	private Long locationId;
 	private Date creationDate;
-    private Date lastUseDate;
-	
-    //constructor
-    public KarakterDTO(Long karakterId, String karakterName, String currentLocation) {
-		super();
+	private Date lastUseDate;
+
+	// constructor
+	/**
+	 * Karakter Constructor met KarakterId
+	 * @param karakterId
+	 * @param karakterName
+	 * @param currentLocation
+	 * @param userId
+	 * @param locationId
+	 */
+	public KarakterDTO(Long karakterId, String karakterName,
+			String currentLocation, Long userId, Long locationId) {
 		this.karakterId = karakterId;
 		this.karakterName = karakterName;
 		this.currentLocation = currentLocation;
+		this.userId = userId;
+		this.locationId = locationId;
 	}
-    
-    public KarakterDTO(){
-    	super();
-    }
-    
-    
-	//getters en setters
-    public Long getKarakterId() {
+	
+	/**
+	 * Karakter Constructor zonder KarakterId
+	 * @param karakterName
+	 * @param currentLocation
+	 * @param userId
+	 * @param locationId
+	 */
+	public KarakterDTO(String karakterName, String currentLocation,
+			Long userId, Long locationId) {
+		this.karakterName = karakterName;
+		this.currentLocation = currentLocation;
+		this.userId = userId;
+		this.locationId = locationId;
+	}
+
+	public KarakterDTO() {
+		super();
+	}
+
+	// getters en setters
+	public Long getKarakterId() {
 		return karakterId;
 	}
+
 	public void setKarakterId(Long karakterId) {
 		this.karakterId = karakterId;
 	}
-	
+
 	public String getKarakterName() {
 		return karakterName;
 	}
+
 	public void setKarakterName(String karakterName) {
 		this.karakterName = karakterName;
 	}
-	
+
 	public String getCurrentLocation() {
 		return currentLocation;
 	}
+
 	public void setCurrentLocation(String currentLocation) {
 		this.currentLocation = currentLocation;
 	}
-	
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(Long locationId) {
+		this.locationId = locationId;
+	}
+
 	public Date getCreationDate() {
 		return creationDate;
 	}
+
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
-	
+
 	public Date getLastUseDate() {
 		return lastUseDate;
 	}
+
 	public void setLastUseDate(Date lastUseDate) {
 		this.lastUseDate = lastUseDate;
 	}
-	
-	//methoden
+
+	// methoden
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -82,5 +128,5 @@ public class KarakterDTO implements Serializable {
 			return false;
 		return true;
 	}
-    
+
 }
