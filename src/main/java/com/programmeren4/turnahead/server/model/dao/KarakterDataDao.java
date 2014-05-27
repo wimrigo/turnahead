@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.programmeren4.turnahead.server.database.DBConnector;
+import com.programmeren4.turnahead.shared.dto.ItemDTO;
 import com.programmeren4.turnahead.shared.dto.KarakterDTO;
 import com.programmeren4.turnahead.shared.exception.DAOException;
 
@@ -25,7 +26,7 @@ public class KarakterDataDao {
 
 	// getters en setters
 
-	// SELECT - UPDATE - INSERT - DELETE - LIST
+	// SELECT - UPDATE - INSERT - DELETE
 	/**
 	 * Gegevens van een karakter opvragen (SELECT)
 	 */
@@ -67,7 +68,7 @@ public class KarakterDataDao {
 	 */
 	public void addKarakterData(KarakterDTO karakterData) throws DAOException {
 		// Controle (Bestaat Karakter al in tabel Karakter ?)
-		boolean karakterTest = this.verifyKarakterId(karakterData);
+		boolean karakterTest = this.VerifyKarakterId(karakterData);
 
 		// Naam en id van eerste Locatie in tabel LOCATION ophalen
 
@@ -170,8 +171,7 @@ public class KarakterDataDao {
 	}
 
 	/**
-	 * LIST BY USER<br>
-	 * Lijst van alle karakters voor één UserId
+	 * LIST BY USER - Lijst van alle karakters voor één UserId
 	 */
 	public List<KarakterDTO> getKaraktersOfUserId(KarakterDTO karakterData)
 			throws DAOException {
@@ -212,8 +212,7 @@ public class KarakterDataDao {
 	}
 
 	/**
-	 * LIST BY LOCATION<br>
-	 * Lijst van alle karakters voor één LocationId
+	 * LIST BY LOCATION - Lijst van alle karakters voor één LocationId
 	 */
 	public List<KarakterDTO> getKaraktersOfLocationId(KarakterDTO karakterData)
 			throws DAOException {
@@ -224,7 +223,7 @@ public class KarakterDataDao {
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			String query = "SELECT * FROM programmeren4.KARAKTER WHERE CHARACTERID="
+			String query = "SELECT * FROM programmeren4.KARAKTER WHERE LOCATIONID="
 					+ karakterData.getLocationId();
 			rs = conn.createStatement().executeQuery(query);
 
@@ -254,12 +253,37 @@ public class KarakterDataDao {
 	}
 
 	
+	//Itemownership
+	/**
+	 * TODO - verify
+	 * Methode om een item toe te wijzen aan een karakter
+	 */
+	public void AllocateItemToKarakter(KarakterDTO karakterData, ItemDTO itemData){
+		try {
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();		
+			sql = "UPDATE programmeren4.ITEMOWNERSHIP SET ";
+			sql += "CHARACTERID='" + karakterData.getKarakterId() + "', ";
+			sql += "LOCATIONID=null ";
+			sql += "WHERE ITEMID=" + itemData.getItemId();
+			conn.createStatement().executeUpdate(sql);
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().closeConn();
+		}
+	}
+	
+	
 	// Overige methodes
 	/**
 	 * Methode om te controleren of een karakter al aanwezig is (in de database)
 	 * (op basis van een KarakterId)
 	 */
-	public boolean verifyKarakterId(KarakterDTO karakterData)
+	public boolean VerifyKarakterId(KarakterDTO karakterData)
 			throws DAOException {
 		ResultSet rs = null;
 		boolean inDatabase = false;
@@ -299,7 +323,7 @@ public class KarakterDataDao {
 	 * Methode om te controleren of een Karakter al aanwezig is in de database
 	 * (op basis van Karakternaam)
 	 */
-	public boolean verifyKarakterNaam(KarakterDTO karakterData)
+	public boolean VerifyKarakterNaam(KarakterDTO karakterData)
 			throws DAOException {
 		ResultSet rs = null;
 		boolean inDatabase = false;

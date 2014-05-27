@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.programmeren4.turnahead.server.database.DBConnector;
+import com.programmeren4.turnahead.shared.dto.ItemDTO;
+import com.programmeren4.turnahead.shared.dto.KarakterDTO;
 import com.programmeren4.turnahead.shared.dto.LocationDTO;
 import com.programmeren4.turnahead.shared.exception.DAOException;
 
@@ -24,7 +26,7 @@ public class LocationDataDao {
 	//getters en setters
 	
 	
-	//SELECT - UPDATE - INSERT - DELETE - LIST
+	//SELECT - UPDATE - INSERT - DELETE
 	/**
 	 * Gegevens van een Location opvragen (SELECT)
 	 */
@@ -122,7 +124,7 @@ public class LocationDataDao {
 		}
 	}
 	
-	
+	//LIST
 	/**
 	 * Lijst van alle Locations (LIST)
 	 */
@@ -159,6 +161,32 @@ public class LocationDataDao {
 		}
 		return list;
 	}
+	
+	//Itemownership
+	/**
+	 * TODO - verify
+	 * Methode om een item toe te wijzen aan een Locatie 
+	 */
+	public void AllocateItemToLocation(LocationDTO locationData, ItemDTO itemData){
+		try {
+			DBConnector.getInstance().init();
+			this.conn = DBConnector.getInstance().getConn();		
+			sql = "UPDATE programmeren4.ITEMOWNERSHIP SET ";
+			sql += "CHARACTERID=null";
+			sql += "LOCATIONID='"+ locationData.getLocationId() +"'";
+			sql += "WHERE ITEMID=" + itemData.getItemId();
+			conn.createStatement().executeUpdate(sql);
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnector.getInstance().closeConn();
+		}
+	}
+	
+	
 	
 
 	//Overige methoden
