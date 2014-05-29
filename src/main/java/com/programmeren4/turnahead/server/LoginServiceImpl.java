@@ -16,7 +16,7 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 	public boolean Login(LoginDTO loginFromClient) {
 		boolean result = false;
 		try {
-			result = loginFromClient.equals(loginDao.checkLogin(loginFromClient));// ? true : false;
+			result = loginFromClient.equals(loginDao.checkLogin(loginFromClient));
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
