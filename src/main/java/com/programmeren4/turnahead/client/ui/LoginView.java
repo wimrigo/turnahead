@@ -19,8 +19,10 @@ import com.programmeren4.turnahead.shared.dto.LoginDTO;
 
 public class LoginView extends Composite {
 
-	private static LoginViewUiBinder uiBinder = GWT.create(LoginViewUiBinder.class);
+	private static LoginViewUiBinder uiBinder = GWT
+			.create(LoginViewUiBinder.class);
 	LoginServiceAsync LoginAsync;
+	public static Long IngelogdID;
 
 	interface LoginViewUiBinder extends UiBinder<Widget, LoginView> {
 	}
@@ -46,14 +48,15 @@ public class LoginView extends Composite {
 	@UiHandler("inloggen")
 	void onClickButtonInloggen(ClickEvent e) {
 
-		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
-			
+		AsyncCallback<Long> callback = new AsyncCallback<Long>() {
+
 			@Override
-			public void onSuccess(Boolean result) {
-				if (result)
-					//new Overview();
+			public void onSuccess(Long result) {
+				if (result != null) {
+//					System.out.println("Async callback result: "+result.toString());
+					LoginView.IngelogdID = result;
 					History.newItem("overview");
-				else{
+				} else {
 					Window.alert("User/Password combination does not exist! Please try again...");
 				}
 			}

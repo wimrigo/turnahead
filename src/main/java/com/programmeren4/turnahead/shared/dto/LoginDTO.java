@@ -10,6 +10,7 @@ public class LoginDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String email;
 	private String password;
+	private Long ID;
 
 	public LoginDTO() {
 		super();
@@ -34,6 +35,14 @@ public class LoginDTO implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Long getID() {
+		return ID;
+	}
+
+	public void setID(Long ID) {
+		this.ID = ID;
 	}
 
 	@Override

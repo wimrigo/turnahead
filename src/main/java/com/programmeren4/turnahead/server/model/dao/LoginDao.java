@@ -23,14 +23,15 @@ public class LoginDao {
 		try {
 			DBConnector.getInstance().init();
 			this.conn = DBConnector.getInstance().getConn();
-			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL='"+login.getEMail()+"'";
+			sql = "SELECT * FROM programmeren4.USER WHERE EMAIL='"
+					+ login.getEMail() + "'";
 			rs = this.conn.createStatement().executeQuery(sql);
 			if (rs.next()) {
 				LoginReturn = new LoginDTO();
 				LoginReturn.setEMail(rs.getString("EMAIL"));
-				LoginReturn.setPassword(rs.getString("PASSWORD"));	
-			}
-			else 
+				LoginReturn.setPassword(rs.getString("PASSWORD"));
+				LoginReturn.setID(rs.getLong("USERID"));
+			} else
 				System.out.println("Error: no user/password combination in DB");
 		} catch (SQLException se) {
 			se.printStackTrace();

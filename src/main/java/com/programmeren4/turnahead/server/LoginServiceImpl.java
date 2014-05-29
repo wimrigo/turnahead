@@ -11,12 +11,17 @@ public class LoginServiceImpl extends RemoteServiceServlet implements
 
 	private static final long serialVersionUID = 1L;
 	LoginDao loginDao = new LoginDao();
+	public Long IngelogdegebruikerID;
 
 	@Override
-	public boolean Login(LoginDTO loginFromClient) {
-		boolean result = false;
+	public Long Login(LoginDTO loginFromClient) {
+		Long result = null;
 		try {
-			result = loginFromClient.equals(loginDao.checkLogin(loginFromClient));
+			LoginDTO loginfromDB = loginDao.checkLogin(loginFromClient);
+			if (loginFromClient.equals(loginfromDB)) {
+				result = loginfromDB.getID();
+				this.IngelogdegebruikerID = loginfromDB.getID();
+			}
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
