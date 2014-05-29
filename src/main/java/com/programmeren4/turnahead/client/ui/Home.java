@@ -12,9 +12,9 @@ public class Home implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 		RootPanel.get().add(application);
-
+		History.newItem("home");
+		
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
-
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
 				if (event.getValue().contains("login")) {

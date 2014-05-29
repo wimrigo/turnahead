@@ -49,18 +49,18 @@ public class LoginView extends Composite {
 			
 			@Override
 			public void onSuccess(Boolean result) {
-				new Overview();
+				if (result)
+					new Overview();
+				else{
+					Window.alert("User/Password combination does not exist! Please try again...");
+				}
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-//				Window.alert(caught.getMessage());
-//				caught.printStackTrace();
-				Window.alert("Try again loser!");
+				Window.alert("Damn the whole thing crashed");
 			}
 		};
-		
-		//LoginAsync.Login(new LoginDTO("WARD.PEER@HOTMAIL.COM", "programmeren4"), callback);
 		LoginAsync.Login(new LoginDTO(user.getText(), pass.getText()), callback);
 	}
 
