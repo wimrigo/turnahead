@@ -73,6 +73,8 @@ public class HomeView extends Composite {
 
 			}
 		};
+		// move to appropriate form
+		// in textfields
 		userDataAsync.createUser(new UserDataDTO("Stefaan", "De Geyter",
 				"faandg@gmail.com", "tester"), callback);
 

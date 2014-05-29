@@ -22,6 +22,11 @@ public class ItemDTO implements Serializable{
 		this.description = description;
 	}
 	
+	public ItemDTO(String itemName, String description) {
+		this.itemName = itemName;
+		this.description = description;
+	}
+	
 	public ItemDTO() {
 		super();
 	}

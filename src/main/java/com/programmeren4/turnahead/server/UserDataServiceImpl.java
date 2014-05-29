@@ -8,6 +8,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.programmeren4.turnahead.client.services.UserDataService;
 import com.programmeren4.turnahead.server.model.dao.UserDataDao;
 import com.programmeren4.turnahead.shared.dto.UserDataDTO;
+import com.programmeren4.turnahead.shared.exception.DAOException;
 
 public class UserDataServiceImpl extends RemoteServiceServlet implements UserDataService{
 	
@@ -27,10 +28,10 @@ public class UserDataServiceImpl extends RemoteServiceServlet implements UserDat
 	public boolean createUser(UserDataDTO userDataDTO) {
 		try {
 			userDataDao.addUserData(userDataDTO);
-		} catch (SQLException e) {
+		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		return true;
 	}
 	
@@ -46,8 +47,7 @@ public class UserDataServiceImpl extends RemoteServiceServlet implements UserDat
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return userList;
-		
+		return userList;	
 	}
 	
 	

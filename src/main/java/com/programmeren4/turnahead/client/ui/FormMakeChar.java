@@ -45,6 +45,7 @@ public class FormMakeChar extends Composite {
 
 	@UiHandler("OKbutton")
 	void onClickOKknop(ClickEvent e) {
+		//name.getText();
 		// char wordt toegevoegd aan databankwindow
 		Window.alert("char toegevoegd aan databank");
 		// char toevoegen aan databank
