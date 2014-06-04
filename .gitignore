@@ -32,3 +32,8 @@ war/
 # Maven #
 target
 
+# Cache files created by local testing #
+*/webapp/**/*.js
+ 
+# OS X System file
+.DS_Store

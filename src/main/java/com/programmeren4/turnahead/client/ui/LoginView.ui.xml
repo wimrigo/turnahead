@@ -1,0 +1,18 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	
+	</ui:style>
+	<g:HTMLPanel>
+		je kan het testen met een naam uit de DB... e.g. WARD.PEER@HOTMAIL.COM
+		en het paswoord is programmeren4
+		<g:Label ui:field="username">gebruikersnaam</g:Label>
+		<g:TextBox ui:field="user">Vul hier je e-mail adres in...</g:TextBox>
+		<g:Label ui:field="password">paswoord</g:Label>
+		<g:TextBox ui:field="pass">Vul hier je paswoord in</g:TextBox>
+		<g:Button ui:field="inloggen">Inloggen</g:Button>
+		<g:Button ui:field="reset">reset velden</g:Button>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 

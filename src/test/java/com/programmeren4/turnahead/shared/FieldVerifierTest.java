@@ -1,4 +1,6 @@
-package test;
+package com.programmeren4.turnahead.shared;
+
+
 
 import static org.junit.Assert.*;
 
@@ -6,9 +8,10 @@ import javax.validation.constraints.AssertFalse;
 
 import org.junit.*;
 
-import com.programmeren4.turnahead.shared.FieldVerifier;
+import com.programmeren4.turnahead.shared.*;
 
-public class turnaheadtest {
+
+public class FieldVerifierTest {
 
 	@Test
 	public void test() {
